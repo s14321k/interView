@@ -219,6 +219,52 @@ const microserviceContentData = `<ul>
 <hr>
 <p><img src="../images/Microservice/BestPractices.jpg" alt="BestPractices"></p>
 <p><img src="../images/Microservice/Microservice%20Architech.gif" alt="Microservice Architech"></p>
+<p><img src="../images/Microservice/MicroserviceArchitechture2.gif" alt="MicroserviceArch"></p>
+<p><img src="../images/Microservice/designPatterns.gif" alt="DesignPatterns"></p>
+<p>1️⃣ 𝐀𝐫𝐜𝐡𝐢𝐭𝐞𝐜𝐭𝐮𝐫𝐞 &amp; 𝐃𝐚𝐭𝐚 𝐏𝐚𝐭𝐭𝐞𝐫𝐧𝐬</p>
+<p>    → CQRS (Command Query Responsibility Segregation)</p>
+<p>    → Event Sourcing</p>
+<p>    → Aggregator</p>
+<p>    → Shared DB vs DB-per-Service</p>
+<p>    → Data Management Patterns</p>
+<p>2️⃣ 𝐂𝐨𝐦𝐦𝐮𝐧𝐢𝐜𝐚𝐭𝐢𝐨𝐧 𝐏𝐚𝐭𝐭𝐞𝐫𝐧𝐬</p>
+<p>    → Choreography vs Orchestration</p>
+<p>    → Publish–Subscribe</p>
+<p>    → Request–Response</p>
+<p>    → Event-Driven</p>
+<p>    → Service Mesh</p>
+<p>    → API Gateway</p>
+<p>3️⃣ 𝐒𝐞𝐜𝐮𝐫𝐢𝐭𝐲 𝐏𝐚𝐭𝐭𝐞𝐫𝐧𝐬</p>
+<p>    → Rate Limiting</p>
+<p>    → Access Control</p>
+<p>    → Token-Based Auth (OAuth, JWT)</p>
+<p>    → API Gateway Authentication</p>
+<p>    → Encryption (In Transit &amp; At Rest)</p>
+<p>4️⃣ 𝐃𝐞𝐩𝐥𝐨𝐲𝐦𝐞𝐧𝐭 𝐏𝐚𝐭𝐭𝐞𝐫𝐧𝐬</p>
+<p>    → Service Instance per Container</p>
+<p>    → Blue/Green Deployment</p>
+<p>    → Canary Release</p>
+<p>    → A/B Testing</p>
+<p>    → Serverless</p>
+<p>5️⃣ 𝐑𝐞𝐥𝐢𝐚𝐛𝐢𝐥𝐢𝐭𝐲 𝐏𝐚𝐭𝐭𝐞𝐫𝐧𝐬</p>
+<p>    → Circuit Breaker</p>
+<p>    → Retry</p>
+<p>    → Fallback</p>
+<p>    → Bulkhead</p>
+<p>    → Timeouts</p>
+<p>    → Health Checks</p>
+<p>6️⃣ 𝐒𝐜𝐚𝐥𝐚𝐛𝐢𝐥𝐢𝐭𝐲 𝐏𝐚𝐭𝐭𝐞𝐫𝐧𝐬</p>
+<p>    → Autoscaling</p>
+<p>    → Sharding</p>
+<p>    → Load Balancing</p>
+<p>    → Vertical &amp; Horizontal Scaling</p>
+<p>7️⃣ 𝐎𝐛𝐬𝐞𝐫𝐯𝐚𝐛𝐢𝐥𝐢𝐭𝐲 𝐏𝐚𝐭𝐭𝐞𝐫𝐧𝐬</p>
+<p>    → Distributed Logging</p>
+<p>    → Distributed Tracing</p>
+<p>    → Real-Time Monitoring</p>
+<p>    → Auditing</p>
+<p>    → Metrics Collection</p>
+<p>    → Health Check (again-yes, it&#x27;s that important!)</p>
 <details open>
 <summary><strong>📦 Microservice Architecture Overview</strong></summary>
 <p>🧩 Microservices Architecture Overview</p>
@@ -4135,6 +4181,56 @@ InventoryService → on(PaymentDone) → reserveStock → publish(InventoryReser
 <li>Service A authenticates via API Gateway → gets a JWT.</li>
 <li>Pass the JWT to downstream services via <code>Authorization: Bearer ...</code>.</li>
 <li>Each internal service validates the token (signature + claims).</li>
+</ul>
+<p><img src="../images/API/JWT.gif" alt="jwt"></p>
+<h2 id="what-is-jwt-and-how-does-it-work">What is JWT and how does it work?</h2>
+<p>JWT (JSON Web Token) is a compact, URL-safe token used to securely transmit information between a client and a server.</p>
+<p>It is most commonly used for authentication in modern web apps.</p>
+<p>A JWT has three parts separated by dots:</p>
+<p><code>xxxxx.yyyyy.zzzzz</code></p>
+<hr>
+<h3 id="1-header">1. Header</h3>
+<p>Contains:</p>
+<ul>
+<li>The signing algorithm (e.g., <code>HS256</code>, <code>RS256</code>)</li>
+<li>The token type (<code>JWT</code>)</li>
+</ul>
+<hr>
+<h3 id="2-payload">2. Payload</h3>
+<p>Contains the <strong>claims</strong> — statements about an entity (typically, the user) and additional data.</p>
+<hr>
+<h3 id="3-signature">3. Signature</h3>
+<p>Ensures the token hasn’t been tampered with.  </p>
+<p>It’s created by signing the encoded header + payload using:</p>
+<ul>
+<li>A secret (HMAC), or</li>
+<li>A private key (RSA/ECDSA)</li>
+</ul>
+<hr>
+<h2 id="how-jwt-authentication-works">How JWT Authentication Works</h2>
+<ul>
+<li>The user logs in with credentials.</li>
+<li>The server validates credentials and generates a signed JWT.</li>
+<li>The server sends the JWT back to the client.</li>
+<li>The client stores the JWT (usually in an HttpOnly cookie or secure storage).</li>
+<li>On future requests, the client sends the JWT (typically via the header):</li>
+</ul>
+<p><code>Authorization: Bearer &lt;token&gt;</code></p>
+<hr>
+<h3 id="key-benefits">Key Benefits</h3>
+<ul>
+<li><strong>Stateless</strong>: No server-side session storage required, which makes scaling easier.</li>
+<li><strong>Tamper-resistant</strong>: A valid signature proves the token content wasn’t modified.</li>
+<li><strong>Lightweight</strong>: Small and efficient to transmit on every request.</li>
+</ul>
+<hr>
+<h3 id="jwt-security-best-practices">JWT Security Best Practices</h3>
+<ul>
+<li>Always use HTTPS</li>
+<li>Keep access tokens short-lived (ideally 5–10 minutes)</li>
+<li>Use refresh tokens for long sessions</li>
+<li>Prefer HttpOnly cookies over <code>localStorage</code> to reduce XSS risk</li>
+<li>Rotate signing keys and plan for revocation (especially for refresh tokens)</li>
 </ul>
 <hr>
 <h3 id="advanced-service-mesh">🧠 Advanced: Service Mesh</h3>

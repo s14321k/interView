@@ -83,6 +83,7 @@ const apiContentData = `<h1 id="mastering-apis">🧠 Mastering APIs</h1>
 </details>
 <p><img src="../images/SpringBoot/Mastering%20API.gif" alt="Mastering API"></p>
 <p><img src="../images/SpringBoot/EncodingVsEncryVsTokerniz.gif" alt="images/SpringBoot/EncodingVsEncryVsTokerniz.gif"></p>
+<p><img src="images/API/cookiVSsession.jpg" alt="cookyVsSession"></p>
 <h1 id="rest-api-rules-principles-guidelines">🌐 REST API – Rules, Principles &amp; Guidelines</h1>
 <h2 id="1-core-rest-principles-architectural-constraints">1️⃣ Core REST Principles (Architectural Constraints)</h2>
 <p>These are <strong>mandatory rules</strong> for an API to be truly RESTful.</p>

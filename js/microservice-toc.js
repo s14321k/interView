@@ -234,6 +234,13 @@ const microserviceTocData = `<a href="#microservice" class="toc-item toc-level-{
 <a href="#layers-of-security" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="layers-of-security">🧩 Layers of Security</a>
 <a href="#example-mtls" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="example-mtls">🔐 Example (mTLS)</a>
 <a href="#example-jwt-propagation" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="example-jwt-propagation">🔐 Example (JWT propagation)</a>
+<a href="#what-is-jwt-and-how-does-it-work" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="what-is-jwt-and-how-does-it-work">What is JWT and how does it work?</a>
+<a href="#1-header" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="1-header">1. Header</a>
+<a href="#2-payload" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="2-payload">2. Payload</a>
+<a href="#3-signature" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="3-signature">3. Signature</a>
+<a href="#how-jwt-authentication-works" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="how-jwt-authentication-works">How JWT Authentication Works</a>
+<a href="#key-benefits" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="key-benefits">Key Benefits</a>
+<a href="#jwt-security-best-practices" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="jwt-security-best-practices">JWT Security Best Practices</a>
 <a href="#advanced-service-mesh" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="advanced-service-mesh">🧠 Advanced: Service Mesh</a>
 <a href="#summary-table" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="summary-table">✅ <strong>Summary Table</strong></a>
 <a href="#11-data-consistency-without-distributed-transactions" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="11-data-consistency-without-distributed-transactions"><strong>11️⃣ Data Consistency Without Distributed Transactions</strong></a>

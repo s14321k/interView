@@ -403,6 +403,7 @@ const javabasicContentData = `<ul>
 <h1 id="java-principles-best-practices-memory-management">Java Principles &amp; Best Practices , Memory Management</h1>
 <details>
 <summary><strong>Java Principles & Best Practices</strong></summary>
+<p><img src="../images/JavaBasic/solid.jpg" alt="SOLID"></p>
 <details>
 <summary>1. Single Responsibility Principle (SRP)</summary>
 <p>A class should have <strong>only one reason to change</strong>.</p>
