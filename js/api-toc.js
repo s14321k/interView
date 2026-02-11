@@ -1,0 +1,69 @@
+// Api - Table of Contents Data
+const apiTocData = `<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 0px" data-target="mastering-apis">🧠 Mastering APIs</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 0px" data-target="rest-api-rules-principles-guidelines">🌐 REST API – Rules, Principles &amp; Guidelines</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="1-core-rest-principles-architectural-constraints">1️⃣ Core REST Principles (Architectural Constraints)</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="1-clientserver-separation">1. Client–Server Separation</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="2-statelessness-most-important">2. Statelessness (MOST IMPORTANT)</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="3-cacheability">3. Cacheability</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="4-uniform-interface">4. Uniform Interface</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="5-layered-system">5. Layered System</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="6-code-on-demand-optional">6. Code on Demand (Optional)</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="2-resource-design-rules">2️⃣ Resource Design Rules</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="1-use-nouns-not-verbs">1. Use <strong>Nouns</strong>, Not Verbs</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="2-use-plural-resource-names">2. Use Plural Resource Names</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="3-hierarchical-resources">3. Hierarchical Resources</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="3-http-method-rules-idempotency-included">3️⃣ HTTP Method Rules (Idempotency Included)</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="http-methods-safety-idempotency-purpose">🧭 HTTP Methods – Safety, Idempotency &amp; Purpose</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="http-methods-comparison-table">📋 HTTP Methods Comparison Table</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="key-exam-interview-notes">🧠 Key Exam &amp; Interview Notes</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="one-line-memory-trick">🎯 One-Line Memory Trick</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="real-world-usage-tip">📌 Real-World Usage Tip</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="one-line-memory-trick">🧠 One-Line Memory Trick</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="visual-ascii-summary">🔁 Visual ASCII Summary</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 0px" data-target="idempotency-in-microservices-why-it-matters-more-than-you-think">🔁 Idempotency in Microservices — Why It Matters More Than You Think</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="what-is-idempotency">🧠 What Is Idempotency?</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="why-idempotency-matters-in-real-systems">❓ Why Idempotency Matters in Real Systems</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="real-time-example-payment-service">💳 Real-Time Example: Payment Service</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="scenario">Scenario:</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="how-idempotency-solves-this-problem">✅ How Idempotency Solves This Problem</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="step-by-step-solution">Step-by-step solution:</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="result">🎯 Result</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="apis-that-must-be-idempotent">📌 APIs That MUST Be Idempotent</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="key-takeaway">🧩 Key Takeaway</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 0px" data-target="idempotency-in-microservices-why-it-matters-more-than-you-think">🔁 Idempotency in Microservices — Why It Matters More Than You Think</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="what-is-idempotency">🧠 What Is Idempotency?</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="why-idempotency-is-critical">🔄 Why Idempotency Is Critical</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="payment-service-example-problem">💳 Payment Service Example (Problem)</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="sequence-diagram-without-idempotency">🧭 Sequence Diagram — Without Idempotency</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="how-idempotency-fixes-this">✅ How Idempotency Fixes This</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="sequence-diagram-with-idempotency">🧭 Sequence Diagram — With Idempotency</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="rest-api-idempotent-payment-example">🧩 REST API — Idempotent Payment Example</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="request">Request</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="backend-logic-pseudo-code">Backend Logic (Pseudo-Code)</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="database-table-example">Database Table (Example)</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="kafka-message-queue-idempotent-consumer">📦 Kafka / Message Queue — Idempotent Consumer</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="problem">Problem</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="solution-idempotent-consumer">Solution: Idempotent Consumer</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="storage-for-deduplication">Storage for Deduplication</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="apis-that-must-be-idempotent">📌 APIs That MUST Be Idempotent</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="final-takeaway">🏁 Final Takeaway</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="ttl-strategies-for-idempotency-keys-production-grade">⏳ TTL Strategies for Idempotency Keys (Production-Grade)</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="why-ttl-is-important">🎯 Why TTL Is Important</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="core-ttl-design-principles">🧠 Core TTL Design Principles</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="common-ttl-strategies">⏱️ Common TTL Strategies</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="1-fixed-ttl-most-common">1️⃣ Fixed TTL (Most Common)</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="2-retry-window-based-ttl-best-practice">2️⃣ Retry-Window-Based TTL (Best Practice)</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="3-state-based-ttl-advanced">3️⃣ State-Based TTL (Advanced)</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="4-sliding-ttl-rare-but-useful">4️⃣ Sliding TTL (Rare but Useful)</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="5-permanent-archival-high-risk-systems">5️⃣ Permanent + Archival (High-Risk Systems)</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="ttl-by-storage-type">🗄️ TTL by Storage Type</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="redis">Redis</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="dynamodb">DynamoDB</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="sql-databases">SQL Databases</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="recommended-ttls-real-world-defaults">🧭 Recommended TTLs (Real-World Defaults)</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="common-ttl-mistakes">⚠️ Common TTL Mistakes</a>
+<a href="#{item["id"]}" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="final-rule-of-thumb">🏁 Final Rule of Thumb</a>`;
+
+if (document.getElementById('toc')) {
+    document.getElementById('toc').innerHTML = apiTocData;
+}

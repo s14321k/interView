@@ -1,56 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="css/floating.css">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Java Interview Questions</title>
-
-    <!-- Step 1 & 2: Link to the external stylesheet -->
-    <!-- Assuming style.css is in a 'css' folder relative to java1.html -->
-
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-
+    <title>Learning Hub - Interactive Programming Guides</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
+    <div class="container">
+        <header class="header">
+            <h1>Learning Hub</h1>
+            <p>Interactive Programming Guides & Documentation</p>
+        </header>
 
-    <div id="content"></div>
+        <div class="cards-grid">
+            <a href="pages/docker.html" class="card">
+                <div class="card-icon">📘</div>
+                <h2>Docker</h2>
+                <p>Guide to Docker.</p>
+                <span class="card-status available">Available</span>
+            </a>
 
-    <div class="fab-container">
-        <button id="fab-main">☰</button>
-        <div class="fab-menu" id="fab-menu">
-            <!-- Links will be dynamically generated from JS -->
+            <a href="pages/git.html" class="card">
+                <div class="card-icon">📘</div>
+                <h2>Git</h2>
+                <p>Guide to Git.</p>
+                <span class="card-status available">Available</span>
+            </a>
+
+            <a href="pages/hibernate.html" class="card">
+                <div class="card-icon">📘</div>
+                <h2>Hibernate</h2>
+                <p>Guide to Hibernate.</p>
+                <span class="card-status available">Available</span>
+            </a>
+
+            <a href="pages/javabasic.html" class="card">
+                <div class="card-icon">☕</div>
+                <h2>Javabasic</h2>
+                <p>Guide to Javabasic.</p>
+                <span class="card-status available">Available</span>
+            </a>
+
+            <a href="pages/reactquestionanswers.html" class="card">
+                <div class="card-icon">⚛️</div>
+                <h2>Reactquestionanswers</h2>
+                <p>Guide to Reactquestionanswers.</p>
+                <span class="card-status available">Available</span>
+            </a>
+
+            <a href="pages/spring-annotations-tree-structure.html" class="card">
+                <div class="card-icon">🍃</div>
+                <h2>Spring Annotations Tree Structure</h2>
+                <p>Guide to Spring Annotations Tree Structure.</p>
+                <span class="card-status available">Available</span>
+            </a>
+
+            <a href="pages/spring-batch.html" class="card">
+                <div class="card-icon">🔄</div>
+                <h2>Spring Batch</h2>
+                <p>Guide to Spring Batch.</p>
+                <span class="card-status available">Available</span>
+            </a>
+
+            <a href="pages/spring-boot-annotations-complete-guide.html" class="card">
+                <div class="card-icon">🍃</div>
+                <h2>Spring Boot Annotations Complete Guide</h2>
+                <p>Guide to Spring Boot Annotations Complete Guide.</p>
+                <span class="card-status available">Available</span>
+            </a>
+
+            <a href="pages/springboot.html" class="card">
+                <div class="card-icon">🍃</div>
+                <h2>Springboot</h2>
+                <p>Guide to Springboot.</p>
+                <span class="card-status available">Available</span>
+            </a>
+
+            <a href="pages/springsecurity.html" class="card">
+                <div class="card-icon">🍃</div>
+                <h2>Springsecurity</h2>
+                <p>Guide to Springsecurity.</p>
+                <span class="card-status available">Available</span>
+            </a>
+
+            <a href="pages/sql.html" class="card">
+                <div class="card-icon">🗄️</div>
+                <h2>Sql</h2>
+                <p>Guide to Sql.</p>
+                <span class="card-status available">Available</span>
+            </a>
+
+            <a href="pages/sqlrootqueries.html" class="card">
+                <div class="card-icon">🗄️</div>
+                <h2>Sql Root Queries</h2>
+                <p>Guide to Sql Root Queries.</p>
+                <span class="card-status available">Available</span>
+            </a>
+
+            <a href="pages/auth_flows.html" class="card">
+                <div class="card-icon">🍃</div>
+                <h2>Authorization flow structure</h2>
+                <p>Authorization flow structure</p>
+                <span class="card-status available">Available</span>
+            </a>
+
         </div>
-    </div>
 
-    <!-- Popup Modal -->
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <span class="close-btn" id="popup-close">&times;</span>
-            <div id="popup-body"></div>
-        </div>
+        <footer class="footer">
+            <p>&copy; 2026 Learning Hub. Built for continuous learning and growth.</p>
+        </footer>
     </div>
-
 </body>
-<script src="js/scripts.js"></script>
-<!-- Mermaid.js for diagrams -->
-<script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
-</script>
-<script src="js/floating.js"></script>
 </html>
-
-
-
-
-<!-- Step 1 & 2: Using <object> or <iframe> for embedding HTML content -->
-<!-- <object> is generally preferred for embedding content that is part of the page's content flow. -->
-<!-- <iframe> is also an option, but often used for embedding independent documents. -->
-<!--    <object type="text/html" data="javaHTML/button.html"></object>-->
-<!--    <object type="text/html" data="javaHTML/1.JavaPrinciplesBestPractices&MemoryManagement.html" style="width:100%; height:30vh;"></object>-->
-<!--    <object type="text/html" data="javaHTML/2.PrimaryMainFeature.html" style="width:100%; height:30vh;"></object>-->
-<!--    <object type="text/html" data="javaHTML/3.IdentifiersClass.html" style="width:100%; height:30vh;"></object>-->
-<!-- Alternatively, you could use an iframe: -->
-<!-- <iframe src="javaHTML/1.JavaPrinciplesBestPractices&MemoryManagement.html" style="width:100%; height:100vh; border:none;"></iframe> -->

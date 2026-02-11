@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication & Authorization Flows</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+        
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: #f0f0f0;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover {
+            background: #e0e0e0;
+        }
+        
+        .tab.active {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .flow-content {
+            display: none;
+        }
+        
+        .flow-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .description {
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        .description h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .description p {
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .key-points {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        
+        .key-points h4 {
+            color: #856404;
+            margin-bottom: 8px;
+        }
+        
+        .key-points ul {
+            margin-left: 20px;
+            color: #856404;
+        }
+        
+        .diagram {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 30px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 14px;
+            line-height: 1.4;
+            white-space: pre;
+            margin-bottom: 20px;
+        }
+        
+        .step {
+            color: #ffd700;
+        }
+        
+        .arrow {
+            color: #00ffff;
+        }
+        
+        .entity {
+            color: #ff69b4;
+            font-weight: bold;
+        }
+        
+        .token {
+            color: #98fb98;
+        }
+        
+        .security {
+            background: #ffe6e6;
+            padding: 15px;
+            border-left: 4px solid #ff4444;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        
+        .security h4 {
+            color: #cc0000;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Authentication & Authorization Flows</h1>
+        <p class="subtitle">Interactive guide to understanding web security flows</p>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showFlow('basic')">Basic Login</button>
+            <button class="tab" onclick="showFlow('session')">Session-Based</button>
+            <button class="tab" onclick="showFlow('oauth')">OAuth 2.0</button>
+            <button class="tab" onclick="showFlow('openid')">OpenID Connect</button>
+            <button class="tab" onclick="showFlow('sso')">SSO (SAML)</button>
+            <button class="tab" onclick="showFlow('csrf')">CSRF Protection</button>
+            <button class="tab" onclick="showFlow('ldap')">LDAP</button>
+        </div>
+
+        <!-- Basic Login Flow -->
+        <div id="basic" class="flow-content active">
+            <div class="description">
+                <h3>Basic Login Flow (Username/Password)</h3>
+                <p>The simplest authentication mechanism where users submit credentials directly to the server. After validation, the server typically creates a session.</p>
+            </div>
+            
+            <div class="diagram"><span class="entity">┌─────────┐</span>                              <span class="entity">┌─────────┐</span>
+<span class="entity">│ Browser │</span>                              <span class="entity">│  Server │</span>
+<span class="entity">└────┬────┘</span>                              <span class="entity">└────┬────┘</span>
+     │                                        │
+     │ <span class="step">1. User enters credentials</span>         │
+     │    (username + password)               │
+     │                                        │
+     │ <span class="arrow">────────────────────────────────────▶</span>  │
+     │      POST /login                       │
+     │      {user: "john", pass: "***"}       │
+     │                                        │
+     │                                   <span class="step">2. Validate</span>
+     │                                   credentials
+     │                                   against DB
+     │                                        │
+     │                                   <span class="step">3. Create</span>
+     │                                   session &
+     │                                   session ID
+     │                                        │
+     │ <span class="arrow">◀────────────────────────────────────</span>  │
+     │   Set-Cookie: <span class="token">sessionId=abc123</span>     │
+     │   Redirect to /dashboard               │
+     │                                        │
+     │ <span class="step">4. Subsequent requests include cookie</span> │
+     │ <span class="arrow">────────────────────────────────────▶</span>  │
+     │   Cookie: <span class="token">sessionId=abc123</span>          │
+     │                                        │
+     │                                   <span class="step">5. Verify</span>
+     │                                   session
+     │                                        │
+     │ <span class="arrow">◀────────────────────────────────────</span>  │
+     │   200 OK + Protected Resource          │
+     └                                        ┘</div>
+
+            <div class="key-points">
+                <h4>Key Points:</h4>
+                <ul>
+                    <li>Credentials sent over HTTPS (must be encrypted)</li>
+                    <li>Server creates and maintains session state</li>
+                    <li>Session ID stored in cookie</li>
+                    <li>Stateful - server must remember sessions</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Session-Based Flow -->
+        <div id="session" class="flow-content">
+            <div class="description">
+                <h3>Session-Based Authentication (Detailed)</h3>
+                <p>Shows the complete lifecycle of a session including creation, validation, and logout.</p>
+            </div>
+            
+            <div class="diagram"><span class="entity">┌─────────┐</span>      <span class="entity">┌─────────┐</span>      <span class="entity">┌──────────┐</span>
+<span class="entity">│ Browser │</span>      <span class="entity">│  Server │</span>      <span class="entity">│ Database │</span>
+<span class="entity">└────┬────┘</span>      <span class="entity">└────┬────┘</span>      <span class="entity">└────┬─────┘</span>
+     │                 │                 │
+     │ <span class="step">LOGIN</span>          │                 │
+     │<span class="arrow">───────────────▶</span>│                 │
+     │                 │<span class="arrow">───────────────▶</span>│
+     │                 │ <span class="step">Check user/pass</span> │
+     │                 │<span class="arrow">◀───────────────</span>│
+     │                 │   ✓ Valid       │
+     │                 │                 │
+     │                 │<span class="arrow">───────────────▶</span>│
+     │                 │ <span class="step">Store session</span>  │
+     │                 │ <span class="token">ID: xyz789</span>      │
+     │<span class="arrow">◀───────────────</span>│ <span class="token">User: john</span>     │
+     │ <span class="token">Cookie: xyz789</span> │ <span class="token">Expires: 1hr</span>   │
+     │                 │                 │
+     │ <span class="step">ACCESS RESOURCE</span>│                 │
+     │<span class="arrow">───────────────▶</span>│                 │
+     │ <span class="token">Cookie: xyz789</span> │                 │
+     │                 │<span class="arrow">───────────────▶</span>│
+     │                 │ <span class="step">Validate session</span>│
+     │                 │<span class="arrow">◀───────────────</span>│
+     │                 │   ✓ Valid       │
+     │<span class="arrow">◀───────────────</span>│                 │
+     │   200 OK        │                 │
+     │   + Data        │                 │
+     │                 │                 │
+     │ <span class="step">LOGOUT</span>         │                 │
+     │<span class="arrow">───────────────▶</span>│                 │
+     │                 │<span class="arrow">───────────────▶</span>│
+     │                 │ <span class="step">Delete session</span>  │
+     │<span class="arrow">◀───────────────</span>│                 │
+     │ Clear cookie    │                 │
+     └                 └                 ┘</div>
+
+            <div class="key-points">
+                <h4>Key Points:</h4>
+                <ul>
+                    <li>Server stores session data (in memory, Redis, or database)</li>
+                    <li>Cookie contains only session ID, not user data</li>
+                    <li>Sessions can expire based on time or inactivity</li>
+                    <li>Logout destroys server-side session</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- OAuth 2.0 Flow -->
+        <div id="oauth" class="flow-content">
+            <div class="description">
+                <h3>OAuth 2.0 (Authorization Code Flow)</h3>
+                <p>OAuth 2.0 is an authorization framework that enables a third-party application to obtain limited access to a user's resources without exposing credentials. Example: "Sign in with Google"</p>
+            </div>
+            
+            <div class="diagram"><span class="entity">┌─────────┐</span>  <span class="entity">┌─────────────┐</span>  <span class="entity">┌──────────────┐</span>  <span class="entity">┌──────────────┐</span>
+<span class="entity">│  User   │</span>  <span class="entity">│ Client App  │</span>  <span class="entity">│ Auth Server  │</span>  <span class="entity">│Resource Srv  │</span>
+<span class="entity">│(Browser)│</span>  <span class="entity">│(Your Site)  │</span>  <span class="entity">│  (Google)    │</span>  <span class="entity">│(Google API)  │</span>
+<span class="entity">└────┬────┘</span>  <span class="entity">└──────┬──────┘</span>  <span class="entity">└──────┬───────┘</span>  <span class="entity">└──────┬───────┘</span>
+     │            │               │                 │
+     │ <span class="step">1. Click</span>   │               │                 │
+     │ "Sign in   │               │                 │
+     │ w/ Google" │               │                 │
+     │<span class="arrow">──────────▶</span>│               │                 │
+     │            │               │                 │
+     │            │ <span class="step">2. Redirect to auth</span>  │                 │
+     │<span class="arrow">◀──────────</span>│<span class="arrow">─────────────▶</span>│                 │
+     │   <span class="token">client_id=123</span>            │                 │
+     │   <span class="token">redirect_uri=mysite.com/callback</span>            │
+     │   <span class="token">scope=profile email</span>       │                 │
+     │                            │                 │
+     │ <span class="step">3. User logs in & approves</span>  │                 │
+     │<span class="arrow">───────────────────────────▶</span>│                 │
+     │   (username/password)      │                 │
+     │                            │                 │
+     │ <span class="step">4. Redirect back with code</span>  │                 │
+     │<span class="arrow">◀───────────────────────────</span>│                 │
+     │ mysite.com/callback?<span class="token">code=AUTH_CODE</span>            │
+     │            │               │                 │
+     │<span class="arrow">──────────▶</span>│               │                 │
+     │  (browser  │               │                 │
+     │   follows) │               │                 │
+     │            │               │                 │
+     │            │ <span class="step">5. Exchange code for token</span>        │
+     │            │<span class="arrow">─────────────▶</span>│                 │
+     │            │  <span class="token">code=AUTH_CODE</span>                  │
+     │            │  <span class="token">client_secret=</span>│                 │
+     │            │<span class="arrow">◀─────────────</span>│                 │
+     │            │  <span class="token">access_token</span> │                 │
+     │            │  <span class="token">refresh_token</span>│                 │
+     │            │               │                 │
+     │            │ <span class="step">6. Use token to access resources</span>  │
+     │            │<span class="arrow">─────────────────────────────────▶</span>│
+     │            │   <span class="token">Authorization: Bearer ACCESS_TOKEN</span>
+     │            │<span class="arrow">◀─────────────────────────────────</span>│
+     │            │   User profile data             │
+     │            │               │                 │
+     │<span class="arrow">◀──────────</span>│               │                 │
+     │ Logged in! │               │                 │
+     └            └               └                 ┘</div>
+
+            <div class="key-points">
+                <h4>Key Points:</h4>
+                <ul>
+                    <li><strong>Authorization Code:</strong> Temporary, single-use code</li>
+                    <li><strong>Access Token:</strong> Used to access protected resources</li>
+                    <li><strong>Refresh Token:</strong> Used to get new access tokens</li>
+                    <li>Client secret never exposed to browser</li>
+                    <li>User never shares password with your app</li>
+                </ul>
+            </div>
+            
+            <div class="security">
+                <h4>Security Features:</h4>
+                <ul>
+                    <li>PKCE (Proof Key for Code Exchange) for public clients</li>
+                    <li>State parameter prevents CSRF attacks</li>
+                    <li>Short-lived access tokens</li>
+                    <li>Scopes limit what app can access</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- OpenID Connect Flow -->
+        <div id="openid" class="flow-content">
+            <div class="description">
+                <h3>OpenID Connect (OIDC)</h3>
+                <p>OpenID Connect is an identity layer built on top of OAuth 2.0. While OAuth 2.0 is for authorization (granting access), OIDC is for authentication (verifying identity). It adds an ID Token with user information.</p>
+            </div>
+            
+            <div class="diagram"><span class="entity">┌─────────┐</span>  <span class="entity">┌─────────────┐</span>  <span class="entity">┌──────────────┐</span>
+<span class="entity">│  User   │</span>  <span class="entity">│ Client App  │</span>  <span class="entity">│OpenID Provider│</span>
+<span class="entity">│(Browser)│</span>  <span class="entity">│             │</span>  <span class="entity">│   (Okta)     │</span>
+<span class="entity">└────┬────┘</span>  <span class="entity">└──────┬──────┘</span>  <span class="entity">└──────┬───────┘</span>
+     │            │               │
+     │ <span class="step">1. Initiate login</span>     │
+     │<span class="arrow">──────────▶</span>│               │
+     │            │               │
+     │            │ <span class="step">2. Redirect with OpenID scope</span>
+     │<span class="arrow">◀──────────</span>│<span class="arrow">─────────────▶</span>│
+     │   <span class="token">scope=openid profile email</span>
+     │   <span class="token">response_type=code</span>     │
+     │   <span class="token">client_id=...</span>          │
+     │                            │
+     │ <span class="step">3. Authenticate</span>          │
+     │<span class="arrow">───────────────────────────▶</span>│
+     │   Login page               │
+     │   (username/password)      │
+     │                            │
+     │ <span class="step">4. Consent screen</span>        │
+     │<span class="arrow">◀───────────────────────────</span>│
+     │   "Allow access to         │
+     │    your profile?"          │
+     │                            │
+     │<span class="arrow">───────────────────────────▶</span>│
+     │   User approves            │
+     │                            │
+     │ <span class="step">5. Redirect with code</span>    │
+     │<span class="arrow">◀───────────────────────────</span>│
+     │   ?<span class="token">code=XYZ123</span>            │
+     │            │               │
+     │<span class="arrow">──────────▶</span>│               │
+     │            │               │
+     │            │ <span class="step">6. Exchange for tokens</span>
+     │            │<span class="arrow">─────────────▶</span>│
+     │            │  POST /token  │
+     │            │  <span class="token">code=XYZ123</span>  │
+     │            │               │
+     │            │<span class="arrow">◀─────────────</span>│
+     │            │  <span class="token">access_token</span> │
+     │            │  <span class="token">id_token</span> (JWT)│
+     │            │  <span class="token">refresh_token</span>│
+     │            │               │
+     │            │ <span class="step">7. Decode ID Token</span>
+     │            │  <span class="token">Header:</span>      │
+     │            │   <span class="token">alg, kid</span>    │
+     │            │  <span class="token">Payload:</span>     │
+     │            │   <span class="token">sub: user123</span> │
+     │            │   <span class="token">name: John</span>   │
+     │            │   <span class="token">email: j@ex</span>  │
+     │            │   <span class="token">iat, exp</span>    │
+     │            │               │
+     │<span class="arrow">◀──────────</span>│               │
+     │ Welcome,   │               │
+     │ John!      │               │
+     └            └               ┘</div>
+
+            <div class="key-points">
+                <h4>OAuth 2.0 vs OpenID Connect:</h4>
+                <ul>
+                    <li><strong>OAuth 2.0:</strong> "What can this app do?" (authorization)</li>
+                    <li><strong>OIDC:</strong> "Who is this user?" (authentication)</li>
+                    <li><strong>ID Token:</strong> JWT containing user identity claims</li>
+                    <li><strong>UserInfo Endpoint:</strong> Additional user profile data</li>
+                </ul>
+            </div>
+            
+            <div class="security">
+                <h4>ID Token (JWT) Structure:</h4>
+                <pre style="color: #98fb98; margin-top: 10px;">
+{
+  "sub": "user_id_12345",      // Subject (user identifier)
+  "name": "John Doe",
+  "email": "john@example.com",
+  "iss": "https://auth.example.com",  // Issuer
+  "aud": "your_client_id",     // Audience
+  "iat": 1638360000,           // Issued at
+  "exp": 1638363600            // Expiration
+}</pre>
+            </div>
+        </div>
+
+        <!-- SSO Flow -->
+        <div id="sso" class="flow-content">
+            <div class="description">
+                <h3>Single Sign-On (SSO) with SAML</h3>
+                <p>SSO allows users to log in once and access multiple applications. SAML (Security Assertion Markup Language) is an XML-based protocol commonly used in enterprise environments.</p>
+            </div>
+            
+            <div class="diagram"><span class="entity">┌─────────┐</span>  <span class="entity">┌─────────────┐</span>  <span class="entity">┌──────────────┐</span>
+<span class="entity">│  User   │</span>  <span class="entity">│Service Provdr│</span>  <span class="entity">│Identity Provdr│</span>
+<span class="entity">│(Browser)│</span>  <span class="entity">│   (SP/App)   │</span>  <span class="entity">│  (IdP/Okta)  │</span>
+<span class="entity">└────┬────┘</span>  <span class="entity">└──────┬──────┘</span>  <span class="entity">└──────┬───────┘</span>
+     │            │               │
+     │ <span class="step">1. Access protected resource</span>
+     │<span class="arrow">──────────▶</span>│               │
+     │  app.com/  │               │
+     │  dashboard │               │
+     │            │               │
+     │            │ <span class="step">2. No session found</span>
+     │            │   Generate    │
+     │            │   SAML Request│
+     │            │               │
+     │<span class="arrow">◀──────────</span>│               │
+     │  302 Redirect to IdP       │
+     │  + <span class="token">SAML Request</span> (base64)  │
+     │                            │
+     │ <span class="step">3. Forward to IdP</span>         │
+     │<span class="arrow">───────────────────────────▶</span>│
+     │  SAML Request              │
+     │  <span class="token">&lt;AuthnRequest&gt;</span>          │
+     │                            │
+     │ <span class="step">4. IdP checks for existing session</span>
+     │     If none, show login    │
+     │<span class="arrow">◀───────────────────────────</span>│
+     │  Login page                │
+     │                            │
+     │ <span class="step">5. User authenticates</span>      │
+     │<span class="arrow">───────────────────────────▶</span>│
+     │  username + password       │
+     │                            │
+     │ <span class="step">6. IdP creates session</span>     │
+     │    Generates SAML Response│
+     │    <span class="token">&lt;Assertion&gt;</span>            │
+     │    <span class="token">Subject: john@company</span>   │
+     │    <span class="token">Attributes: name, email</span>│
+     │    Signed with IdP cert    │
+     │                            │
+     │<span class="arrow">◀───────────────────────────</span>│
+     │  302 Redirect to SP        │
+     │  + <span class="token">SAML Response</span>           │
+     │                            │
+     │ <span class="step">7. Browser submits to SP</span>   │
+     │<span class="arrow">──────────▶</span>│               │
+     │  POST      │               │
+     │  <span class="token">SAMLResponse</span>              │
+     │            │               │
+     │            │ <span class="step">8. Validate signature</span>
+     │            │   Extract user info
+     │            │   Create local session
+     │            │               │
+     │<span class="arrow">◀──────────</span>│               │
+     │  Set cookie│               │
+     │  Show dashboard            │
+     │            │               │
+     │ <span class="step">9. Access another app (app2.com)</span>
+     │<span class="arrow">─────────────────────────▶</span> │
+     │                            │
+     │          302 to IdP        │
+     │<span class="arrow">◀───────────────────────────</span>│
+     │ <span class="step">10. IdP has existing session!</span>
+     │     No login needed        │
+     │<span class="arrow">───────────────────────────▶</span>│
+     │                            │
+     │<span class="arrow">◀───────────────────────────</span>│
+     │  SAML Response for app2    │
+     │            │               │
+     │ <span class="step">11. Logged into app2!</span>      │
+     └            └               ┘</div>
+
+            <div class="key-points">
+                <h4>SSO Benefits:</h4>
+                <ul>
+                    <li>Login once, access multiple apps</li>
+                    <li>Centralized user management</li>
+                    <li>Consistent security policies</li>
+                    <li>Better user experience</li>
+                </ul>
+            </div>
+            
+            <div class="security">
+                <h4>SAML Security:</h4>
+                <ul>
+                    <li>Assertions are digitally signed</li>
+                    <li>XML encryption for sensitive data</li>
+                    <li>Time-limited assertions</li>
+                    <li>Certificate-based trust between IdP and SP</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- CSRF Protection -->
+        <div id="csrf" class="flow-content">
+            <div class="description">
+                <h3>CSRF (Cross-Site Request Forgery) Protection</h3>
+                <p>CSRF is an attack where a malicious site tricks your browser into making unwanted requests to a site where you're authenticated. CSRF tokens prevent this.</p>
+            </div>
+            
+            <div class="diagram"><span class="step">WITHOUT CSRF PROTECTION (Vulnerable):</span>
+
+<span class="entity">┌─────────┐</span>  <span class="entity">┌──────────┐</span>  <span class="entity">┌─────────────┐</span>
+<span class="entity">│  User   │</span>  <span class="entity">│ Evil Site│</span>  <span class="entity">│ Legit Bank  │</span>
+<span class="entity">└────┬────┘</span>  <span class="entity">└────┬─────┘</span>  <span class="entity">└──────┬──────┘</span>
+     │           │             │
+     │ <span class="step">1. User logged into bank</span>
+     │<span class="arrow">──────────────────────────▶</span>│
+     │  <span class="token">Cookie: session=abc123</span>  │
+     │           │             │
+     │ <span class="step">2. User visits evil site</span> │
+     │<span class="arrow">─────────▶</span>│             │
+     │           │             │
+     │           │ <span class="step">3. Evil page contains:</span>
+     │           │   &lt;form action="bank.com/transfer"&gt;
+     │           │     &lt;input name="to" value="hacker"&gt;
+     │           │     &lt;input name="amount" value="1000"&gt;
+     │           │   &lt;/form&gt;
+     │           │   &lt;script&gt;
+     │           │     document.forms[0].submit();
+     │           │   &lt;/script&gt;
+     │           │             │
+     │ <span class="step">4. Browser auto-submits form</span>
+     │<span class="arrow">──────────────────────────▶</span>│
+     │  <span class="token">Cookie: session=abc123</span>  │
+     │  to=hacker, amount=1000  │
+     │           │             │
+     │           │        <span class="step">5. ❌ Request</span>
+     │           │        <span class="step">succeeds!</span>
+     │           │        Money transferred
+     │<span class="arrow">◀──────────────────────────</span>│
+     │  200 OK               │
+     └           └             ┘
+
+
+<span class="step">WITH CSRF PROTECTION (Secure):</span>
+
+<span class="entity">┌─────────┐</span>              <span class="entity">┌─────────────┐</span>
+<span class="entity">│  User   │</span>              <span class="entity">│ Legit Bank  │</span>
+<span class="entity">└────┬────┘</span>              <span class="entity">└──────┬──────┘</span>
+     │                         │
+     │ <span class="step">1. Load transfer form</span>   │
+     │<span class="arrow">────────────────────────▶</span>│
+     │                         │
+     │                    <span class="step">2. Generate</span>
+     │                    <span class="step">CSRF token</span>
+     │                    <span class="token">csrf=xyz789</span>
+     │                    Store in session
+     │                         │
+     │<span class="arrow">◀────────────────────────</span>│
+     │  Form HTML:             │
+     │  <span class="token">&lt;input type="hidden"</span>  │
+     │  <span class="token">name="csrf_token"</span>       │
+     │  <span class="token">value="xyz789"&gt;</span>         │
+     │                         │
+     │ <span class="step">3. User submits form</span>    │
+     │<span class="arrow">────────────────────────▶</span>│
+     │  <span class="token">Cookie: session=abc123</span> │
+     │  <span class="token">csrf_token=xyz789</span>      │
+     │  to=friend, amount=100  │
+     │                         │
+     │                    <span class="step">4. Validate:</span>
+     │                    - Session exists? ✓
+     │                    - CSRF token matches? ✓
+     │                         │
+     │<span class="arrow">◀────────────────────────</span>│
+     │  ✓ Transfer successful  │
+     │                         │
+     │ <span class="step">ATTACK SCENARIO:</span>        │
+     │ User on evil site       │
+     │ Evil form submits       │
+     │<span class="arrow">────────────────────────▶</span>│
+     │  <span class="token">Cookie: session=abc123</span> │
+     │  ❌ NO csrf_token!      │
+     │                         │
+     │                    <span class="step">5. Reject:</span>
+     │                    CSRF token missing
+     │<span class="arrow">◀────────────────────────</span>│
+     │  403 Forbidden          │
+     └                         ┘</div>
+
+            <div class="key-points">
+                <h4>How CSRF Tokens Work:</h4>
+                <ul>
+                    <li>Server generates unique token per session/request</li>
+                    <li>Token included in forms as hidden field</li>
+                    <li>Server validates token on submission</li>
+                    <li>Evil sites can't access the token (Same-Origin Policy)</li>
+                </ul>
+            </div>
+            
+            <div class="security">
+                <h4>Additional CSRF Protections:</h4>
+                <ul>
+                    <li><strong>SameSite Cookies:</strong> Cookie only sent on same-site requests</li>
+                    <li><strong>Double Submit Cookie:</strong> Token in both cookie and form</li>
+                    <li><strong>Custom Headers:</strong> X-Requested-With for AJAX</li>
+                    <li><strong>Origin/Referer Validation:</strong> Check request source</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- LDAP Flow -->
+        <div id="ldap" class="flow-content">
+            <div class="description">
+                <h3>LDAP (Lightweight Directory Access Protocol)</h3>
+                <p>LDAP is a protocol for accessing and maintaining directory services. Commonly used in enterprises for centralized authentication against Active Directory or similar directory servers.</p>
+            </div>
+            
+            <div class="diagram"><span class="entity">┌─────────┐</span>  <span class="entity">┌─────────────┐</span>  <span class="entity">┌──────────────┐</span>
+<span class="entity">│  User   │</span>  <span class="entity">│Application  │</span>  <span class="entity">│ LDAP Server  │</span>
+<span class="entity">│(Browser)│</span>  <span class="entity">│   Server    │</span>  <span class="entity">│(Active Dir)  │</span>
+<span class="entity">└────┬────┘</span>  <span class="entity">└──────┬──────┘</span>  <span class="entity">└──────┬───────┘</span>
+     │            │               │
+     │ <span class="step">1. User attempts login</span>    │
+     │<span class="arrow">──────────▶</span>│               │
+     │  username: │               │
+     │  john      │               │
+     │  password: │               │
+     │  secret123 │               │
+     │            │               │
+     │            │ <span class="step">2. LDAP Bind Request</span>
+     │            │   (Authenticate)│
+     │            │<span class="arrow">─────────────▶</span>│
+     │            │  DN: <span class="token">cn=john,</span>  │
+     │            │      <span class="token">ou=users,</span> │
+     │            │      <span class="token">dc=company</span>│
+     │            │  Password:    │
+     │            │  secret123    │
+     │            │               │
+     │            │          <span class="step">3. Verify</span>
+     │            │          credentials
+     │            │          in directory
+     │            │               │
+     │            │<span class="arrow">◀─────────────</span>│
+     │            │  ✓ Bind Success
+     │            │               │
+     │            │ <span class="step">4. Search Request</span>
+     │            │   (Get user attributes)
+     │            │<span class="arrow">─────────────▶</span>│
+     │            │  Base DN:     │
+     │            │  <span class="token">ou=users,</span>    │
+     │            │  <span class="token">dc=company</span>   │
+     │            │  Filter:      │
+     │            │  <span class="token">(uid=john)</span>   │
+     │            │  Attributes:  │
+     │            │  <span class="token">mail,cn,</span>     │
+     │            │  <span class="token">memberOf</span>     │
+     │            │               │
+     │            │          <span class="step">5. Query</span>
+     │            │          directory
+     │            │               │
+     │            │<span class="arrow">◀─────────────</span>│
+     │            │  Search Result│
+     │            │  DN: cn=John  │
+     │            │      Doe,...  │
+     │            │  <span class="token">mail: j@ex.com</span>
+     │            │  <span class="token">cn: John Doe</span> │
+     │            │  <span class="token">memberOf:</span>    │
+     │            │   <span class="token">cn=Admins,</span>  │
+     │            │   <span class="token">cn=DevTeam</span>  │
+     │            │               │
+     │            │ <span class="step">6. Check group</span>
+     │            │    membership  │
+     │            │    for authorization
+     │            │    Create session
+     │            │               │
+     │<span class="arrow">◀──────────</span>│               │
+     │  ✓ Login   │               │
+     │  successful│               │
+     │  + Session │               │
+     │    cookie  │               │
+     └            └               ┘</div>
+
+            <div class="key-points">
+                <h4>LDAP Concepts:</h4>
+                <ul>
+                    <li><strong>DN (Distinguished Name):</strong> Unique identifier: cn=John,ou=Users,dc=company,dc=com</li>
+                    <li><strong>Bind:</strong> Authenticate to LDAP server</li>
+                    <li><strong>Search:</strong> Query directory for entries</li>
+                    <li><strong>Attributes:</strong> Properties like email, phone, groups</li>
+                    <li><strong>Groups:</strong> Used for role-based access control</li>
+                </ul>
+            </div>
+            
+            <div class="security">
+                <h4>LDAP Security Best Practices:</h4>
+                <ul>
+                    <li>Use LDAPS (LDAP over SSL/TLS) on port 636</li>
+                    <li>Use service account with minimal permissions</li>
+                    <li>Implement account lockout policies</li>
+                    <li>Don't store passwords in app - verify via LDAP bind</li>
+                    <li>Cache group memberships to reduce LDAP queries</li>
+                </ul>
+            </div>
+            
+            <div class="diagram" style="margin-top: 20px;"><span class="step">LDAP Directory Structure Example:</span>
+
+<span class="token">dc=company,dc=com</span>
+ │
+ ├── <span class="token">ou=Users</span>
+ │    ├── <span class="token">cn=John Doe</span>
+ │    │    ├── <span class="token">uid: john</span>
+ │    │    ├── <span class="token">mail: john@company.com</span>
+ │    │    ├── <span class="token">telephoneNumber: 555-1234</span>
+ │    │    └── <span class="token">memberOf: cn=Admins,ou=Groups,dc=company,dc=com</span>
+ │    │
+ │    └── <span class="token">cn=Jane Smith</span>
+ │         ├── <span class="token">uid: jane</span>
+ │         └── <span class="token">mail: jane@company.com</span>
+ │
+ └── <span class="token">ou=Groups</span>
+      ├── <span class="token">cn=Admins</span>
+      │    └── <span class="token">member: cn=John Doe,ou=Users,dc=company,dc=com</span>
+      │
+      └── <span class="token">cn=DevTeam</span>
+           └── <span class="token">member: cn=Jane Smith,ou=Users,dc=company,dc=com</span></div>
+        </div>
+
+    </div>
+
+    <script>
+        function showFlow(flowId) {
+            // Hide all flows
+            const flows = document.querySelectorAll('.flow-content');
+            flows.forEach(flow => flow.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected flow
+            document.getElementById(flowId).classList.add('active');
+            
+            // Set active tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

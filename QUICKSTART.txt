@@ -1,0 +1,147 @@
+┌─────────────────────────────────────────────────────────────┐
+│                  LEARNING HUB - QUICK START                 │
+└─────────────────────────────────────────────────────────────┘
+
+📂 PROJECT STRUCTURE
+═══════════════════════════════════════════════════════════════
+
+project/
+│
+├── 📄 index.html              → Landing page (start here!)
+├── 📄 README.md               → Full documentation
+│
+├── 📁 css/
+│   ├── index.css             → Landing page styles
+│   └── styles.css            → Content page styles
+│
+├── 📁 js/
+│   └── main.js               → Shared JavaScript
+│
+└── 📁 pages/
+    └── java-basics.html      → Java programming guide
+
+
+🚀 GETTING STARTED
+═══════════════════════════════════════════════════════════════
+
+1. Open 'index.html' in your browser
+2. Click on "Java Basics" card
+3. Use sidebar to navigate through topics
+4. Click 🏠 Home button to return
+
+
+✨ KEY FEATURES
+═══════════════════════════════════════════════════════════════
+
+Landing Page:
+  • Animated card layout
+  • Visual status indicators
+  • Responsive design
+  • Smooth hover effects
+
+Content Pages:
+  • Fixed sidebar with TOC (353 items)
+  • Active section highlighting
+  • Smooth scrolling navigation
+  • Mobile-responsive sidebar
+  • Scroll-to-top button
+  • Beautiful dark theme
+
+
+🎨 CUSTOMIZATION
+═══════════════════════════════════════════════════════════════
+
+Colors (CSS Variables):
+  --primary: #1a1a2e
+  --accent: #e94560
+  --highlight: #ff6b9d
+
+Fonts:
+  • Playfair Display (headings)
+  • Work Sans (body text)
+  • JetBrains Mono (code)
+
+
+📝 ADDING NEW PAGES
+═══════════════════════════════════════════════════════════════
+
+Step 1: Create new HTML file in pages/ folder
+  Example: pages/spring-framework.html
+
+Step 2: Copy structure from java-basics.html
+  • Include: ../css/styles.css
+  • Include: ../js/main.js
+  • For page content use the safe loader: ../js/content-safe-loader.js with data-content set to the base name
+    Example: <script src="../js/content-safe-loader.js" data-content="spring-framework"></script>
+  • Add home button: href="../index.html"
+
+Step 3: Update index.html
+  • Change card class from "coming-soon" to regular
+  • Update href to point to your new page
+  • Change status badge to "available"
+
+Example Card Update:
+  <a href="pages/spring-framework.html" class="card">
+    <div class="card-icon">🍃</div>
+    <h2>Spring Framework</h2>
+    <p>Your description here...</p>
+    <span class="card-status available">Available</span>
+  </a>
+
+
+🔧 TECHNICAL DETAILS
+═══════════════════════════════════════════════════════════════
+
+• Pure HTML/CSS/JavaScript (no build tools needed)
+• Mobile-first responsive design
+• Smooth scroll behavior
+• Intersection Observer for scroll spy
+• CSS Grid for landing page layout
+• Flexbox for content layout
+
+
+📱 RESPONSIVE BREAKPOINTS
+═══════════════════════════════════════════════════════════════
+
+Desktop:  > 968px   (Full sidebar + wide content)
+Tablet:   768-968px (Narrow sidebar)
+Mobile:   < 768px   (Collapsible sidebar)
+
+
+🎯 CURRENT STATUS
+═══════════════════════════════════════════════════════════════
+
+✅ Java Basics          (Available)
+⏳ Spring Framework     (Coming Soon)
+⏳ JavaScript Modern    (Coming Soon)
+⏳ Python Essentials    (Coming Soon)
+⏳ Database Design      (Coming Soon)
+⏳ System Design        (Coming Soon)
+
+
+💡 TIPS
+═══════════════════════════════════════════════════════════════
+
+• Use Chrome DevTools to inspect and customize
+• Test on mobile devices for best experience
+• All animations can be disabled via CSS
+• Use Ctrl+F to search within content pages
+• Sidebar auto-highlights current section
+
+
+🆘 TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════
+
+Issue: Styles not loading
+Fix: Check file paths are relative (../css/styles.css)
+
+Issue: JavaScript not working
+Fix: Ensure main.js is loaded after DOM elements
+
+Issue: Mobile menu not working
+Fix: Verify menuToggle button exists in HTML
+
+
+═══════════════════════════════════════════════════════════════
+Built with ❤️ for continuous learning
+═══════════════════════════════════════════════════════════════
