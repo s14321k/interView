@@ -112,7 +112,7 @@ fun greet(name: String): String {
 <h3 id="typescript">TypeScript</h3>
 <pre><code class="language-ts">
 function greet(name: string): string {
-  return `Hello ${name}`;
+  return &#96;Hello ${name}&#96;;
 }
 </code></pre>
 <hr>
