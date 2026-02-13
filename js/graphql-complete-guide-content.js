@@ -198,7 +198,7 @@ npm install apollo-server graphql
 const { ApolloServer, gql } = require(&#x27;apollo-server&#x27;);
 
 // Type definitions
-const typeDefs = gql`
+const typeDefs = gql&#96;
   type User {
     id: ID!
     name: String!
@@ -209,7 +209,7 @@ const typeDefs = gql`
     users: [User!]!
     user(id: ID!): User
   }
-`;
+&#96;;
 
 // Sample data
 const users = [
@@ -229,7 +229,7 @@ const resolvers = {
 const server = new ApolloServer({ typeDefs, resolvers });
 
 server.listen().then(({ url }) =&gt; {
-  console.log(`Server ready at ${url}`);
+  console.log(&#96;Server ready at ${url}&#96;);
 });
 </code></pre>
 <h3 id="basic-client-setup">Basic Client Setup</h3>
@@ -247,7 +247,7 @@ const client = new ApolloClient({
 });
 
 // Query
-const GET_USERS = gql`
+const GET_USERS = gql&#96;
   query GetUsers {
     users {
       id
@@ -255,7 +255,7 @@ const GET_USERS = gql`
       email
     }
   }
-`;
+&#96;;
 
 // Component
 function Users() {
@@ -787,7 +787,7 @@ const resolvers = {
 
     postUpdated: {
       subscribe: (parent, { id }) =&gt; {
-        return pubsub.asyncIterator([`${POST_UPDATED}_${id}`]);
+        return pubsub.asyncIterator([&#96;${POST_UPDATED}_${id}&#96;]);
       }
     },
 
@@ -813,7 +813,7 @@ const resolvers = {
 <pre><code class="language-javascript">
 import { useSubscription, gql } from &#x27;@apollo/client&#x27;;
 
-const MESSAGE_SUBSCRIPTION = gql`
+const MESSAGE_SUBSCRIPTION = gql&#96;
   subscription OnMessageAdded($roomId: ID!) {
     messageAdded(roomId: $roomId) {
       id
@@ -824,7 +824,7 @@ const MESSAGE_SUBSCRIPTION = gql`
       createdAt
     }
   }
-`;
+&#96;;
 
 function ChatRoom({ roomId }) {
   const { data, loading } = useSubscription(MESSAGE_SUBSCRIPTION, {
@@ -968,7 +968,7 @@ class UserLoader {
 const { ApolloServer, gql } = require(&#x27;apollo-server&#x27;);
 const { buildFederatedSchema } = require(&#x27;@apollo/federation&#x27;);
 
-const typeDefs = gql`
+const typeDefs = gql&#96;
   extend type Query {
     user(id: ID!): User
     users: [User!]!
@@ -979,7 +979,7 @@ const typeDefs = gql`
     name: String!
     email: String!
   }
-`;
+&#96;;
 
 const resolvers = {
   Query: {
@@ -999,7 +999,7 @@ const server = new ApolloServer({
 </code></pre>
 <h4 id="posts-service">Posts Service</h4>
 <pre><code class="language-javascript">
-const typeDefs = gql`
+const typeDefs = gql&#96;
   extend type Query {
     posts: [Post!]!
   }
@@ -1015,7 +1015,7 @@ const typeDefs = gql`
     id: ID! @external
     posts: [Post!]!
   }
-`;
+&#96;;
 
 const resolvers = {
   Post: {
@@ -1049,7 +1049,7 @@ const server = new ApolloServer({
 });
 
 server.listen().then(({ url }) =&gt; {
-  console.log(`Gateway ready at ${url}`);
+  console.log(&#96;Gateway ready at ${url}&#96;);
 });
 </code></pre>
 <h3 id="performance-optimization">Performance Optimization</h3>
@@ -1065,7 +1065,7 @@ const server = new ApolloServer({
       onCost: (cost) =&gt; console.log(&#x27;Query cost:&#x27;, cost),
       createError: (cost, max) =&gt; {
         return new GraphQLError(
-          `Query too complex: ${cost} exceeds maximum ${max}`
+          &#96;Query too complex: ${cost} exceeds maximum ${max}&#96;
         );
       }
     })
@@ -1100,7 +1100,7 @@ const server = new ApolloServer({
 });
 
 // Schema with cache hints
-const typeDefs = gql`
+const typeDefs = gql&#96;
   type Query {
     users: [User!]! @cacheControl(maxAge: 60)
     user(id: ID!): User @cacheControl(maxAge: 300)
@@ -1111,7 +1111,7 @@ const typeDefs = gql`
     name: String!
     posts: [Post!]! @cacheControl(maxAge: 60)
   }
-`;
+&#96;;
 </code></pre>
 <h4 id="persisted-queries">Persisted Queries</h4>
 <pre><code class="language-javascript">
@@ -1209,12 +1209,12 @@ class RateLimitDirective extends SchemaDirectiveVisitor {
 
     field.resolve = async function (...args) {
       const context = args[2];
-      const key = `${context.user?.id || context.ip}:${field.name}`;
+      const key = &#96;${context.user?.id || context.ip}:${field.name}&#96;;
       
       try {
         await limiter.consume(key);
       } catch (rejRes) {
-        throw new Error(`Rate limit exceeded for ${field.name}`);
+        throw new Error(&#96;Rate limit exceeded for ${field.name}&#96;);
       }
       
       return resolve.apply(this, args);
@@ -1296,7 +1296,7 @@ describe(&#x27;GraphQL Integration Tests&#x27;, () =&gt; {
   });
 
   it(&#x27;should create a user&#x27;, async () =&gt; {
-    const CREATE_USER = gql`
+    const CREATE_USER = gql&#96;
       mutation CreateUser($input: CreateUserInput!) {
         createUser(input: $input) {
           user {
@@ -1307,7 +1307,7 @@ describe(&#x27;GraphQL Integration Tests&#x27;, () =&gt; {
           success
         }
       }
-    `;
+    &#96;;
 
     const result = await mutate({
       mutation: CREATE_USER,
