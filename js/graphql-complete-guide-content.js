@@ -439,7 +439,7 @@ const resolvers = {
   User: {
     // Field resolver - computed field
     fullName: (user) =&gt; {
-      return `${user.firstName} ${user.lastName}`;
+      return &#96;${user.firstName} ${user.lastName}&#96;;
     },
 
     // Resolver with data fetching
