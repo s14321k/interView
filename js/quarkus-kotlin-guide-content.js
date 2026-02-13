@@ -235,7 +235,7 @@ package com.example
 
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
-import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.&#96;is&#96;
 import org.junit.jupiter.api.Test
 
 @QuarkusTest
@@ -244,19 +244,19 @@ class GreetingResourceTest {
     @Test
     fun testHelloEndpoint() {
         given()
-            .`when`().get(&quot;/hello&quot;)
+            .&#96;when&#96;().get(&quot;/hello&quot;)
             .then()
             .statusCode(200)
-            .body(`is`(&quot;Hello from Quarkus with Kotlin!&quot;))
+            .body(&#96;is&#96;(&quot;Hello from Quarkus with Kotlin!&quot;))
     }
 
     @Test
     fun testGreetEndpoint() {
         given()
-            .`when`().get(&quot;/greet/Alice&quot;)
+            .&#96;when&#96;().get(&quot;/greet/Alice&quot;)
             .then()
             .statusCode(200)
-            .body(`is`(&quot;Hello, Alice!&quot;))
+            .body(&#96;is&#96;(&quot;Hello, Alice!&quot;))
     }
 }
 </code></pre>
@@ -1579,7 +1579,7 @@ class ProductResourceTest {
     @Order(1)
     fun testGetAllProducts() {
         given()
-            .`when`().get(&quot;/api/products&quot;)
+            .&#96;when&#96;().get(&quot;/api/products&quot;)
             .then()
             .statusCode(200)
             .body(&quot;$.size()&quot;, greaterThan(0))
@@ -1601,7 +1601,7 @@ class ProductResourceTest {
         given()
             .contentType(ContentType.JSON)
             .body(product)
-            .`when`().post(&quot;/api/products&quot;)
+            .&#96;when&#96;().post(&quot;/api/products&quot;)
             .then()
             .statusCode(201)
             .body(&quot;name&quot;, equalTo(&quot;Test Product&quot;))
@@ -1646,7 +1646,7 @@ class ServiceMockTest {
     
     @Test
     fun testWithMock() {
-        `when`(externalService.fetchData())
+        &#96;when&#96;(externalService.fetchData())
             .thenReturn(&quot;Mocked Data&quot;)
         
         val result = businessService.processData()

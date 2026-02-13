@@ -271,18 +271,16 @@ const funcItems = colors.map(function (color) {
   return &quot;&lt;li&gt;&quot; + color + &quot;&lt;/li&gt;&quot;;
 });
 
-const arrowItems = colors.map((color) =&gt; `&lt;li&gt;${color}&lt;/li&gt;`); // Template literal syntax
+const arrowItems = colors.map((color) =&gt; &#96;&lt;li&gt;${color}&lt;/li&gt;&#96;); // Template literal syntax
 console.log(arrowItems + &quot;\n&quot; + funcItems);
 </code></pre>
 <p><strong>Explanation:</strong></p>
 <ul>
 <li>Both <code>map()</code> versions return an array of <code>&lt;li&gt;</code> elements.</li>
 <li>Template literals allow you to embed variables directly:</li>
-</ul>
-<p>  ```js</p>
-<p>  <code>&lt;li&gt;${color}&lt;/li&gt;</code></p>
-<p>  ```</p>
-<ul>
+<pre><code class="language-js">
+&#96;&lt;li&gt;${color}&lt;/li&gt;&#96;
+</code></pre>
 <li>Easier to read and maintain than traditional string concatenation.</li>
 </ul>
 <hr>
@@ -314,7 +312,7 @@ console.log(pc); // Tvk
 
 // Using Destructuring in Function Parameters
 function objDesCall({ street, city }) {
-  console.log(`The name is ${street} and the city is ${city}`);
+  console.log(&#96;The name is ${street} and the city is ${city}&#96;);
 }
 
 objDesCall(address);
@@ -364,10 +362,10 @@ console.log(num1, num3); // Output: 1 3
 <li>The array’s structure defines how values are assigned.</li>
 <li>Equivalent to:</li>
 </ul>
-<p>  ```js</p>
-<p>  const num1 = arrNumbs[0];</p>
-<p>  const num3 = arrNumbs[2];</p>
-<p>  ```</p>
+<pre><code class="language-js">
+const num1 = arrNumbs[0];
+const num3 = arrNumbs[2];
+</code></pre>
 <hr>
 <h2 id="spread-operator">🌊 Spread Operator (<code>...</code>)</h2>
 <p>The <strong>spread operator</strong> (<code>...</code>) expands iterable elements (like arrays or objects) into individual elements.</p>

@@ -1775,73 +1775,72 @@ public class ProductService {
 <li><strong>Dependency:</strong> <code>spring-boot-starter-cache</code> and <code>com.github.ben-manes.caffeine:caffeine</code>.</li>
 <li><strong>Configuration (<code>application.yml</code>):</strong></li>
 </ul>
-<p>    ```yml</p>
-<p>    spring:</p>
-<p>      cache:</p>
-<p>        cache-names:</p>
-<ul>
-<li>products</li>
-<li>customer-details</li>
-</ul>
-<p>        caffeine:</p>
-<p>          spec: &gt;</p>
-<p>            initialCapacity=10,</p>
-<p>            maximumSize=500,</p>
-<p>            expireAfterAccess=600s</p>
-<p>    ```</p>
+<pre><code class="language-yml">
+spring:
+  cache:
+    cache-names:
+      - products
+      - customer-details
+    caffeine:
+      spec: &gt;
+        initialCapacity=10,
+        maximumSize=500,
+        expireAfterAccess=600s
+</code></pre>
 <p>    This configures two caches (<code>products</code> and <code>customer-details</code>) with a default Caffeine spec.</p>
 <h3 id="2-ehcache-jcache-jsr-107-configuration">2. EhCache (JCache - JSR-107) Configuration</h3>
 <ul>
 <li><strong>Dependency:</strong> <code>spring-boot-starter-cache</code> and <code>javax.cache:cache-api</code>, <code>org.ehcache:ehcache</code>.</li>
 <li><strong>Configuration:</strong> Requires an <code>ehcache.xml</code> file on the classpath.</li>
 </ul>
-<p>    ```xml</p>
-<p>    &lt;!-- src/main/resources/ehcache.xml --&gt;</p>
-    <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-<p>            xmlns=&quot;http://www.ehcache.org/v3&quot;</p>
-<p>            xsi:schemaLocation=&quot;http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd&quot;&gt;</p>
-        <cache alias="products">
-            <key-type>java.lang.String</key-type>
-            <value-type>com.example.model.Product</value-type>
-            <expiry>
-                <ttl unit="minutes">10</ttl>
-            </expiry>
-            <resources>
-                <heap unit="entries">100</heap>
-            </resources>
-        </cache>
-    </config>
-<p>    ```</p>
+<pre><code class="language-xml">
+&lt;!-- src/main/resources/ehcache.xml --&gt;
+&lt;config xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+        xmlns=&quot;http://www.ehcache.org/v3&quot;
+        xsi:schemaLocation=&quot;http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd&quot;&gt;
+
+    &lt;cache alias=&quot;products&quot;&gt;
+        &lt;key-type&gt;java.lang.String&lt;/key-type&gt;
+        &lt;value-type&gt;com.example.model.Product&lt;/value-type&gt;
+        &lt;expiry&gt;
+            &lt;ttl unit=&quot;minutes&quot;&gt;10&lt;/ttl&gt;
+        &lt;/expiry&gt;
+        &lt;resources&gt;
+            &lt;heap unit=&quot;entries&quot;&gt;100&lt;/heap&gt;
+        &lt;/resources&gt;
+    &lt;/cache&gt;
+&lt;/config&gt;
+</code></pre>
 <ul>
 <li><strong><code>application.yml</code>:</strong></li>
 </ul>
-<p>    ```yml</p>
-<p>    spring:</p>
-<p>      cache:</p>
-<p>        jcache:</p>
-<p>          config: classpath:ehcache.xml</p>
-<p>    ```</p>
+<pre><code class="language-yml">
+spring:
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+</code></pre>
 <h3 id="3-redis-cache-configuration">3. Redis Cache Configuration</h3>
 <p>Using Redis for caching is ideal for distributed systems where the cache needs to be shared across multiple service instances.</p>
 <ul>
 <li><strong>Dependency:</strong> <code>spring-boot-starter-data-redis</code> and <code>spring-boot-starter-cache</code>.</li>
 <li><strong>Configuration (<code>application.yml</code>):</strong></li>
 </ul>
-<p>    ```yml</p>
-<p>    spring:</p>
-<p>      cache:</p>
-<p>        type: redis</p>
-<p>      redis:</p>
-<p>        host: localhost</p>
-<p>        port: 6379</p>
-<p>    ```</p>
+<pre><code class="language-yml">
+spring:
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379
+</code></pre>
 <p>    You can also set a default TTL for all Redis caches:</p>
-<p>    ```yml</p>
-<p>    spring:</p>
-<p>      cache:</p>
-<p>        redis:</p>
-<p>          time-to-live: 600000 # 10 minutes in milliseconds</p>
-<p>    ```</p>
+<pre><code class="language-yml">
+spring:
+  cache:
+    redis:
+      time-to-live: 600000 # 10 minutes in milliseconds
+</code></pre>
 </details>
 <hr>
 <details>
@@ -1951,25 +1950,25 @@ public class DataSourceConfig {
 <ul>
 <li><strong>In <code>application.properties</code>:</strong></li>
 </ul>
-<p>    ```properties</p>
-<p>    spring.profiles.active=dev</p>
-<p>    ```</p>
+<pre><code class="language-properties">
+spring.profiles.active=dev
+</code></pre>
 <ul>
 <li><strong>As a command-line argument (overrides properties file):</strong></li>
 </ul>
-<p>    ```shell</p>
-<p>    java -jar my-app.jar --spring.profiles.active=prod</p>
-<p>    ```</p>
+<pre><code class="language-shell">
+java -jar my-app.jar --spring.profiles.active=prod
+</code></pre>
 <ul>
 <li><strong>For tests (most common for testing):</strong></li>
 </ul>
-<p>    ```java</p>
-<p>    @SpringBootTest</p>
-<p>    @ActiveProfiles(&quot;test&quot;)</p>
-<p>    class MyServiceTests {</p>
-<p>        // ... tests</p>
-<p>    }</p>
-<p>    ```</p>
+<pre><code class="language-java">
+@SpringBootTest
+@ActiveProfiles(&quot;test&quot;)
+class MyServiceTests {
+    // ... tests
+}
+</code></pre>
 </details>
 <details>
 <summary><strong>✨ Advanced Features & Best Practices</strong></summary>
@@ -2304,20 +2303,20 @@ public void showEmployees() {
 <li><strong>Class-based projection (DTO projection)</strong> → uses constructor expressions.</li>
 </ul>
 <p>   Example:</p>
-<p>   ```java</p>
-<p>   @Query(&quot;SELECT new com.example.EmployeeDTO(e.name, e.department) FROM Employee e&quot;)</p>
-<p>   List&lt;EmployeeDTO&gt; findEmployeeDetails();</p>
-<p>   ```</p>
+<pre><code class="language-java">
+@Query(&quot;SELECT new com.example.EmployeeDTO(e.name, e.department) FROM Employee e&quot;)
+List&lt;EmployeeDTO&gt; findEmployeeDetails();
+</code></pre>
 <ul>
 <li><strong>Dynamic projections</strong> → choose projection type at runtime.</li>
 </ul>
-<p>   ```java</p>
-   <T> List<T> findByDepartment(String department, Class<T> type);
-<p>   ```</p>
+<pre><code class="language-java">
+&lt;T&gt; List&lt;T&gt; findByDepartment(String department, Class&lt;T&gt; type);
+</code></pre>
 <p>   Usage:</p>
-<p>   ```java</p>
-<p>   repo.findByDepartment(&quot;IT&quot;, EmployeeNameProjection.class);</p>
-<p>   ```</p>
+<pre><code class="language-java">
+repo.findByDepartment(&quot;IT&quot;, EmployeeNameProjection.class);
+</code></pre>
 <summary>💡 When to Use Projection</summary>
 <p>✅ When you only need <strong>partial data</strong> from a table.</p>
 <p>✅ When you want to <strong>optimize performance</strong> by avoiding fetching unnecessary columns.</p>
@@ -3743,18 +3742,19 @@ public interface ProductRepository extends JpaRepository&lt;Product, Long&gt; {
 <ul>
 <li><strong>Create a DTO Record/Class:</strong></li>
 </ul>
-<p>    ```java</p>
-<p>    public record ProductSummaryDto(Long id, String name, BigDecimal price) {}</p>
-<p>    ```</p>
+<pre><code class="language-java">
+public record ProductSummaryDto(Long id, String name, BigDecimal price) {}
+</code></pre>
 <ul>
 <li><strong>Use it in your Repository:</strong></li>
 </ul>
-<p>    ```java</p>
-<p>    public interface ProductRepository extends JpaRepository&lt;Product, Long&gt; {</p>
-<p>        @Query(&quot;SELECT new com.example.dto.ProductSummaryDto(p.id, p.name, p.price) FROM Product p WHERE p.id &gt; :lastSeenId ORDER BY p.id ASC&quot;)</p>
-<p>        Slice&lt;ProductSummaryDto&gt; findNextProducts(@Param(&quot;lastSeenId&quot;) Long lastSeenId, Pageable pageable);</p>
-<p>    }</p>
-<p>    ```</p>
+<pre><code class="language-java">
+public interface ProductRepository extends JpaRepository&lt;Product, Long&gt; {
+
+    @Query(&quot;SELECT new com.example.dto.ProductSummaryDto(p.id, p.name, p.price) FROM Product p WHERE p.id &gt; :lastSeenId ORDER BY p.id ASC&quot;)
+    Slice&lt;ProductSummaryDto&gt; findNextProducts(@Param(&quot;lastSeenId&quot;) Long lastSeenId, Pageable pageable);
+}
+</code></pre>
 <p>    <em>Note: We use <code>Pageable</code> here with <code>PageRequest.ofSize(10)</code> to control the limit dynamically.</em></p>
 </details>
 <hr>
@@ -6729,9 +6729,9 @@ public class DemoApplication implements CommandLineRunner {
 <ul>
 <li>Reads all auto-configuration class names from:</li>
 </ul>
-<p>      ```</p>
-<p>      META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports</p>
-<p>      ```</p>
+<pre><code class="language-">
+META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+</code></pre>
 <ul>
 <li>This list is provided by each starter (e.g., <code>spring-boot-autoconfigure</code> JAR).</li>
 </ul>
@@ -6780,12 +6780,12 @@ class B { @Autowired A a; } // circular
 <ul>
 <li><strong>Use <code>@Lazy</code> injection</strong></li>
 </ul>
-<p>   ```java</p>
-<p>   @Component</p>
-<p>   class A {</p>
-<p>       @Autowired @Lazy B b;</p>
-<p>   }</p>
-<p>   ```</p>
+<pre><code class="language-java">
+@Component
+class A {
+    @Autowired @Lazy B b;
+}
+</code></pre>
 <p>   → Spring creates a proxy for <code>B</code>, resolving the circular reference lazily.</p>
 <ul>
 <li><strong>Use setter or field injection instead of constructor injection</strong></li>
@@ -6804,9 +6804,9 @@ class B { @Autowired A a; } // circular
 </ul>
 <p>   By default, <strong>circular references are disallowed</strong>.</p>
 <p>   You can enable them (not recommended):</p>
-<p>   ```properties</p>
-<p>   spring.main.allow-circular-references=true</p>
-<p>   ```</p>
+<pre><code class="language-properties">
+spring.main.allow-circular-references=true
+</code></pre>
 <hr>
 <h2 id="13-whats-the-use-of-applicationcontextaware-and-beanpostprocessor"><strong>13️⃣ What’s the use of <code>ApplicationContextAware</code> and <code>BeanPostProcessor</code>?</strong></h2>
 <h3 id="applicationcontextaware"><strong><code>ApplicationContextAware</code></strong></h3>
@@ -7155,19 +7155,19 @@ Page&lt;Order&gt; page = orderRepo.findAll(PageRequest.of(0, 10, Sort.by(&quot;d
 <li>Translates to <code>LIMIT</code> + <code>OFFSET</code> in SQL automatically.</li>
 <li>Returns metadata:</li>
 </ul>
-<p>  ```java</p>
-<p>  page.getContent(); // list</p>
-<p>  page.getTotalElements();</p>
-<p>  page.getTotalPages();</p>
-<p>  ```</p>
+<pre><code class="language-java">
+page.getContent(); // list
+page.getTotalElements();
+page.getTotalPages();
+</code></pre>
 <hr>
 <h3 id="optimization-tips">⚙️ Optimization Tips</h3>
 <ul>
 <li><strong>For large OFFSETs</strong>, use <strong>keyset pagination</strong>:</li>
 </ul>
-<p>   ```sql</p>
-<p>   SELECT * FROM orders WHERE id &gt; :lastId ORDER BY id ASC LIMIT 20;</p>
-<p>   ```</p>
+<pre><code class="language-sql">
+SELECT * FROM orders WHERE id &gt; :lastId ORDER BY id ASC LIMIT 20;
+</code></pre>
 <p>   → faster for infinite scrolling.</p>
 <ul>
 <li><strong>Avoid unnecessary count queries</strong></li>
@@ -7175,9 +7175,9 @@ Page&lt;Order&gt; page = orderRepo.findAll(PageRequest.of(0, 10, Sort.by(&quot;d
 <ul>
 <li>Use <code>Slice&lt;T&gt;</code> instead of <code>Page&lt;T&gt;</code> when total count not needed.</li>
 </ul>
-<p>   ```java</p>
-<p>   Slice&lt;Order&gt; slice = repo.findByStatus(status, PageRequest.of(0, 20));</p>
-<p>   ```</p>
+<pre><code class="language-java">
+Slice&lt;Order&gt; slice = repo.findByStatus(status, PageRequest.of(0, 20));
+</code></pre>
 <ul>
 <li><strong>Index pagination columns</strong> for efficiency.</li>
 </ul>
@@ -7237,47 +7237,50 @@ spring.flyway.locations: classpath:db/migration
 <ul>
 <li><strong>Enable auditing</strong></li>
 </ul>
-<p>   ```java</p>
-<p>   @EnableJpaAuditing</p>
-<p>   @SpringBootApplication</p>
-<p>   public class App {}</p>
-<p>   ```</p>
+<pre><code class="language-java">
+@EnableJpaAuditing
+@SpringBootApplication
+public class App {}
+</code></pre>
 <ul>
 <li><strong>Auditable base class</strong></li>
 </ul>
-<p>   ```java</p>
-<p>   @MappedSuperclass</p>
-<p>   @EntityListeners(AuditingEntityListener.class)</p>
-<p>   public abstract class Auditable {</p>
-<p>       @CreatedDate</p>
-<p>       private LocalDateTime createdAt;</p>
-<p>       @LastModifiedDate</p>
-<p>       private LocalDateTime updatedAt;</p>
-<p>       @CreatedBy</p>
-<p>       private String createdBy;</p>
-<p>       @LastModifiedBy</p>
-<p>       private String updatedBy;</p>
-<p>   }</p>
-<p>   ```</p>
+<pre><code class="language-java">
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
+public abstract class Auditable {
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+
+    @CreatedBy
+    private String createdBy;
+
+    @LastModifiedBy
+    private String updatedBy;
+}
+</code></pre>
 <ul>
 <li><strong>Extend entities</strong></li>
 </ul>
-<p>   ```java</p>
-<p>   @Entity</p>
-<p>   public class Order extends Auditable { ... }</p>
-<p>   ```</p>
+<pre><code class="language-java">
+@Entity
+public class Order extends Auditable { ... }
+</code></pre>
 <ul>
 <li><strong>Provide AuditorAware</strong></li>
 </ul>
-<p>   ```java</p>
-<p>   @Component</p>
-<p>   public class AuditorAwareImpl implements AuditorAware&lt;String&gt; {</p>
-<p>       @Override</p>
-<p>       public Optional&lt;String&gt; getCurrentAuditor() {</p>
-<p>           return Optional.of(SecurityContextHolder.getContext().getAuthentication().getName());</p>
-<p>       }</p>
-<p>   }</p>
-<p>   ```</p>
+<pre><code class="language-java">
+@Component
+public class AuditorAwareImpl implements AuditorAware&lt;String&gt; {
+    @Override
+    public Optional&lt;String&gt; getCurrentAuditor() {
+        return Optional.of(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
+}
+</code></pre>
 <blockquote>✅ Automatically fills <code>createdBy</code>, <code>updatedBy</code>, <code>createdAt</code>, <code>updatedAt</code>.</blockquote>
 <hr>
 <h3 id="option-2-custom-entity-listener">🧩 Option 2: <strong>Custom entity listener</strong></h3>
@@ -7725,18 +7728,19 @@ public class TraceableAspect {
 <li>Via <code>spring-data-elasticsearch</code>.</li>
 <li>Example:</li>
 </ul>
-<p>    ```java</p>
-<p>    @Document(indexName = &quot;products&quot;)</p>
-<p>    public class Product {</p>
-<p>        @Id</p>
-<p>        private String id;</p>
-<p>        private String name;</p>
-<p>        private String description;</p>
-<p>    }</p>
-<p>    public interface ProductRepository extends ElasticsearchRepository&lt;Product, String&gt; {</p>
-<p>        List&lt;Product&gt; findByName(String name);</p>
-<p>    }</p>
-<p>    ```</p>
+<pre><code class="language-java">
+@Document(indexName = &quot;products&quot;)
+public class Product {
+    @Id
+    private String id;
+    private String name;
+    private String description;
+}
+
+public interface ProductRepository extends ElasticsearchRepository&lt;Product, String&gt; {
+    List&lt;Product&gt; findByName(String name);
+}
+</code></pre>
 <hr>
 <h2 id="redis-in-spring-boot">⚡ Redis in Spring Boot</h2>
 <ul>
@@ -7760,19 +7764,21 @@ public class TraceableAspect {
 <li>Via <code>spring-boot-starter-data-redis</code>.</li>
 <li>Example:</li>
 </ul>
-<p>    ```java</p>
-<p>    @Service</p>
-<p>    public class ProductCacheService {</p>
-<p>        @Autowired</p>
-<p>        private RedisTemplate&lt;String, Product&gt; redisTemplate;</p>
-<p>        public void saveProduct(Product product) {</p>
-<p>            redisTemplate.opsForValue().set(&quot;product:&quot; + product.getId(), product);</p>
-<p>        }</p>
-<p>        public Product getProduct(String id) {</p>
-<p>            return (Product) redisTemplate.opsForValue().get(&quot;product:&quot; + id);</p>
-<p>        }</p>
-<p>    }</p>
-<p>    ```</p>
+<pre><code class="language-java">
+@Service
+public class ProductCacheService {
+    @Autowired
+    private RedisTemplate&lt;String, Product&gt; redisTemplate;
+
+    public void saveProduct(Product product) {
+        redisTemplate.opsForValue().set(&quot;product:&quot; + product.getId(), product);
+    }
+
+    public Product getProduct(String id) {
+        return (Product) redisTemplate.opsForValue().get(&quot;product:&quot; + id);
+    }
+}
+</code></pre>
 <hr>
 <h2 id="when-to-use-what">✅ When to Use What</h2>
 <ul>

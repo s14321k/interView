@@ -116,9 +116,9 @@ public class Test {
 <ul>
 <li>Always declare the entry point as:</li>
 </ul>
-<p>  ```java</p>
-<p>  public static void main(String[] args)</p>
-<p>  ```</p>
+<pre><code class="language-java">
+public static void main(String[] args)
+</code></pre>
 <ul>
 <li>JVM will not execute the <code>main</code> method if <code>static</code> is missing.</li>
 </ul>

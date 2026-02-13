@@ -811,347 +811,547 @@ WHERE created_at &lt; NOW() - INTERVAL &#x27;24 hours&#x27;;
 <p>Idempotency protection should be too.</p>
 <p>Design TTLs deliberately, and your microservices will scale safely.</p>
 </details>
-<pre><code class="language-">
-
----
-
-## 4️⃣ HTTP Status Code Guidelines
-
-## 🔵 1xx — Informational
-
-| Status Code | Name                | Purpose / Meaning                                      |
-| ----------- | ------------------- | ------------------------------------------------------ |
-| **100**     | Continue            | Initial part of request received; client may continue  |
-| **101**     | Switching Protocols | Server is switching protocols (HTTP → WebSocket)       |
-| **102**     | Processing          | Request accepted but processing not completed (WebDAV) |
-| **103**     | Early Hints         | Preload resources before final response (performance)  |
-
----
-
-## 🟢 2xx — Success
-
-| Status Code | Name                          | Purpose / Meaning                              |
-| ----------- | ----------------------------- | ---------------------------------------------- |
-| **200**     | OK                            | Request succeeded                              |
-| **201**     | Created                       | Resource successfully created                  |
-| **202**     | Accepted                      | Request accepted but processed asynchronously  |
-| **203**     | Non-Authoritative Information | Metadata modified by proxy                     |
-| **204**     | No Content                    | Success with no response body                  |
-| **205**     | Reset Content                 | Client should reset the view/form              |
-| **206**     | Partial Content               | Partial response (range requests, streaming)   |
-| **207**     | Multi-Status                  | Multiple independent status codes (WebDAV)     |
-| **208**     | Already Reported              | Resource already included in response (WebDAV) |
-| **226**     | IM Used                       | Delta encoding / instance manipulation (rare)  |
-
----
-
-## 🟡 3xx — Redirection
-
-| Status Code | Name               | Purpose / Meaning                          |
-| ----------- | ------------------ | ------------------------------------------ |
-| **300**     | Multiple Choices   | Multiple representations available         |
-| **301**     | Moved Permanently  | Permanent redirect (SEO friendly)          |
-| **302**     | Found              | Temporary redirect                         |
-| **303**     | See Other          | Redirect after POST → GET                  |
-| **304**     | Not Modified       | Cached version still valid                 |
-| **305**     | Use Proxy          | Must use proxy (deprecated)                |
-| **306**     | Unused             | Reserved                                   |
-| **307**     | Temporary Redirect | Redirect without changing HTTP method      |
-| **308**     | Permanent Redirect | Permanent redirect without changing method |
-
----
-
-## 🟠 4xx — Client Errors
-
-| Status Code | Name                            | Purpose / Meaning                          |
-| ----------- | ------------------------------- | ------------------------------------------ |
-| **400**     | Bad Request                     | Invalid request syntax or validation error |
-| **401**     | Unauthorized                    | Authentication required or failed          |
-| **402**     | Payment Required                | Reserved (sometimes billing/quota APIs)    |
-| **403**     | Forbidden                       | Access denied                              |
-| **404**     | Not Found                       | Resource not found                         |
-| **405**     | Method Not Allowed              | HTTP method not supported                  |
-| **406**     | Not Acceptable                  | Requested format not supported             |
-| **407**     | Proxy Authentication Required   | Proxy authentication required              |
-| **408**     | Request Timeout                 | Client took too long                       |
-| **409**     | Conflict                        | Request conflicts with current state       |
-| **410**     | Gone                            | Resource permanently removed               |
-| **411**     | Length Required                 | Missing `Content-Length`                   |
-| **412**     | Precondition Failed             | Conditional headers failed                 |
-| **413**     | Payload Too Large               | Request body too large                     |
-| **414**     | URI Too Long                    | URL too long                               |
-| **415**     | Unsupported Media Type          | Unsupported content type                   |
-| **416**     | Range Not Satisfiable           | Invalid range request                      |
-| **417**     | Expectation Failed              | Cannot meet `Expect` header                |
-| **418**     | I’m a teapot                    | Joke status (RFC 2324 😂)                  |
-| **421**     | Misdirected Request             | Wrong server                               |
-| **422**     | Unprocessable Entity            | Validation error                           |
-| **423**     | Locked                          | Resource locked (WebDAV)                   |
-| **424**     | Failed Dependency               | Previous request failure (WebDAV)          |
-| **425**     | Too Early                       | Replay request risk                        |
-| **426**     | Upgrade Required                | Protocol upgrade required                  |
-| **428**     | Precondition Required           | Prevent race conditions                    |
-| **429**     | Too Many Requests               | Rate limiting                              |
-| **431**     | Request Header Fields Too Large | Headers too large                          |
-| **451**     | Unavailable For Legal Reasons   | Legal restriction                          |
-
----
-
-## 🔴 5xx — Server Errors
-
-| Status Code | Name                            | Purpose / Meaning          |
-| ----------- | ------------------------------- | -------------------------- |
-| **500**     | Internal Server Error           | Generic server failure     |
-| **501**     | Not Implemented                 | Feature not supported      |
-| **502**     | Bad Gateway                     | Invalid upstream response  |
-| **503**     | Service Unavailable             | Server overloaded/down     |
-| **504**     | Gateway Timeout                 | Upstream timeout           |
-| **505**     | HTTP Version Not Supported      | Unsupported HTTP version   |
-| **506**     | Variant Also Negotiates         | Content negotiation error  |
-| **507**     | Insufficient Storage            | Storage exhausted (WebDAV) |
-| **508**     | Loop Detected                   | Infinite loop detected     |
-| **510**     | Not Extended                    | Extension required         |
-| **511**     | Network Authentication Required | Network login required     |
-
----
-
-## 5️⃣ Request &amp; Response Design
-
-### Use JSON (Standard)
-
+<hr>
+<h2 id="4-http-status-code-guidelines">4️⃣ HTTP Status Code Guidelines</h2>
+<h2 id="1xx-informational">🔵 1xx — Informational</h2>
+<table>
+<thead><tr>
+<th>Status Code</th>
+<th>Name</th>
+<th>Purpose / Meaning</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>100</strong></td>
+<td>Continue</td>
+<td>Initial part of request received; client may continue</td>
+</tr>
+<tr>
+<td><strong>101</strong></td>
+<td>Switching Protocols</td>
+<td>Server is switching protocols (HTTP → WebSocket)</td>
+</tr>
+<tr>
+<td><strong>102</strong></td>
+<td>Processing</td>
+<td>Request accepted but processing not completed (WebDAV)</td>
+</tr>
+<tr>
+<td><strong>103</strong></td>
+<td>Early Hints</td>
+<td>Preload resources before final response (performance)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="2xx-success">🟢 2xx — Success</h2>
+<table>
+<thead><tr>
+<th>Status Code</th>
+<th>Name</th>
+<th>Purpose / Meaning</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>OK</td>
+<td>Request succeeded</td>
+</tr>
+<tr>
+<td><strong>201</strong></td>
+<td>Created</td>
+<td>Resource successfully created</td>
+</tr>
+<tr>
+<td><strong>202</strong></td>
+<td>Accepted</td>
+<td>Request accepted but processed asynchronously</td>
+</tr>
+<tr>
+<td><strong>203</strong></td>
+<td>Non-Authoritative Information</td>
+<td>Metadata modified by proxy</td>
+</tr>
+<tr>
+<td><strong>204</strong></td>
+<td>No Content</td>
+<td>Success with no response body</td>
+</tr>
+<tr>
+<td><strong>205</strong></td>
+<td>Reset Content</td>
+<td>Client should reset the view/form</td>
+</tr>
+<tr>
+<td><strong>206</strong></td>
+<td>Partial Content</td>
+<td>Partial response (range requests, streaming)</td>
+</tr>
+<tr>
+<td><strong>207</strong></td>
+<td>Multi-Status</td>
+<td>Multiple independent status codes (WebDAV)</td>
+</tr>
+<tr>
+<td><strong>208</strong></td>
+<td>Already Reported</td>
+<td>Resource already included in response (WebDAV)</td>
+</tr>
+<tr>
+<td><strong>226</strong></td>
+<td>IM Used</td>
+<td>Delta encoding / instance manipulation (rare)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="3xx-redirection">🟡 3xx — Redirection</h2>
+<table>
+<thead><tr>
+<th>Status Code</th>
+<th>Name</th>
+<th>Purpose / Meaning</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>300</strong></td>
+<td>Multiple Choices</td>
+<td>Multiple representations available</td>
+</tr>
+<tr>
+<td><strong>301</strong></td>
+<td>Moved Permanently</td>
+<td>Permanent redirect (SEO friendly)</td>
+</tr>
+<tr>
+<td><strong>302</strong></td>
+<td>Found</td>
+<td>Temporary redirect</td>
+</tr>
+<tr>
+<td><strong>303</strong></td>
+<td>See Other</td>
+<td>Redirect after POST → GET</td>
+</tr>
+<tr>
+<td><strong>304</strong></td>
+<td>Not Modified</td>
+<td>Cached version still valid</td>
+</tr>
+<tr>
+<td><strong>305</strong></td>
+<td>Use Proxy</td>
+<td>Must use proxy (deprecated)</td>
+</tr>
+<tr>
+<td><strong>306</strong></td>
+<td>Unused</td>
+<td>Reserved</td>
+</tr>
+<tr>
+<td><strong>307</strong></td>
+<td>Temporary Redirect</td>
+<td>Redirect without changing HTTP method</td>
+</tr>
+<tr>
+<td><strong>308</strong></td>
+<td>Permanent Redirect</td>
+<td>Permanent redirect without changing method</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="4xx-client-errors">🟠 4xx — Client Errors</h2>
+<table>
+<thead><tr>
+<th>Status Code</th>
+<th>Name</th>
+<th>Purpose / Meaning</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>400</strong></td>
+<td>Bad Request</td>
+<td>Invalid request syntax or validation error</td>
+</tr>
+<tr>
+<td><strong>401</strong></td>
+<td>Unauthorized</td>
+<td>Authentication required or failed</td>
+</tr>
+<tr>
+<td><strong>402</strong></td>
+<td>Payment Required</td>
+<td>Reserved (sometimes billing/quota APIs)</td>
+</tr>
+<tr>
+<td><strong>403</strong></td>
+<td>Forbidden</td>
+<td>Access denied</td>
+</tr>
+<tr>
+<td><strong>404</strong></td>
+<td>Not Found</td>
+<td>Resource not found</td>
+</tr>
+<tr>
+<td><strong>405</strong></td>
+<td>Method Not Allowed</td>
+<td>HTTP method not supported</td>
+</tr>
+<tr>
+<td><strong>406</strong></td>
+<td>Not Acceptable</td>
+<td>Requested format not supported</td>
+</tr>
+<tr>
+<td><strong>407</strong></td>
+<td>Proxy Authentication Required</td>
+<td>Proxy authentication required</td>
+</tr>
+<tr>
+<td><strong>408</strong></td>
+<td>Request Timeout</td>
+<td>Client took too long</td>
+</tr>
+<tr>
+<td><strong>409</strong></td>
+<td>Conflict</td>
+<td>Request conflicts with current state</td>
+</tr>
+<tr>
+<td><strong>410</strong></td>
+<td>Gone</td>
+<td>Resource permanently removed</td>
+</tr>
+<tr>
+<td><strong>411</strong></td>
+<td>Length Required</td>
+<td>Missing <code>Content-Length</code></td>
+</tr>
+<tr>
+<td><strong>412</strong></td>
+<td>Precondition Failed</td>
+<td>Conditional headers failed</td>
+</tr>
+<tr>
+<td><strong>413</strong></td>
+<td>Payload Too Large</td>
+<td>Request body too large</td>
+</tr>
+<tr>
+<td><strong>414</strong></td>
+<td>URI Too Long</td>
+<td>URL too long</td>
+</tr>
+<tr>
+<td><strong>415</strong></td>
+<td>Unsupported Media Type</td>
+<td>Unsupported content type</td>
+</tr>
+<tr>
+<td><strong>416</strong></td>
+<td>Range Not Satisfiable</td>
+<td>Invalid range request</td>
+</tr>
+<tr>
+<td><strong>417</strong></td>
+<td>Expectation Failed</td>
+<td>Cannot meet <code>Expect</code> header</td>
+</tr>
+<tr>
+<td><strong>418</strong></td>
+<td>I’m a teapot</td>
+<td>Joke status (RFC 2324 😂)</td>
+</tr>
+<tr>
+<td><strong>421</strong></td>
+<td>Misdirected Request</td>
+<td>Wrong server</td>
+</tr>
+<tr>
+<td><strong>422</strong></td>
+<td>Unprocessable Entity</td>
+<td>Validation error</td>
+</tr>
+<tr>
+<td><strong>423</strong></td>
+<td>Locked</td>
+<td>Resource locked (WebDAV)</td>
+</tr>
+<tr>
+<td><strong>424</strong></td>
+<td>Failed Dependency</td>
+<td>Previous request failure (WebDAV)</td>
+</tr>
+<tr>
+<td><strong>425</strong></td>
+<td>Too Early</td>
+<td>Replay request risk</td>
+</tr>
+<tr>
+<td><strong>426</strong></td>
+<td>Upgrade Required</td>
+<td>Protocol upgrade required</td>
+</tr>
+<tr>
+<td><strong>428</strong></td>
+<td>Precondition Required</td>
+<td>Prevent race conditions</td>
+</tr>
+<tr>
+<td><strong>429</strong></td>
+<td>Too Many Requests</td>
+<td>Rate limiting</td>
+</tr>
+<tr>
+<td><strong>431</strong></td>
+<td>Request Header Fields Too Large</td>
+<td>Headers too large</td>
+</tr>
+<tr>
+<td><strong>451</strong></td>
+<td>Unavailable For Legal Reasons</td>
+<td>Legal restriction</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="5xx-server-errors">🔴 5xx — Server Errors</h2>
+<table>
+<thead><tr>
+<th>Status Code</th>
+<th>Name</th>
+<th>Purpose / Meaning</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>500</strong></td>
+<td>Internal Server Error</td>
+<td>Generic server failure</td>
+</tr>
+<tr>
+<td><strong>501</strong></td>
+<td>Not Implemented</td>
+<td>Feature not supported</td>
+</tr>
+<tr>
+<td><strong>502</strong></td>
+<td>Bad Gateway</td>
+<td>Invalid upstream response</td>
+</tr>
+<tr>
+<td><strong>503</strong></td>
+<td>Service Unavailable</td>
+<td>Server overloaded/down</td>
+</tr>
+<tr>
+<td><strong>504</strong></td>
+<td>Gateway Timeout</td>
+<td>Upstream timeout</td>
+</tr>
+<tr>
+<td><strong>505</strong></td>
+<td>HTTP Version Not Supported</td>
+<td>Unsupported HTTP version</td>
+</tr>
+<tr>
+<td><strong>506</strong></td>
+<td>Variant Also Negotiates</td>
+<td>Content negotiation error</td>
+</tr>
+<tr>
+<td><strong>507</strong></td>
+<td>Insufficient Storage</td>
+<td>Storage exhausted (WebDAV)</td>
+</tr>
+<tr>
+<td><strong>508</strong></td>
+<td>Loop Detected</td>
+<td>Infinite loop detected</td>
+</tr>
+<tr>
+<td><strong>510</strong></td>
+<td>Not Extended</td>
+<td>Extension required</td>
+</tr>
+<tr>
+<td><strong>511</strong></td>
+<td>Network Authentication Required</td>
+<td>Network login required</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="5-request-response-design">5️⃣ Request &amp; Response Design</h2>
+<h3 id="use-json-standard">Use JSON (Standard)</h3>
+<pre><code class="language-http">
+Content-Type: application/json
 </code></pre>
-<p>Content-Type: application/json</p>
-<pre><code class="language-">
-
----
-
-### Consistent Response Structure
-
+<hr>
+<h3 id="consistent-response-structure">Consistent Response Structure</h3>
+<pre><code class="language-json">
+{
+  &quot;success&quot;: true,
+  &quot;data&quot;: {},
+  &quot;error&quot;: null,
+  &quot;timestamp&quot;: &quot;2026-01-12T10:30:00Z&quot;
+}
 </code></pre>
-<p>{</p>
-<p>  &quot;success&quot;: true,</p>
-<p>  &quot;data&quot;: {},</p>
-<p>  &quot;error&quot;: null,</p>
-<p>  &quot;timestamp&quot;: &quot;2026-01-12T10:30:00Z&quot;</p>
-<p>}</p>
-<pre><code class="language-">
-
----
-
-### Use Meaningful Error Responses
-
+<hr>
+<h3 id="use-meaningful-error-responses">Use Meaningful Error Responses</h3>
+<pre><code class="language-json">
+{
+  &quot;errorCode&quot;: &quot;ORDER_NOT_FOUND&quot;,
+  &quot;message&quot;: &quot;Order 123 does not exist&quot;
+}
 </code></pre>
-<p>{</p>
-<p>  &quot;errorCode&quot;: &quot;ORDER<em>NOT</em>FOUND&quot;,</p>
-<p>  &quot;message&quot;: &quot;Order 123 does not exist&quot;</p>
-<p>}</p>
+<hr>
+<h2 id="6-versioning-rules">6️⃣ Versioning Rules</h2>
+<h3 id="preferred-url-versioning">Preferred (URL Versioning)</h3>
 <pre><code class="language-">
-
----
-
-## 6️⃣ Versioning Rules
-
-### Preferred (URL Versioning)
-
+/api/v1/orders
+/api/v2/orders
 </code></pre>
-<p>/api/v1/orders</p>
-<p>/api/v2/orders</p>
+<p>Other options:</p>
+<ul>
+<li>Header-based</li>
+<li>Media type versioning</li>
+</ul>
+<hr>
+<h2 id="7-pagination-sorting-filtering">7️⃣ Pagination, Sorting &amp; Filtering</h2>
+<h3 id="pagination">Pagination</h3>
 <pre><code class="language-">
-
-Other options:
-
-* Header-based
-* Media type versioning
-
----
-
-## 7️⃣ Pagination, Sorting &amp; Filtering
-
-### Pagination
-
+GET /orders?page=1&amp;size=20
 </code></pre>
-<p>GET /orders?page=1&amp;size=20</p>
+<h3 id="sorting">Sorting</h3>
 <pre><code class="language-">
-
-### Sorting
-
+GET /orders?sort=createdAt,desc
 </code></pre>
-<p>GET /orders?sort=createdAt,desc</p>
+<h3 id="filtering">Filtering</h3>
 <pre><code class="language-">
-
-### Filtering
-
+GET /orders?status=PAID&amp;amount&gt;1000
 </code></pre>
-<p>GET /orders?status=PAID&amp;amount&gt;1000</p>
-<pre><code class="language-">
-
----
-
-## 8️⃣ Security Guidelines
-
-### Authentication
-
-* OAuth2 / JWT / API Keys
-
+<hr>
+<h2 id="8-security-guidelines">8️⃣ Security Guidelines</h2>
+<h3 id="authentication">Authentication</h3>
+<ul>
+<li>OAuth2 / JWT / API Keys</li>
+</ul>
+<pre><code class="language-http">
+Authorization: Bearer &lt;token&gt;
 </code></pre>
-<p>Authorization: Bearer &lt;token&gt;</p>
-<pre><code class="language-">
-
----
-
-### Authorization
-
-* Role-based access (RBAC)
-* Scope-based access
-
----
-
-### HTTPS Mandatory
-
-❌ HTTP
-✅ HTTPS
-
----
-
-## 9️⃣ Idempotency &amp; Reliability
-
-### Use Idempotency Keys for POST
-
+<hr>
+<h3 id="authorization">Authorization</h3>
+<ul>
+<li>Role-based access (RBAC)</li>
+<li>Scope-based access</li>
+</ul>
+<hr>
+<h3 id="https-mandatory">HTTPS Mandatory</h3>
+<p>❌ HTTP</p>
+<p>✅ HTTPS</p>
+<hr>
+<h2 id="9-idempotency-reliability">9️⃣ Idempotency &amp; Reliability</h2>
+<h3 id="use-idempotency-keys-for-post">Use Idempotency Keys for POST</h3>
+<pre><code class="language-http">
+Idempotency-Key: uuid
 </code></pre>
-<p>Idempotency-Key: uuid</p>
-<pre><code class="language-">
-
-Prevents duplicate operations (payments, orders)
-
----
-
-### Use Timeouts &amp; Retries
-
-* Client retries
-* Server handles duplicates safely
-
----
-
-## 🔟 Concurrency &amp; Consistency
-
-### Optimistic Locking with ETag
-
+<p>Prevents duplicate operations (payments, orders)</p>
+<hr>
+<h3 id="use-timeouts-retries">Use Timeouts &amp; Retries</h3>
+<ul>
+<li>Client retries</li>
+<li>Server handles duplicates safely</li>
+</ul>
+<hr>
+<h2 id="concurrency-consistency">🔟 Concurrency &amp; Consistency</h2>
+<h3 id="optimistic-locking-with-etag">Optimistic Locking with ETag</h3>
+<pre><code class="language-http">
+If-Match: &quot;v3&quot;
 </code></pre>
-<p>If-Match: &quot;v3&quot;</p>
-<pre><code class="language-">
-
-Prevents lost updates
-
----
-
-## 1️⃣1️⃣ Naming &amp; Formatting Rules
-
-* camelCase for JSON fields
-* kebab-case for URLs
-* ISO-8601 for dates
-
+<p>Prevents lost updates</p>
+<hr>
+<h2 id="11-naming-formatting-rules">1️⃣1️⃣ Naming &amp; Formatting Rules</h2>
+<ul>
+<li>camelCase for JSON fields</li>
+<li>kebab-case for URLs</li>
+<li>ISO-8601 for dates</li>
+</ul>
+<pre><code class="language-json">
+&quot;createdAt&quot;: &quot;2026-01-12T10:30:00Z&quot;
 </code></pre>
-<p>&quot;createdAt&quot;: &quot;2026-01-12T10:30:00Z&quot;</p>
-<pre><code class="language-">
-
----
-
-## 1️⃣2️⃣ Logging, Tracing &amp; Monitoring
-
-### Request ID
-
+<hr>
+<h2 id="12-logging-tracing-monitoring">1️⃣2️⃣ Logging, Tracing &amp; Monitoring</h2>
+<h3 id="request-id">Request ID</h3>
+<pre><code class="language-http">
+X-Request-ID: abc-123
 </code></pre>
-<p>X-Request-ID: abc-123</p>
-<pre><code class="language-">
-
-Used for distributed tracing
-
----
-
-## 1️⃣3️⃣ Documentation Rules
-
-* OpenAPI / Swagger
-* Examples for each API
-* Clear error definitions
-
----
-
-## 1️⃣4️⃣ Common REST Anti-Patterns ❌
-
-| Anti-Pattern             | Why Bad            |
-| ------------------------ | ------------------ |
-| Using verbs in URLs      | Breaks REST        |
-| Returning 200 for errors | Confusing          |
-| Chatty APIs              | Performance issues |
-| Breaking statelessness   | Scalability issues |
-
----
-
-## ✅ REST API GOLDEN RULES (Interview Favorite)
-
-&gt; ✔ Stateless
-&gt; ✔ Resource-based
-&gt; ✔ Proper HTTP methods
-&gt; ✔ Correct status codes
-&gt; ✔ Consistent responses
-&gt; ✔ Secure by default
-
----
-
-## 🧠 One-Line Summary
-
-&gt; **REST is not just JSON over HTTP — it is a disciplined contract using HTTP semantics correctly.**
-
----
-
-# Top 6 API Styles: Choosing the Best Fit for Your Project
-
-APIs are the backbone of modern software, enabling smooth integration and communication between systems. Here’s a look at the top six API architecture styles and when to use each:
-
-[Top6Api](../images/SpringBoot/TOP6API.gif)
-
----
-
-### 1. **SOAP (Simple Object Access Protocol)**
-**Best for:** Enterprise applications needing a standardized, secure protocol.  
-SOAP offers strong typing and robust security features, making it ideal for complex and regulated environments.
-
----
-
-### 2. **RESTful (Representational State Transfer)**
-**Best for:** Web services, especially public-facing applications.  
-It prioritizes simplicity and scalability with a stateless, resource-oriented design that enables efficient client-server communication.
-
----
-
-### 3. **GraphQL**
-**Best for:** Scenarios requiring flexible, client-driven data retrieval.  
-Clients can specify exactly what data they need, reducing over-fetching and under-fetching, and optimizing performance.
-
----
-
-### 4. **gRPC**
-**Best for:** High-performance, low-latency communication in microservices architectures.  
-It supports efficient serialization and bi-directional streaming, making it ideal for real-time apps and distributed systems.
-
----
-
-### 5. **WebSockets**
-**Best for:** Real-time, bidirectional communication (e.g., chat apps, online gaming).  
-Persistent connections allow instant data updates and seamless user interaction.
-
----
-
-### 6. **Webhooks**
-**Best for:** Event-driven systems.  
-They let applications react to events in real time, making them perfect for notifications and automated actions.
-
----
-
-### 🧭 **Conclusion**
-Choosing the right API style enhances **performance**, **scalability**, and **user experience** by aligning architectural strengths with project needs.
-
----`;
+<p>Used for distributed tracing</p>
+<hr>
+<h2 id="13-documentation-rules">1️⃣3️⃣ Documentation Rules</h2>
+<ul>
+<li>OpenAPI / Swagger</li>
+<li>Examples for each API</li>
+<li>Clear error definitions</li>
+</ul>
+<hr>
+<h2 id="14-common-rest-anti-patterns">1️⃣4️⃣ Common REST Anti-Patterns ❌</h2>
+<table>
+<thead><tr>
+<th>Anti-Pattern</th>
+<th>Why Bad</th>
+</tr></thead><tbody>
+<tr>
+<td>Using verbs in URLs</td>
+<td>Breaks REST</td>
+</tr>
+<tr>
+<td>Returning 200 for errors</td>
+<td>Confusing</td>
+</tr>
+<tr>
+<td>Chatty APIs</td>
+<td>Performance issues</td>
+</tr>
+<tr>
+<td>Breaking statelessness</td>
+<td>Scalability issues</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="rest-api-golden-rules-interview-favorite">✅ REST API GOLDEN RULES (Interview Favorite)</h2>
+<blockquote>✔ Stateless</blockquote>
+<blockquote>✔ Resource-based</blockquote>
+<blockquote>✔ Proper HTTP methods</blockquote>
+<blockquote>✔ Correct status codes</blockquote>
+<blockquote>✔ Consistent responses</blockquote>
+<blockquote>✔ Secure by default</blockquote>
+<hr>
+<h2 id="one-line-summary">🧠 One-Line Summary</h2>
+<blockquote><strong>REST is not just JSON over HTTP — it is a disciplined contract using HTTP semantics correctly.</strong></blockquote>
+<hr>
+<h1 id="top-6-api-styles-choosing-the-best-fit-for-your-project">Top 6 API Styles: Choosing the Best Fit for Your Project</h1>
+<p>APIs are the backbone of modern software, enabling smooth integration and communication between systems. Here’s a look at the top six API architecture styles and when to use each:</p>
+<p><a href="../images/SpringBoot/TOP6API.gif">Top6Api</a></p>
+<hr>
+<h3 id="1-soap-simple-object-access-protocol">1. <strong>SOAP (Simple Object Access Protocol)</strong></h3>
+<p><strong>Best for:</strong> Enterprise applications needing a standardized, secure protocol.  </p>
+<p>SOAP offers strong typing and robust security features, making it ideal for complex and regulated environments.</p>
+<hr>
+<h3 id="2-restful-representational-state-transfer">2. <strong>RESTful (Representational State Transfer)</strong></h3>
+<p><strong>Best for:</strong> Web services, especially public-facing applications.  </p>
+<p>It prioritizes simplicity and scalability with a stateless, resource-oriented design that enables efficient client-server communication.</p>
+<hr>
+<h3 id="3-graphql">3. <strong>GraphQL</strong></h3>
+<p><strong>Best for:</strong> Scenarios requiring flexible, client-driven data retrieval.  </p>
+<p>Clients can specify exactly what data they need, reducing over-fetching and under-fetching, and optimizing performance.</p>
+<hr>
+<h3 id="4-grpc">4. <strong>gRPC</strong></h3>
+<p><strong>Best for:</strong> High-performance, low-latency communication in microservices architectures.  </p>
+<p>It supports efficient serialization and bi-directional streaming, making it ideal for real-time apps and distributed systems.</p>
+<hr>
+<h3 id="5-websockets">5. <strong>WebSockets</strong></h3>
+<p><strong>Best for:</strong> Real-time, bidirectional communication (e.g., chat apps, online gaming).  </p>
+<p>Persistent connections allow instant data updates and seamless user interaction.</p>
+<hr>
+<h3 id="6-webhooks">6. <strong>Webhooks</strong></h3>
+<p><strong>Best for:</strong> Event-driven systems.  </p>
+<p>They let applications react to events in real time, making them perfect for notifications and automated actions.</p>
+<hr>
+<h3 id="conclusion">🧭 <strong>Conclusion</strong></h3>
+<p>Choosing the right API style enhances <strong>performance</strong>, <strong>scalability</strong>, and <strong>user experience</strong> by aligning architectural strengths with project needs.</p>
+<hr>`;
 
 if (document.getElementById('content')) {
     document.getElementById('content').innerHTML = apiContentData;

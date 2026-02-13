@@ -350,7 +350,8 @@ const javabasicTocData = `<a href="#java-interview-question-bank" class="toc-ite
 <a href="#effect" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="effect">🚫 Effect</a>
 <a href="#avoidance-techniques" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="avoidance-techniques">✅ Avoidance Techniques</a>
 <a href="#junit" class="toc-item toc-level-{item["level"]}" style="padding-left: 0px" data-target="junit">Junit</a>
-<a href="#junit-mockito" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="junit-mockito">Junit mockito</a>`;
+<a href="#junit-mockito" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="junit-mockito">Junit mockito</a>
+<a href="#java-questions" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="java-questions">Java Questions</a>`;
 
 if (document.getElementById('toc')) {
     document.getElementById('toc').innerHTML = javabasicTocData;

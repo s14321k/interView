@@ -1034,10 +1034,10 @@ sudo systemctl start docker
 <ul>
 <li><strong>Permission denied</strong>: Run docker commands with <code>sudo</code> or add your user to <code>docker</code> group:</li>
 </ul>
-<p>  ```bash</p>
-<p>  sudo usermod -aG docker $USER</p>
-<p>  newgrp docker</p>
-<p>  ```</p>
+<pre><code class="language-bash">
+sudo usermod -aG docker $USER
+newgrp docker
+</code></pre>
 <ul>
 <li><strong>Port conflicts</strong>: Make sure ports required by your containers or Docker are free.</li>
 </ul>
@@ -1047,9 +1047,9 @@ sudo systemctl start docker
 <ul>
 <li><strong>Disk space full</strong>: Clean unused Docker objects with</li>
 </ul>
-<p>  ```bash</p>
-<p>  docker system prune -a</p>
-<p>  ```</p>
+<pre><code class="language-bash">
+docker system prune -a
+</code></pre>
 <ul>
 <li><strong>Restart Docker Desktop</strong> can fix many transient problems.</li>
 </ul>

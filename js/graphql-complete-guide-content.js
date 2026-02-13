@@ -1415,7 +1415,7 @@ const server = new ApolloServer({
         
         willSendResponse(requestContext) {
           const duration = Date.now() - start;
-          console.log(`Query ${requestContext.operationName} took ${duration}ms`);
+          console.log(&#96;Query ${requestContext.operationName} took ${duration}ms&#96;);
           
           // Send to monitoring service
           metrics.record(&#x27;graphql.query.duration&#x27;, duration, {

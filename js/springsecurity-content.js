@@ -593,9 +593,9 @@ spec:
 <ul>
 <li>Export your <strong>server certificate</strong> from the keystore.</li>
 </ul>
-<p>   ```bash</p>
-<p>   keytool -export -alias mycert -keystore keystore.p12 -file service-b.crt -storepass changeit</p>
-<p>   ```</p>
+<pre><code class="language-bash">
+keytool -export -alias mycert -keystore keystore.p12 -file service-b.crt -storepass changeit
+</code></pre>
 <ul>
 <li>In <strong>Postman</strong>, go to:</li>
 </ul>
@@ -646,12 +646,12 @@ spec:
 <ul>
 <li>Example via curl:</li>
 </ul>
-<p>    ```bash</p>
-<p>    curl -X POST https://auth-server.example.com/realms/myrealm/protocol/openid-connect/token \</p>
-<p>      -d &quot;client_id=myclient&quot; \</p>
-<p>      -d &quot;client_secret=mysecret&quot; \</p>
-<p>      -d &quot;grant<em>type=client</em>credentials&quot;</p>
-<p>    ```</p>
+<pre><code class="language-bash">
+curl -X POST https://auth-server.example.com/realms/myrealm/protocol/openid-connect/token \
+  -d &quot;client_id=myclient&quot; \
+  -d &quot;client_secret=mysecret&quot; \
+  -d &quot;grant_type=client_credentials&quot;
+</code></pre>
 <ul>
 <li>Response contains <code>&quot;access_token&quot;: &quot;eyJhbGciOi...&quot;</code>.</li>
 </ul>
@@ -666,10 +666,10 @@ spec:
 <ul>
 <li>Call Service B:</li>
 </ul>
-<p>   ```</p>
-<p>   GET https://localhost:8443/api/data</p>
-<p>   Authorization: Bearer &lt;jwt-token&gt;</p>
-<p>   ```</p>
+<pre><code class="language-">
+GET https://localhost:8443/api/data
+Authorization: Bearer &lt;jwt-token&gt;
+</code></pre>
 <ul>
 <li>✅ 200 OK if token is valid.</li>
 <li>❌ 401 Unauthorized if token is missing or invalid.</li>
@@ -682,10 +682,10 @@ spec:
 <li>Configure Gateway with <code>TokenRelay</code> filter.</li>
 <li>In Postman, call only the Gateway endpoint:</li>
 </ul>
-<p>   ```</p>
-<p>   GET https://gateway.example.com/api/data</p>
-<p>   Authorization: Bearer &lt;jwt-token&gt;</p>
-<p>   ```</p>
+<pre><code class="language-">
+GET https://gateway.example.com/api/data
+Authorization: Bearer &lt;jwt-token&gt;
+</code></pre>
 <ul>
 <li>Gateway forwards token → Service B validates it.</li>
 </ul>
@@ -698,9 +698,9 @@ spec:
 <li>Deploy both services in the mesh.</li>
 <li>In Postman, call the public ingress gateway:</li>
 </ul>
-<p>   ```</p>
-<p>   GET https://&lt;istio-ingress-ip&gt;/api/data</p>
-<p>   ```</p>
+<pre><code class="language-">
+GET https://&lt;istio-ingress-ip&gt;/api/data
+</code></pre>
 <ul>
 <li>The mesh enforces mTLS automatically between pods.</li>
 </ul>
@@ -872,27 +872,27 @@ OAuth2.0 + JWT                        ADFS
 <ul>
 <li><strong>Spring Boot Dependencies:</strong></li>
 </ul>
-<p>   ```xml</p>
-   <dependency>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-   </dependency>
-   <dependency>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-starter-oauth2-client</artifactId>
-   </dependency>
-<p>   ```</p>
+<pre><code class="language-xml">
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-oauth2-resource-server&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-oauth2-client&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
 <ul>
 <li><strong>Spring Boot Config (JWT validation):</strong></li>
 </ul>
-<p>   ```yaml</p>
-<p>   spring:</p>
-<p>     security:</p>
-<p>       oauth2:</p>
-<p>         resourceserver:</p>
-<p>           jwt:</p>
-<p>             issuer-uri: https://auth.example.com/realms/myrealm</p>
-<p>   ```</p>
+<pre><code class="language-yaml">
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://auth.example.com/realms/myrealm
+</code></pre>
 <ul>
 <li><strong>Frontend (Angular):</strong></li>
 </ul>
@@ -901,9 +901,9 @@ OAuth2.0 + JWT                        ADFS
 <li>Store JWT in memory (not localStorage, to avoid XSS).</li>
 <li>Send JWT with every API call:</li>
 </ul>
-<p>    ```http</p>
-<p>    Authorization: Bearer &lt;jwt_token&gt;</p>
-<p>    ```</p>
+<pre><code class="language-http">
+Authorization: Bearer &lt;jwt_token&gt;
+</code></pre>
 <ul>
 <li><strong>If in Enterprise (ADFS environment):</strong></li>
 </ul>
@@ -1088,7 +1088,7 @@ public class AdfsSecurityConfig {
    (2) App generates JWT -------------------&gt;| Resource Server  |
            |                                 | (Spring Boot App)|
    (3) Client stores token                   +------------------+
-   (4) Sends JWT in `Authorization: Bearer` header for APIs
+   (4) Sends JWT in &#96;Authorization: Bearer&#96; header for APIs
    ❌ Problem: You own login, token mgmt, refresh, revocation, etc.
 
   --------------------------------------------------------------------------
@@ -2183,20 +2183,20 @@ participant BE as Spring Boot Backend
 <ul>
 <li>Backend CORS config:</li>
 </ul>
-<p>  ```java</p>
-<p>  config.setAllowedOrigins(List.of(&quot;https://app.client.com&quot;));</p>
-<p>  config.setAllowCredentials(true);</p>
-<p>  config.setAllowedMethods(List.of(&quot;GET&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;DELETE&quot;));</p>
-<p>  ```</p>
+<pre><code class="language-java">
+config.setAllowedOrigins(List.of(&quot;https://app.client.com&quot;));
+config.setAllowCredentials(true);
+config.setAllowedMethods(List.of(&quot;GET&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;DELETE&quot;));
+</code></pre>
 <ul>
 <li>Frontend fetch:</li>
 </ul>
-<p>  ```js</p>
-<p>  fetch(&quot;https://api.server.com/user&quot;, {</p>
-<p>    method: &quot;GET&quot;,</p>
-<p>    credentials: &quot;include&quot;</p>
-<p>  });</p>
-<p>  ```</p>
+<pre><code class="language-js">
+fetch(&quot;https://api.server.com/user&quot;, {
+  method: &quot;GET&quot;,
+  credentials: &quot;include&quot;
+});
+</code></pre>
 <p>✅ Cookies (<code>access_token</code>, <code>refresh_token</code>, <code>XSRF-TOKEN</code>) will now flow between client and server.</p>
 </details>
 <hr>

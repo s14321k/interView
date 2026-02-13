@@ -35,287 +35,274 @@ const kafkaContentData = `<h1 id="kafka">Kafka</h1>
 </ul>
 <p>    sarath@Sarath6A9Kumar:~$ kafka-storage.sh format -t 53zsuU1wQ<em>6Ldl4SKrh26g -c ~/kafka</em>2.13-4.1.1/config/server.properties</p>
 <p>    Because controller.quorum.voters is not set on this controller, you must specify one of the following: --standalone, --initial-controllers, or --no-initial-controllers.</p>
-<p>    ```</p>
-<details>
-<summary><strong> Select which one is needed </strong></summary>
-<p>Yep — this is a <strong>KRaft mode</strong> thing, not a bug. Kafka is basically saying: <em>“I don’t know what kind of controller setup you’re using, so tell me.”</em></p>
-<h3 id="whats-going-on">What’s going on</h3>
-<p>In Kafka <strong>4.x (KRaft mode)</strong>, <code>kafka-storage.sh format</code> needs to know <strong>how controllers are initialized</strong>. Since your <code>server.properties</code> <strong>does not define</strong> <code>controller.quorum.voters</code>, Kafka can’t infer it automatically.</p>
-<p>So you must explicitly choose <strong>one</strong> of these options.</p>
-<hr>
-<h2 id="the-3-valid-fixes-pick-one">The 3 valid fixes (pick ONE)</h2>
-<h3 id="1-single-node-local-dev-setup-most-common">✅ <strong>1. Single-node / local / dev setup (most common)</strong></h3>
-<p>Use <strong>standalone</strong> mode:</p>
-<pre><code class="language-bash">
-kafka-storage.sh format \
-  -t 53zsuU1wQ_6Ldl4SKrh26g \
-  -c ~/kafka_2.13-4.1.1/config/server.properties \
-  --standalone
+<pre><code class="language-">
+
+&lt;details&gt;
+
+&lt;summary&gt;&lt;strong&gt; Select which one is needed &lt;/strong&gt;&lt;/summary&gt;
+
+Yep — this is a **KRaft mode** thing, not a bug. Kafka is basically saying: *“I don’t know what kind of controller setup you’re using, so tell me.”*
+
+### What’s going on
+
+In Kafka **4.x (KRaft mode)**, &#96;kafka-storage.sh format&#96; needs to know **how controllers are initialized**. Since your &#96;server.properties&#96; **does not define** &#96;controller.quorum.voters&#96;, Kafka can’t infer it automatically.
+
+So you must explicitly choose **one** of these options.
+
+---
+
+## The 3 valid fixes (pick ONE)
+
+### ✅ **1. Single-node / local / dev setup (most common)**
+
+Use **standalone** mode:
+
 </code></pre>
-<p>👉 Use this if:</p>
-<ul>
-<li>You have <strong>one broker</strong></li>
-<li>You’re testing locally</li>
-<li>No separate controller nodes</li>
-</ul>
-<p>This is what most people want.</p>
-<hr>
-<h3 id="2-multi-node-cluster-define-initial-controllers">✅ <strong>2. Multi-node cluster – define initial controllers</strong></h3>
-<p>If this is a real cluster, you must tell Kafka <strong>who the controllers are</strong>:</p>
-<pre><code class="language-bash">
-kafka-storage.sh format \
-  -t 53zsuU1wQ_6Ldl4SKrh26g \
-  -c ~/kafka_2.13-4.1.1/config/server.properties \
-  --initial-controllers 1@host1:9093,2@host2:9093,3@host3:9093
+<p>kafka-storage.sh format \</p>
+<p>  -t 53zsuU1wQ_6Ldl4SKrh26g \</p>
+<p>  -c ~/kafka_2.13-4.1.1/config/server.properties \</p>
+<p>  --standalone</p>
+<pre><code class="language-">
+
+👉 Use this if:
+
+* You have **one broker**
+* You’re testing locally
+* No separate controller nodes
+
+This is what most people want.
+
+---
+
+### ✅ **2. Multi-node cluster – define initial controllers**
+
+If this is a real cluster, you must tell Kafka **who the controllers are**:
+
 </code></pre>
-<p>👉 Use this if:</p>
-<ul>
-<li>You’re setting up a <strong>KRaft quorum</strong></li>
-<li>Multiple controller nodes exist</li>
-<li>IDs and ports must match <code>node.id</code> and controller listeners</li>
-</ul>
-<hr>
-<h3 id="3-advanced-automation-case">✅ <strong>3. Advanced / automation case</strong></h3>
-<pre><code class="language-bash">
---no-initial-controllers
+<p>kafka-storage.sh format \</p>
+<p>  -t 53zsuU1wQ_6Ldl4SKrh26g \</p>
+<p>  -c ~/kafka_2.13-4.1.1/config/server.properties \</p>
+<p>  --initial-controllers 1@host1:9093,2@host2:9093,3@host3:9093</p>
+<pre><code class="language-">
+
+👉 Use this if:
+
+* You’re setting up a **KRaft quorum**
+* Multiple controller nodes exist
+* IDs and ports must match &#96;node.id&#96; and controller listeners
+
+---
+
+### ✅ **3. Advanced / automation case**
+
 </code></pre>
-<p>This is rare and usually used by orchestration systems. You can ignore this unless you <em>know</em> you need it.</p>
-<hr>
-<h2 id="quick-recommendation">Quick recommendation</h2>
-<p>If you’re unsure → <strong>use <code>--standalone</code></strong></p>
-<p>It’s safe, simple, and correct for 90% of setups.</p>
-<hr>
-</details>
-<ul>
-<li>Now open the <code>server.properties</code> from the path <code>/kafka_2.13-4.1.1/config</code> type <code>nano server.properties</code></li>
-<li>Add line <code>controller.quorum.voters=1@localhost:9093</code> under <code>controller.quorum.bootstrap.servers=localhost:9093</code> save and run the command again <code>kafka-storage.sh format -t 53zsuU1wQ_6Ldl4SKrh26g -c ~/kafka_2.13-4.1.1/config/server.properties</code></li>
-<li>Once format completed, run this cmd to start <code>kafka-server-start.sh ~/kafka_2.13-4.1.1/config/server.properties</code></li>
-</ul>
-<h2 id="kafka-cli-kafka-topicssh">Kafka CLI: kafka-topics.sh</h2>
-<p><a href="https://docs.conduktor.io/learn/cli-tutorials/index">CLI tutorials</a></p>
-<p><strong>Kafka Topic Management</strong></p>
-<ul>
-<li>Create Kafka Topics</li>
-<li>List Kafka Topics</li>
-<li>Describe Kafka Topics</li>
-<li>Increase Partitions in a Kafka Topic</li>
-<li>Delete a Kafka Topic</li>
-</ul>
-<p><strong><em>Kafka Cluster</strong></em></p>
-<ul>
-<li>logs</li>
-<li>purchases</li>
-<li>twitter_tweets</li>
-<li>trucks_gps</li>
-</ul>
-<p><a href="https://www.conduktor.io/apache-kafka-for-beginners">Download code from here</a></p>
-<h2 id="to-run-in-docker-make-use-of-docker-compose-file-from-below-link">To run in docker, make use of docker compose file from below link</h2>
-</details>
-<p><img src="../images/Kafka/WhyKafkaFast.jpg" alt="WhyKafkaFast"></p>
-<p><img src="../images/Kafka/MessagingQueArchitech.gif" alt="MessagingQueArchitech"></p>
-<p><a href="https://www.javainuse.com/spring/spring-boot-apache-kafka-hello-world">Kafka Hello World</a></p>
-<h1 id="evolution-of-message-queue-architectures">📨 Evolution of Message Queue Architectures</h1>
-<h3 id="ibm-mq-rabbitmq-kafka-pulsar">IBM MQ → RabbitMQ → Kafka → Pulsar</h3>
-<hr>
-<details>
-<summary><strong>🔹 IBM MQ</strong></summary>
-<ul>
-<li><strong>Introduced:</strong> 1993 (originally called <em>MQSeries</em>).</li>
-<li><strong>Renamed:</strong> WebSphere MQ in 2002 → IBM MQ in 2014.</li>
-<li><strong>Overview:</strong>  </li>
-</ul>
-<p>  IBM MQ is one of the earliest enterprise-grade messaging systems, providing <strong>reliable, transactional message delivery</strong> between systems.</p>
-<ul>
-<li><strong>Key Strengths:</strong></li>
-<li>Strong <strong>ACID guarantees</strong></li>
-<li>Designed for <strong>banking and financial systems</strong></li>
-<li>Robust <strong>message persistence</strong> and <strong>security</strong></li>
-<li><strong>Industry Use:</strong> Still widely used in the financial sector, generating over <strong>$1 billion in revenue in 2020</strong>.</li>
-</ul>
-</details>
-<hr>
-<details>
-<summary><strong>🔹 RabbitMQ</strong></summary>
-<ul>
-<li><strong>Architecture:</strong> Built on <strong>AMQP (Advanced Message Queuing Protocol)</strong>.</li>
-<li><strong>Core Concept:</strong> Messages are sent to an <strong>Exchange</strong>, which routes them to <strong>Queues</strong> based on exchange type and routing keys.</li>
-<li><strong>Exchange Types:</strong></li>
-<li><strong>Direct:</strong> Message sent to queues with matching routing keys.</li>
-<li><strong>Topic:</strong> Message sent to queues with matching patterns.</li>
-<li><strong>Fanout:</strong> Message broadcast to all queues bound to the exchange.</li>
-<li><strong>Flow:</strong>  </li>
-</ul>
-<p>  <strong>Producer → Exchange → Queue → Consumer</strong></p>
-<ul>
-<li><strong>Use Case:</strong>  </li>
-</ul>
-<p>  Ideal for <strong>task queues</strong>, <strong>message routing</strong>, and <strong>application-level communication</strong>.</p>
-</details>
-<hr>
-<details>
-<summary><strong>🔹 Kafka</strong></summary>
-<ul>
-<li><strong>Created by:</strong> LinkedIn, open-sourced in <strong>2011</strong>.</li>
-<li><strong>Nature:</strong> A <strong>distributed event streaming platform</strong> optimized for <strong>high-throughput</strong> and <strong>low-latency</strong> data pipelines.</li>
-<li><strong>Architecture Concepts:</strong></li>
-<li><strong>Producer, Broker, Topic, Partition, Consumer</strong></li>
-<li>Data is stored in an <strong>append-only log</strong> for fault tolerance.</li>
-<li><strong>Advantages:</strong></li>
-<li>Highly <strong>scalable and durable</strong></li>
-<li>Efficient for <strong>real-time data streaming</strong></li>
-<li>Simplifies <strong>event-driven architecture</strong></li>
-<li><strong>Impact:</strong>  </li>
-</ul>
-<p>  Kafka’s design replaced many traditional <strong>AMQP-based systems</strong> and became the backbone of <strong>modern data pipelines</strong>.</p>
-</details>
-<hr>
-<details>
-<summary><strong>🔹 Pulsar</strong></summary>
-<ul>
-<li><strong>Developed by:</strong> Yahoo, now an <strong>Apache open-source project</strong>.</li>
-<li><strong>Architecture:</strong> Designed as an <strong>all-in-one messaging and streaming platform</strong>.</li>
-<li><strong>Key Strengths:</strong></li>
-<li><strong>Two-layer architecture:</strong></li>
-<li><strong>Serving Layer:</strong> Brokers handle message serving.</li>
-<li><strong>Persistent Layer:</strong> BookKeeper manages durable message storage.</li>
-<li><strong>Tiered Storage:</strong> Seamless integration with <strong>object storage (e.g., AWS S3)</strong> for long-term retention.</li>
-<li><strong>Multi-tenancy &amp; Geo-replication:</strong> Built-in support for multi-region, cloud-native deployments.</li>
-<li><strong>Dynamic Scaling:</strong> Easier <strong>partition migration</strong> and cluster elasticity than Kafka.</li>
-<li><strong>Positioning:</strong>  </li>
-</ul>
-<p>  Pulsar combines <strong>message queuing + event streaming</strong> capabilities into one platform.</p>
-</details>
-<hr>
-<h3 id="summary-comparison">⚙️ Summary Comparison</h3>
-<table>
-<thead><tr>
-<th>Feature</th>
-<th>IBM MQ</th>
-<th>RabbitMQ</th>
-<th>Kafka</th>
-<th>Pulsar</th>
-</tr></thead><tbody>
-<tr>
-<td><strong>Released</strong></td>
-<td>1993</td>
-<td>2007</td>
-<td>2011</td>
-<td>2016</td>
-</tr>
-<tr>
-<td><strong>Type</strong></td>
-<td>Enterprise Messaging</td>
-<td>Message Broker</td>
-<td>Event Streaming</td>
-<td>Messaging + Streaming</td>
-</tr>
-<tr>
-<td><strong>Protocol</strong></td>
-<td>Proprietary</td>
-<td>AMQP</td>
-<td>Custom TCP</td>
-<td>Custom</td>
-</tr>
-<tr>
-<td><strong>Persistence</strong></td>
-<td>Strong</td>
-<td>Configurable</td>
-<td>Log-based</td>
-<td>Tiered (BookKeeper + Object Storage)</td>
-</tr>
-<tr>
-<td><strong>Scalability</strong></td>
-<td>Moderate</td>
-<td>Moderate</td>
-<td>High</td>
-<td>Very High</td>
-</tr>
-<tr>
-<td><strong>Ideal Use</strong></td>
-<td>Financial systems</td>
-<td>Application messaging</td>
-<td>Event streaming, analytics</td>
-<td>Cloud-native messaging &amp; storage</td>
-</tr>
-</tbody></table>
-<hr>
-<p>📘 <strong>In Summary:</strong>  </p>
-<p>Message queue architectures have evolved from <strong>enterprise-centric, transactional systems (IBM MQ)</strong> to <strong>lightweight brokers (RabbitMQ)</strong>, then to <strong>distributed streaming systems (Kafka)</strong>, and finally to <strong>cloud-native unified platforms (Pulsar)</strong> — each iteration improving scalability, flexibility, and real-time data processing.</p>
-<hr>
-<details>
-<summary><strong>1️⃣ Sequential I/O</strong></summary>
-<p>Kafka’s first performance advantage comes from its reliance on <strong>Sequential I/O</strong>.  </p>
-<p>Instead of randomly reading or writing data on disk, Kafka performs <strong>sequential writes</strong>, which are significantly faster and more predictable — allowing it to handle <strong>high-throughput message streams</strong> efficiently.</p>
-</details>
-<hr>
-<details>
-<summary><strong>2️⃣ Zero Copy Principle</strong></summary>
-<p>The second major design choice behind Kafka’s exceptional performance is the <strong>Zero Copy Principle</strong>, which minimizes unnecessary data transfers between the <strong>application</strong> and <strong>kernel</strong> contexts.</p>
-<hr>
-<h3 id="data-flow-overview">🔹 Data Flow Overview</h3>
-<p>Below is how data is transmitted between the <strong>producer</strong> and <strong>consumer</strong>, illustrating what <em>zero-copy</em> means.</p>
-<hr>
-<h4 id="step-1-producer-writes-data">🧩 Step 1: Producer Writes Data</h4>
-<ul>
-<li><strong>1.1 – 1.3:</strong> The producer writes data to disk sequentially.</li>
-</ul>
-<hr>
-<h4 id="step-2-consumer-reads-data-without-zero-copy">❌ Step 2: Consumer Reads Data <em>Without</em> Zero-Copy</h4>
-<table>
-<thead><tr>
-<th>Step</th>
-<th>Description</th>
-</tr></thead><tbody>
-<tr>
-<td>2.1</td>
-<td>Data is loaded from disk to OS cache.</td>
-</tr>
-<tr>
-<td>2.2</td>
-<td>Data is copied from OS cache to the Kafka application.</td>
-</tr>
-<tr>
-<td>2.3</td>
-<td>Kafka application copies the data into the socket buffer.</td>
-</tr>
-<tr>
-<td>2.4</td>
-<td>Data is copied from the socket buffer to the network card.</td>
-</tr>
-<tr>
-<td>2.5</td>
-<td>The network card sends data out to the consumer.</td>
-</tr>
-</tbody></table>
-<hr>
-<h4 id="step-3-consumer-reads-data-with-zero-copy">✅ Step 3: Consumer Reads Data <em>With</em> Zero-Copy</h4>
-<table>
-<thead><tr>
-<th>Step</th>
-<th>Description</th>
-</tr></thead><tbody>
-<tr>
-<td>3.1</td>
-<td>Data is loaded from disk to OS cache.</td>
-</tr>
-<tr>
-<td>3.2</td>
-<td>OS cache directly copies data to the network card via the <strong>sendfile()</strong> command.</td>
-</tr>
-<tr>
-<td>3.3</td>
-<td>The network card sends data out to the consumer.</td>
-</tr>
-</tbody></table>
-<hr>
-<h3 id="why-it-matters">🧠 Why It Matters</h3>
-<p><strong>Zero-copy</strong> is essentially a shortcut that saves multiple redundant data copies between <strong>user space (application context)</strong> and <strong>kernel space</strong>, resulting in:</p>
-<ul>
-<li>Reduced <strong>CPU overhead</strong></li>
-<li>Faster <strong>data transmission</strong></li>
-<li>Higher <strong>throughput</strong> and <strong>lower latency</strong></li>
-</ul>
-</details>`;
+<p>--no-initial-controllers</p>
+<pre><code class="language-">
+
+This is rare and usually used by orchestration systems. You can ignore this unless you *know* you need it.
+
+---
+
+## Quick recommendation
+
+If you’re unsure → **use &#96;--standalone&#96;**
+It’s safe, simple, and correct for 90% of setups.
+
+---
+
+&lt;/details&gt;
+
+- Now open the &#96;server.properties&#96; from the path &#96;/kafka_2.13-4.1.1/config&#96; type &#96;nano server.properties&#96;
+- Add line &#96;controller.quorum.voters=1@localhost:9093&#96; under &#96;controller.quorum.bootstrap.servers=localhost:9093&#96; save and run the command again &#96;kafka-storage.sh format -t 53zsuU1wQ_6Ldl4SKrh26g -c ~/kafka_2.13-4.1.1/config/server.properties&#96;
+- Once format completed, run this cmd to start &#96;kafka-server-start.sh ~/kafka_2.13-4.1.1/config/server.properties&#96;
+
+## Kafka CLI: kafka-topics.sh
+
+[CLI tutorials](https://docs.conduktor.io/learn/cli-tutorials/index)
+
+**Kafka Topic Management**
+
+1. Create Kafka Topics
+2. List Kafka Topics
+3. Describe Kafka Topics
+4. Increase Partitions in a Kafka Topic
+5. Delete a Kafka Topic
+
+***Kafka Cluster***
+
+- logs
+- purchases
+- twitter_tweets
+- trucks_gps
+
+[Download code from here](https://www.conduktor.io/apache-kafka-for-beginners)
+
+
+## To run in docker, make use of docker compose file from below link
+
+&lt;/details&gt;
+
+![WhyKafkaFast](../images/Kafka/WhyKafkaFast.jpg)
+
+![MessagingQueArchitech](../images/Kafka/MessagingQueArchitech.gif)
+
+[Kafka Hello World](https://www.javainuse.com/spring/spring-boot-apache-kafka-hello-world)
+
+# 📨 Evolution of Message Queue Architectures
+### IBM MQ → RabbitMQ → Kafka → Pulsar
+
+---
+
+&lt;details&gt;
+&lt;summary&gt;&lt;strong&gt;🔹 IBM MQ&lt;/strong&gt;&lt;/summary&gt;
+
+- **Introduced:** 1993 (originally called *MQSeries*).
+- **Renamed:** WebSphere MQ in 2002 → IBM MQ in 2014.
+- **Overview:**  
+  IBM MQ is one of the earliest enterprise-grade messaging systems, providing **reliable, transactional message delivery** between systems.
+- **Key Strengths:**
+    - Strong **ACID guarantees**
+    - Designed for **banking and financial systems**
+    - Robust **message persistence** and **security**
+- **Industry Use:** Still widely used in the financial sector, generating over **$1 billion in revenue in 2020**.
+
+&lt;/details&gt;
+
+---
+
+&lt;details&gt;
+&lt;summary&gt;&lt;strong&gt;🔹 RabbitMQ&lt;/strong&gt;&lt;/summary&gt;
+
+- **Architecture:** Built on **AMQP (Advanced Message Queuing Protocol)**.
+- **Core Concept:** Messages are sent to an **Exchange**, which routes them to **Queues** based on exchange type and routing keys.
+- **Exchange Types:**
+    - **Direct:** Message sent to queues with matching routing keys.
+    - **Topic:** Message sent to queues with matching patterns.
+    - **Fanout:** Message broadcast to all queues bound to the exchange.
+- **Flow:**  
+  **Producer → Exchange → Queue → Consumer**
+- **Use Case:**  
+  Ideal for **task queues**, **message routing**, and **application-level communication**.
+
+&lt;/details&gt;
+
+---
+
+&lt;details&gt;
+&lt;summary&gt;&lt;strong&gt;🔹 Kafka&lt;/strong&gt;&lt;/summary&gt;
+
+- **Created by:** LinkedIn, open-sourced in **2011**.
+- **Nature:** A **distributed event streaming platform** optimized for **high-throughput** and **low-latency** data pipelines.
+- **Architecture Concepts:**
+    - **Producer, Broker, Topic, Partition, Consumer**
+    - Data is stored in an **append-only log** for fault tolerance.
+- **Advantages:**
+    - Highly **scalable and durable**
+    - Efficient for **real-time data streaming**
+    - Simplifies **event-driven architecture**
+- **Impact:**  
+  Kafka’s design replaced many traditional **AMQP-based systems** and became the backbone of **modern data pipelines**.
+
+&lt;/details&gt;
+
+---
+
+&lt;details&gt;
+&lt;summary&gt;&lt;strong&gt;🔹 Pulsar&lt;/strong&gt;&lt;/summary&gt;
+
+- **Developed by:** Yahoo, now an **Apache open-source project**.
+- **Architecture:** Designed as an **all-in-one messaging and streaming platform**.
+- **Key Strengths:**
+    - **Two-layer architecture:**
+        - **Serving Layer:** Brokers handle message serving.
+        - **Persistent Layer:** BookKeeper manages durable message storage.
+    - **Tiered Storage:** Seamless integration with **object storage (e.g., AWS S3)** for long-term retention.
+    - **Multi-tenancy &amp; Geo-replication:** Built-in support for multi-region, cloud-native deployments.
+    - **Dynamic Scaling:** Easier **partition migration** and cluster elasticity than Kafka.
+- **Positioning:**  
+  Pulsar combines **message queuing + event streaming** capabilities into one platform.
+
+&lt;/details&gt;
+
+---
+
+### ⚙️ Summary Comparison
+
+| Feature         | IBM MQ               | RabbitMQ              | Kafka                      | Pulsar                               |
+|-----------------|----------------------|-----------------------|----------------------------|--------------------------------------|
+| **Released**    | 1993                 | 2007                  | 2011                       | 2016                                 |
+| **Type**        | Enterprise Messaging | Message Broker        | Event Streaming            | Messaging + Streaming                |
+| **Protocol**    | Proprietary          | AMQP                  | Custom TCP                 | Custom                               |
+| **Persistence** | Strong               | Configurable          | Log-based                  | Tiered (BookKeeper + Object Storage) |
+| **Scalability** | Moderate             | Moderate              | High                       | Very High                            |
+| **Ideal Use**   | Financial systems    | Application messaging | Event streaming, analytics | Cloud-native messaging &amp; storage     |
+
+---
+
+📘 **In Summary:**  
+Message queue architectures have evolved from **enterprise-centric, transactional systems (IBM MQ)** to **lightweight brokers (RabbitMQ)**, then to **distributed streaming systems (Kafka)**, and finally to **cloud-native unified platforms (Pulsar)** — each iteration improving scalability, flexibility, and real-time data processing.
+
+---
+
+&lt;details&gt;
+&lt;summary&gt;&lt;strong&gt;1️⃣ Sequential I/O&lt;/strong&gt;&lt;/summary&gt;
+
+Kafka’s first performance advantage comes from its reliance on **Sequential I/O**.  
+Instead of randomly reading or writing data on disk, Kafka performs **sequential writes**, which are significantly faster and more predictable — allowing it to handle **high-throughput message streams** efficiently.
+
+&lt;/details&gt;
+
+---
+
+&lt;details&gt;
+&lt;summary&gt;&lt;strong&gt;2️⃣ Zero Copy Principle&lt;/strong&gt;&lt;/summary&gt;
+
+The second major design choice behind Kafka’s exceptional performance is the **Zero Copy Principle**, which minimizes unnecessary data transfers between the **application** and **kernel** contexts.
+
+---
+
+### 🔹 Data Flow Overview
+
+Below is how data is transmitted between the **producer** and **consumer**, illustrating what *zero-copy* means.
+
+---
+
+#### 🧩 Step 1: Producer Writes Data
+- **1.1 – 1.3:** The producer writes data to disk sequentially.
+
+---
+
+#### ❌ Step 2: Consumer Reads Data *Without* Zero-Copy
+
+| Step | Description                                                |
+|------|------------------------------------------------------------|
+| 2.1  | Data is loaded from disk to OS cache.                      |
+| 2.2  | Data is copied from OS cache to the Kafka application.     |
+| 2.3  | Kafka application copies the data into the socket buffer.  |
+| 2.4  | Data is copied from the socket buffer to the network card. |
+| 2.5  | The network card sends data out to the consumer.           |
+
+---
+
+#### ✅ Step 3: Consumer Reads Data *With* Zero-Copy
+
+| Step | Description                                                                       |
+|------|-----------------------------------------------------------------------------------|
+| 3.1  | Data is loaded from disk to OS cache.                                             |
+| 3.2  | OS cache directly copies data to the network card via the **sendfile()** command. |
+| 3.3  | The network card sends data out to the consumer.                                  |
+
+---
+
+### 🧠 Why It Matters
+**Zero-copy** is essentially a shortcut that saves multiple redundant data copies between **user space (application context)** and **kernel space**, resulting in:
+- Reduced **CPU overhead**
+- Faster **data transmission**
+- Higher **throughput** and **lower latency**
+
+&lt;/details&gt;
+
+`;
 
 if (document.getElementById('content')) {
     document.getElementById('content').innerHTML = kafkaContentData;

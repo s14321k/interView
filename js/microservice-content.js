@@ -4041,16 +4041,16 @@ public Product fallback(String id, Throwable t) {
 <ul>
 <li><strong>Add tracing dependencies</strong></li>
 </ul>
-<p>   ```xml</p>
-   <dependency>
-       <groupId>io.micrometer</groupId>
-       <artifactId>micrometer-tracing-bridge-brave</artifactId>
-   </dependency>
-   <dependency>
-       <groupId>io.zipkin.reporter2</groupId>
-       <artifactId>zipkin-reporter-brave</artifactId>
-   </dependency>
-<p>   ```</p>
+<pre><code class="language-xml">
+&lt;dependency&gt;
+    &lt;groupId&gt;io.micrometer&lt;/groupId&gt;
+    &lt;artifactId&gt;micrometer-tracing-bridge-brave&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.zipkin.reporter2&lt;/groupId&gt;
+    &lt;artifactId&gt;zipkin-reporter-brave&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
 <ul>
 <li><strong>Spring Boot integration</strong></li>
 </ul>
@@ -4065,11 +4065,11 @@ public Product fallback(String id, Throwable t) {
 <li>Headers: <code>traceparent</code>, <code>b3</code>, or <code>x-b3-traceid</code>.</li>
 <li>Example (manual):</li>
 </ul>
-<p>      ```java</p>
-<p>      webClient.get()</p>
-<p>        .header(&quot;traceparent&quot;, traceContext.traceId())</p>
-<p>        .retrieve();</p>
-<p>      ```</p>
+<pre><code class="language-java">
+webClient.get()
+  .header(&quot;traceparent&quot;, traceContext.traceId())
+  .retrieve();
+</code></pre>
 <ul>
 <li><strong>Visualization</strong></li>
 </ul>
@@ -4170,12 +4170,12 @@ InventoryService → on(PaymentDone) → reserveStock → publish(InventoryReser
 <li>Generate certs for each service.</li>
 <li>Configure both ends to trust the same CA:</li>
 </ul>
-<p>  ```yaml</p>
-<p>  server:</p>
-<p>    ssl:</p>
-<p>      key-store: classpath:server-keystore.jks</p>
-<p>      trust-store: classpath:truststore.jks</p>
-<p>  ```</p>
+<pre><code class="language-yaml">
+server:
+  ssl:
+    key-store: classpath:server-keystore.jks
+    trust-store: classpath:truststore.jks
+</code></pre>
 <h3 id="example-jwt-propagation">🔐 Example (JWT propagation)</h3>
 <ul>
 <li>Service A authenticates via API Gateway → gets a JWT.</li>

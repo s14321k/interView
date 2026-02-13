@@ -19,7 +19,7 @@ this.http.get(&#x27;https://api.example.com/data&#x27;).subscribe(data =&gt; con
 <ul>
 <li>To pass id from front to back end in angular?</li>
 <pre><code class="language-angular2svg">
-this.http.get(`https://api.example.com/data/${id}`)
+this.http.get(&#96;https://api.example.com/data/${id}&#96;)
 </code></pre>
 </ul>
 <p>Performing CRUD (Create, Read, Update, Delete) operations with the <code>HttpClient</code> module in Angular involves using the HTTP methods provided by the module. Below is an example demonstrating each CRUD operation using Angular&#x27;s <code>HttpClient</code> to interact with a hypothetical RESTful API.</p>
@@ -81,7 +81,7 @@ export class DataService {
     const headers = new HttpHeaders({ &#x27;Content-Type&#x27;: &#x27;application/json&#x27; });
 
     // Assuming updatedData contains the updated information
-    return this.http.put&lt;any&gt;(`${this.apiUrl}/${updatedData.id}`, updatedData, { headers });
+    return this.http.put&lt;any&gt;(&#96;${this.apiUrl}/${updatedData.id}&#96;, updatedData, { headers });
   }
 }
 </code></pre>
@@ -100,7 +100,7 @@ export class DataService {
   constructor(private http: HttpClient) {}
 
   deleteData(dataId: number): Observable&lt;any&gt; {
-    return this.http.delete&lt;any&gt;(`${this.apiUrl}/${dataId}`);
+    return this.http.delete&lt;any&gt;(&#96;${this.apiUrl}/${dataId}&#96;);
   }
 }
 </code></pre>
@@ -561,7 +561,7 @@ export class ExampleComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.inputMessage) {
-      this.message = `Message changed to: ${changes.inputMessage.currentValue}`;
+      this.message = &#96;Message changed to: ${changes.inputMessage.currentValue}&#96;;
     }
   }
 }
@@ -583,7 +583,7 @@ export class ExampleComponent implements AfterViewInit {
   ngAfterViewInit() {
     // Access the DOM element after the view is initialized
     const paragraphElement = this.elementRef.nativeElement.querySelector(&#x27;p&#x27;);
-    this.message = `Paragraph content: ${paragraphElement.textContent}`;
+    this.message = &#96;Paragraph content: ${paragraphElement.textContent}&#96;;
   }
 }
 </code></pre>
@@ -1059,765 +1059,778 @@ export class ChildComponent {
 </code></pre>
 <p>These are just a few examples of decorators in Angular. Decorators play a crucial role in configuring and extending the behavior of various Angular constructs.</p>
 <h2 id="14-list-of-integers-using-ngfor-in-angular">14. List of integers using ngfor in angular</h2>
-<p> ```html</p>
+<pre><code class="language-html">
+&lt;ul&gt;
+ &lt;li *ngFor=&quot;let number of numbers&quot;&gt;{{ number }}&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<h2 id="15">15.</h2>
+<h2 id="16-how-to-build-angular-application">16. how to build angular application</h2>
 <ul>
-  <li *ngFor="let number of numbers">{{ number }}</li>
+<li><code>ng build --prod</code></li>
 </ul>
-<pre><code class="language-">
-## 15. 
-
-## 16. how to build angular application
- - ```ng build --prod```
-
-## 17. What is component. How to generate a new component in angular. Write a syntax for a component.
- - Components are building blocks of Angular applications. 
- - Generate a new component using the Angular CLI:
- - `ng generate component componentName`
- - eg. by default below components gets created by angular.
- - `app.component.css`
- - `app.component.html`
- - `app.component.spec.ts` used to write unit test for component.
- - `app.component.ts` links all other component files.
-
-## 18. what is selector and template
-- A **_selector_** is used to identify each component uniquely into the component tree.
-- A **_template_** is a HTML view of an Angular component
-
-eg. given below.
-
+<h2 id="17-what-is-component-how-to-generate-a-new-component-in-angular-write-a-syntax-for-a-component">17. What is component. How to generate a new component in angular. Write a syntax for a component.</h2>
+<ul>
+<li>Components are building blocks of Angular applications. </li>
+<li>Generate a new component using the Angular CLI:</li>
+<li><code>ng generate component componentName</code></li>
+<li>eg. by default below components gets created by angular.</li>
+<li><code>app.component.css</code></li>
+<li><code>app.component.html</code></li>
+<li><code>app.component.spec.ts</code> used to write unit test for component.</li>
+<li><code>app.component.ts</code> links all other component files.</li>
+</ul>
+<h2 id="18-what-is-selector-and-template">18. what is selector and template</h2>
+<ul>
+<li>A <strong><em>selector</em></strong> is used to identify each component uniquely into the component tree.</li>
+<li>A <strong><em>template</em></strong> is a HTML view of an Angular component</li>
+</ul>
+<p>eg. given below.</p>
+<pre><code class="language-angular17html">
+@Component({
+  selector: &#x27;app-your-form&#x27;,
+  templateUrl: &#x27;./your-form.component.html&#x27;,
+  styleUrls: [&#x27;./your-form.component.css&#x27;]
+})
 </code></pre>
-<p>@Component({</p>
-<p>  selector: &#x27;app-your-form&#x27;,</p>
-<p>  templateUrl: &#x27;./your-form.component.html&#x27;,</p>
-<p>  styleUrls: [&#x27;./your-form.component.css&#x27;]</p>
-<p>})</p>
-<pre><code class="language-">
+<h2 id="19-features-of-angular">19. Features of Angular.</h2>
+<ul>
+<li>Features include two-way data binding, dependency injection, modular development with components and a powerful CLI</li>
+</ul>
+<h2 id="20-explain-services">20. Explain Services.</h2>
+<ul>
+<li>Services are singleton objects used to encapsulate and share functionality, such as data manipulation or API calls across components.</li>
+</ul>
+<h2 id="21-pipes">21. Pipes</h2>
+<ul>
+<li><strong>What is pipes and explain the types with example?</strong></li>
+<li>Pipes transforms data data in the template.</li>
+<li>Types inclued LowerCasePipe, UpperCasePipe, DataPipe and CustomPipe</li>
+</ul>
+<ul>
+<li><strong>Async pipes &amp; custom Pipes. How will you create a custom pipe?</strong></li>
+<li>Async pipe subscribes to an observable or promise and returns the latest value. </li>
+<li>To create a custom pipe, implement the pipe transform interface and use the @Pipe decorator </li>
+</ul>
+<h2 id="22-what-is-routing-and-explain-the-types-with-example">22. what is routing and explain the types with example?</h2>
+<ul>
+<li>Routing in angular manages navigation between views.</li>
+<li>Types include Basic routing and Lazy-routing</li>
+<li>Angular supports both basic routing and lazy loading to enhance the performance and scalability of applications. </li>
+<li>Let&#x27;s explore the basic differences between basic routing and lazy loading in Angular, along with examples:</li>
+</ul>
+<h3 id="basic-routing">Basic Routing:</h3>
+<ul>
+<li><strong>Configuration:</strong></li>
+<li>Basic routing involves configuring routes in the main <code>app.module.ts</code> file.</li>
+<li>Routes are defined using the <code>RouterModule.forRoot()</code> method.</li>
+</ul>
+<ul>
+<li><strong>Loading Components:</strong></li>
+<li>All components associated with routes are loaded at the initial app startup.</li>
+<li>This may lead to longer initial loading times, especially as the application grows.</li>
+</ul>
+<ul>
+<li><strong>Example:</strong></li>
+</ul>
+<pre><code class="language-typescript">
+// app.module.ts
 
-## 19. Features of Angular.
-- Features include two-way data binding, dependency injection, modular development with components and a powerful CLI
+import { RouterModule, Routes } from &#x27;@angular/router&#x27;;
+import { HomeComponent } from &#x27;./components/home/home.component&#x27;;
+import { AboutComponent } from &#x27;./components/about/about.component&#x27;;
 
-## 20. Explain Services.
-- Services are singleton objects used to encapsulate and share functionality, such as data manipulation or API calls across components.
+const routes: Routes = [
+  { path: &#x27;home&#x27;, component: HomeComponent },
+  { path: &#x27;about&#x27;, component: AboutComponent },
+];
 
-## 21. Pipes
- - **What is pipes and explain the types with example?**
-   - Pipes transforms data data in the template.
-   - Types inclued LowerCasePipe, UpperCasePipe, DataPipe and CustomPipe
- 
- - **Async pipes &amp; custom Pipes. How will you create a custom pipe?**
-   - Async pipe subscribes to an observable or promise and returns the latest value. 
-   - To create a custom pipe, implement the pipe transform interface and use the @Pipe decorator 
-
-## 22. what is routing and explain the types with example?
- - Routing in angular manages navigation between views.
- - Types include Basic routing and Lazy-routing
- - Angular supports both basic routing and lazy loading to enhance the performance and scalability of applications. 
- - Let&#x27;s explore the basic differences between basic routing and lazy loading in Angular, along with examples:
-
-### Basic Routing:
-
-1. **Configuration:**
-    - Basic routing involves configuring routes in the main `app.module.ts` file.
-    - Routes are defined using the `RouterModule.forRoot()` method.
-
-2. **Loading Components:**
-    - All components associated with routes are loaded at the initial app startup.
-    - This may lead to longer initial loading times, especially as the application grows.
-
-3. **Example:**
-
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}
 </code></pre>
-<p>// app.module.ts</p>
-<p>import { RouterModule, Routes } from &#x27;@angular/router&#x27;;</p>
-<p>import { HomeComponent } from &#x27;./components/home/home.component&#x27;;</p>
-<p>import { AboutComponent } from &#x27;./components/about/about.component&#x27;;</p>
-<p>const routes: Routes = [</p>
-<p>  { path: &#x27;home&#x27;, component: HomeComponent },</p>
-<p>  { path: &#x27;about&#x27;, component: AboutComponent },</p>
-<p>];</p>
-<p>@NgModule({</p>
-<p>  imports: [RouterModule.forRoot(routes)],</p>
-<p>  exports: [RouterModule],</p>
-<p>})</p>
-<p>export class AppRoutingModule {}</p>
-<pre><code class="language-">
+<pre><code class="language-html">
 
+&lt;router-outlet&gt;&lt;/router-outlet&gt;
 </code></pre>
-<router-outlet></router-outlet>
-<pre><code class="language-">
+<h3 id="lazy-loading">Lazy Loading:</h3>
+<ul>
+<li><strong>Configuration:</strong></li>
+<li>Lazy loading involves creating feature modules that are loaded only when a user navigates to a specific route.</li>
+<li>Each feature module has its own routing configuration.</li>
+</ul>
+<ul>
+<li><strong>Loading Components:</strong></li>
+<li>Components associated with a lazy-loaded module are loaded on-demand, improving the initial loading time.</li>
+</ul>
+<ul>
+<li><strong>Example:</strong></li>
+</ul>
+<pre><code class="language-typescript">
+// app.module.ts
 
-### Lazy Loading:
+import { NgModule } from &#x27;@angular/core&#x27;;
+import { RouterModule, Routes } from &#x27;@angular/router&#x27;;
 
-1. **Configuration:**
-    - Lazy loading involves creating feature modules that are loaded only when a user navigates to a specific route.
-    - Each feature module has its own routing configuration.
+const routes: Routes = [
+  { path: &#x27;home&#x27;, loadChildren: () =&gt; import(&#x27;./modules/home/home.module&#x27;).then(m =&gt; m.HomeModule) },
+  { path: &#x27;about&#x27;, loadChildren: () =&gt; import(&#x27;./modules/about/about.module&#x27;).then(m =&gt; m.AboutModule) },
+];
 
-2. **Loading Components:**
-    - Components associated with a lazy-loaded module are loaded on-demand, improving the initial loading time.
-
-3. **Example:**
-
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}
 </code></pre>
-<p>// app.module.ts</p>
-<p>import { NgModule } from &#x27;@angular/core&#x27;;</p>
-<p>import { RouterModule, Routes } from &#x27;@angular/router&#x27;;</p>
-<p>const routes: Routes = [</p>
-<p>  { path: &#x27;home&#x27;, loadChildren: () =&gt; import(&#x27;./modules/home/home.module&#x27;).then(m =&gt; m.HomeModule) },</p>
-<p>  { path: &#x27;about&#x27;, loadChildren: () =&gt; import(&#x27;./modules/about/about.module&#x27;).then(m =&gt; m.AboutModule) },</p>
-<p>];</p>
-<p>@NgModule({</p>
-<p>  imports: [RouterModule.forRoot(routes)],</p>
-<p>  exports: [RouterModule],</p>
-<p>})</p>
-<p>export class AppRoutingModule {}</p>
-<pre><code class="language-">
+<pre><code class="language-typescript">
+// home.module.ts
 
+import { NgModule } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { RouterModule, Routes } from &#x27;@angular/router&#x27;;
+import { HomeComponent } from &#x27;./home.component&#x27;;
+
+const routes: Routes = [
+  { path: &#x27;&#x27;, component: HomeComponent },
+];
+
+@NgModule({
+  declarations: [HomeComponent],
+  imports: [CommonModule, RouterModule.forChild(routes)],
+})
+export class HomeModule {}
 </code></pre>
-<p>// home.module.ts</p>
-<p>import { NgModule } from &#x27;@angular/core&#x27;;</p>
-<p>import { CommonModule } from &#x27;@angular/common&#x27;;</p>
-<p>import { RouterModule, Routes } from &#x27;@angular/router&#x27;;</p>
-<p>import { HomeComponent } from &#x27;./home.component&#x27;;</p>
-<p>const routes: Routes = [</p>
-<p>  { path: &#x27;&#x27;, component: HomeComponent },</p>
-<p>];</p>
-<p>@NgModule({</p>
-<p>  declarations: [HomeComponent],</p>
-<p>  imports: [CommonModule, RouterModule.forChild(routes)],</p>
-<p>})</p>
-<p>export class HomeModule {}</p>
-<pre><code class="language-">
+<pre><code class="language-html">
 
+&lt;router-outlet&gt;&lt;/router-outlet&gt;
 </code></pre>
-<router-outlet></router-outlet>
-<pre><code class="language-">
-
-In the lazy loading example, the `loadChildren` property in the route configuration specifies a function that returns a dynamic import of the feature module. This allows Angular to load the module and associated components only when the user navigates to the corresponding route, leading to better performance in large applications.
-
-Lazy loading is particularly beneficial in scenarios where there are many feature modules, and loading all modules upfront would significantly impact the initial page load time.
-
-## 23. Can we use external CSS file in angular?
-- Yes, we can use external CSS files in Angular by including them in the &quot;styles&quot; array of the angular.json file.
-
-## 24. Explain the types of forms and explain the usage with example
- 1. Template-driven forms 
- 2. Reactive-forms 
-
-### Exmaple for template-driven form
-
+<p>In the lazy loading example, the <code>loadChildren</code> property in the route configuration specifies a function that returns a dynamic import of the feature module. This allows Angular to load the module and associated components only when the user navigates to the corresponding route, leading to better performance in large applications.</p>
+<p>Lazy loading is particularly beneficial in scenarios where there are many feature modules, and loading all modules upfront would significantly impact the initial page load time.</p>
+<h2 id="23-can-we-use-external-css-file-in-angular">23. Can we use external CSS file in angular?</h2>
+<ul>
+<li>Yes, we can use external CSS files in Angular by including them in the &quot;styles&quot; array of the angular.json file.</li>
+</ul>
+<h2 id="24-explain-the-types-of-forms-and-explain-the-usage-with-example">24. Explain the types of forms and explain the usage with example</h2>
+<ul>
+<li>Template-driven forms </li>
+<li>Reactive-forms </li>
+</ul>
+<h3 id="exmaple-for-template-driven-form">Exmaple for template-driven form</h3>
+<pre><code class="language-html">
+&lt;form #myForm=&quot;ngForm&quot;&gt;
+  &lt;input name=&quot;name&quot; ngModel required&gt;
+  &lt;button [disabled]=&quot;!myForm.form.valid&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
 </code></pre>
-<form #myForm="ngForm">
-  <input name="name" ngModel required>
-  <button [disabled]="!myForm.form.valid">Submit</button>
-</form>
-<pre><code class="language-">
+<p>In Angular, you typically need to create a corresponding component to handle the form logic. Here&#x27;s a basic example of how your component might look:</p>
+<pre><code class="language-typescript">
+// Import necessary modules from Angular
+import { Component } from &#x27;@angular/core&#x27;;
+import { NgForm } from &#x27;@angular/forms&#x27;;
 
-In Angular, you typically need to create a corresponding component to handle the form logic. Here&#x27;s a basic example of how your component might look:
+// Component decorator
+@Component({
+  selector: &#x27;app-your-form&#x27;,
+  templateUrl: &#x27;./your-form.component.html&#x27;,
+  styleUrls: [&#x27;./your-form.component.css&#x27;]
+})
 
+// Component class
+export class YourFormComponent {
+
+  // Define a model object to store form data
+  model: any = {};
+
+  // Function to handle form submission
+  onSubmit(myForm: NgForm) {
+    // Check if the form is valid before submitting
+    if (myForm.valid) {
+      // Perform actions with the form data, e.g., send it to a server
+      console.log(&#x27;Form submitted:&#x27;, this.model);
+    } else {
+      // Handle the case when the form is not valid
+      console.log(&#x27;Form is not valid. Please fill in all required fields.&#x27;);
+    }
+  }
+}
 </code></pre>
-<p>// Import necessary modules from Angular</p>
-<p>import { Component } from &#x27;@angular/core&#x27;;</p>
-<p>import { NgForm } from &#x27;@angular/forms&#x27;;</p>
-<p>// Component decorator</p>
-<p>@Component({</p>
-<p>  selector: &#x27;app-your-form&#x27;,</p>
-<p>  templateUrl: &#x27;./your-form.component.html&#x27;,</p>
-<p>  styleUrls: [&#x27;./your-form.component.css&#x27;]</p>
-<p>})</p>
-<p>// Component class</p>
-<p>export class YourFormComponent {</p>
-<p>  // Define a model object to store form data</p>
-<p>  model: any = {};</p>
-<p>  // Function to handle form submission</p>
-<p>  onSubmit(myForm: NgForm) {</p>
-<p>    // Check if the form is valid before submitting</p>
-<p>    if (myForm.valid) {</p>
-<p>      // Perform actions with the form data, e.g., send it to a server</p>
-<p>      console.log(&#x27;Form submitted:&#x27;, this.model);</p>
-<p>    } else {</p>
-<p>      // Handle the case when the form is not valid</p>
-<p>      console.log(&#x27;Form is not valid. Please fill in all required fields.&#x27;);</p>
-<p>    }</p>
-<p>  }</p>
-<p>}</p>
-<pre><code class="language-">
-
-In this example, the `YourFormComponent` class defines a `model` object to store the form data. The `onSubmit` method is called when the form is submitted. It checks if the form is valid using `myForm.valid` and performs actions accordingly.
-
-Here&#x27;s how your HTML template (`your-form.component.html`) might look like:
-
+<p>In this example, the <code>YourFormComponent</code> class defines a <code>model</code> object to store the form data. The <code>onSubmit</code> method is called when the form is submitted. It checks if the form is valid using <code>myForm.valid</code> and performs actions accordingly.</p>
+<p>Here&#x27;s how your HTML template (<code>your-form.component.html</code>) might look like:</p>
+<pre><code class="language-html">
+&lt;form #myForm=&quot;ngForm&quot; (ngSubmit)=&quot;onSubmit(myForm)&quot;&gt;
+  &lt;label for=&quot;name&quot;&gt;Name:&lt;/label&gt;
+  &lt;input name=&quot;name&quot; [(ngModel)]=&quot;model.name&quot; required&gt;
+  
+  &lt;button type=&quot;submit&quot; [disabled]=&quot;!myForm.form.valid&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
 </code></pre>
-<form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
-  <label for="name">Name:</label>
-  <input name="name" [(ngModel)]="model.name" required>
-  <button type="submit" [disabled]="!myForm.form.valid">Submit</button>
-</form>
-<pre><code class="language-">
+<p>In this template, the <code>ngForm</code> directive is used to create a form instance, and <code>ngSubmit</code> is used to bind the form submission to the <code>onSubmit</code> method in the component. The <code>ngModel</code> directive is used for two-way data binding to the <code>model.name</code> property.</p>
+<p>Make sure to import and include the necessary Angular forms module in your application module:</p>
+<pre><code class="language-typescript">
+import { FormsModule } from &#x27;@angular/forms&#x27;;
 
-In this template, the `ngForm` directive is used to create a form instance, and `ngSubmit` is used to bind the form submission to the `onSubmit` method in the component. The `ngModel` directive is used for two-way data binding to the `model.name` property.
-
-Make sure to import and include the necessary Angular forms module in your application module:
-
-</code></pre>
-<p>import { FormsModule } from &#x27;@angular/forms&#x27;;</p>
-<p>@NgModule({</p>
-<p>  imports: [</p>
-<p>    // other modules...</p>
-<p>    FormsModule</p>
-<p>  ],</p>
-<p>  declarations: [</p>
-<p>    // your components...</p>
-<p>  ],</p>
-<p>  bootstrap: [AppComponent]</p>
-<p>})</p>
-<p>export class AppModule { }</p>
-<pre><code class="language-">
-
- - This is a basic example, and you may need to adjust it based on your specific requirements and the structure of your application.
- - The example provided is using Template-Driven Forms in Angular. Template-Driven Forms are a way of handling forms in Angular using directives in the template. In your example, you&#x27;re using directives like `ngForm`, `ngSubmit`, and `ngModel` to build the form logic directly in the template.
- - In contrast, Reactive Forms involve creating form controls and groups programmatically in the component class. Reactive Forms provide more flexibility and control, especially for complex forms and dynamic form scenarios. Reactive Forms are typically preferred when you need to perform dynamic form validation, create form controls dynamically, or implement more complex form interactions.
- - Your example is simpler and uses Template-Driven Forms, which might be sufficient for less complex forms. However, depending on your application&#x27;s requirements, you might choose Template-Driven Forms or Reactive Forms accordingly.
-
-### Example for Reactive-driven forms
-- If you were using Reactive Forms, you would import classes like `FormControl`, `FormGroup`, and `FormBuilder` in your component and create form controls and groups in the component class rather than the template. The template would then bind to these controls using the `formControlName` directive.
-- Implement the same form using Reactive Forms in Angular:
-
-</code></pre>
-<p>// Import necessary modules from Angular</p>
-<p>import { Component, OnInit } from &#x27;@angular/core&#x27;;</p>
-<p>import { FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;</p>
-<p>// Component decorator</p>
-<p>@Component({</p>
-<p>  selector: &#x27;app-your-form&#x27;,</p>
-<p>  templateUrl: &#x27;./your-form.component.html&#x27;,</p>
-<p>  styleUrls: [&#x27;./your-form.component.css&#x27;]</p>
-<p>})</p>
-<p>// Component class</p>
-<p>export class YourFormComponent implements OnInit {</p>
-<p>  // Define a FormGroup to represent the form</p>
-<p>  myForm: FormGroup;</p>
-<p>  // Inject FormBuilder in the constructor</p>
-<p>  constructor(private fb: FormBuilder) { }</p>
-<p>  // Initialize the form in the ngOnInit lifecycle hook</p>
-<p>  ngOnInit() {</p>
-<p>    this.createForm();</p>
-<p>  }</p>
-<p>  // Function to create the form with controls and validation</p>
-<p>  createForm() {</p>
-<p>    this.myForm = this.fb.group({</p>
-<p>      name: [&#x27;&#x27;, Validators.required]</p>
-<p>    });</p>
-<p>  }</p>
-<p>  // Function to handle form submission</p>
-<p>  onSubmit() {</p>
-<p>    // Check if the form is valid before submitting</p>
-<p>    if (this.myForm.valid) {</p>
-<p>      // Perform actions with the form data, e.g., send it to a server</p>
-<p>      console.log(&#x27;Form submitted:&#x27;, this.myForm.value);</p>
-<p>    } else {</p>
-<p>      // Handle the case when the form is not valid</p>
-<p>      console.log(&#x27;Form is not valid. Please fill in all required fields.&#x27;);</p>
-<p>    }</p>
-<p>  }</p>
-<p>}</p>
-<pre><code class="language-">
-
-And your HTML template (`your-form.component.html`) would now look like this:
-
-</code></pre>
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-  <label for="name">Name:</label>
-  <input formControlName="name">
-  <button type="submit" [disabled]="!myForm.valid">Submit</button>
-</form>
-<pre><code class="language-">
-
-- In this example, we use the `FormBuilder` service to create a `FormGroup` in the component class. The form controls are defined within this group. The `[formGroup]` directive is used in the form element to bind the form group to the template. The `formControlName` directive is used to bind the input field to the corresponding control in the form group.
-- Reactive Forms provide more control and flexibility, especially when dealing with dynamic forms or complex validation scenarios.
-
-## 25. What is Form Builder, form Group and form control and expalain with example
- - Certainly! Let me explain the concepts of `FormBuilder`, `FormGroup`, and `FormControl` in Angular Forms and provide an example of how you can use them together.
-
-### 1. **`FormControl`**:
-   - A `FormControl` represents a single input field in a form. It can track the value and validation status of an individual form control.
-
-Example:
-
-</code></pre>
-<p>import { FormControl, Validators } from &#x27;@angular/forms&#x27;;</p>
-<p>const nameControl = new FormControl(&#x27;&#x27;, Validators.required);</p>
-<pre><code class="language-">
-
-### 2. **`FormGroup`**:
-   - A `FormGroup` is a collection of `FormControl` instances. It represents a group of form controls and is used to organize and manage the values and validation status of a set of controls.
-
-Example:
-  ```typescript
-  import { FormGroup, FormBuilder, Validators } from &#x27;@angular/forms&#x27;;
-
-  const myForm = new FormGroup({
-    name: new FormControl(&#x27;&#x27;, Validators.required),
-    email: new FormControl(&#x27;&#x27;, [Validators.required, Validators.email]),
-  });
-  ```
-
-### 3. **`FormBuilder`**:
-   - `FormBuilder` is a service provided by Angular that simplifies the creation of `FormGroup` and `FormControl` instances. It provides convenient methods for building complex forms.
-
-Example:
-</code></pre>
-<p>import { FormBuilder, Validators } from &#x27;@angular/forms&#x27;;</p>
-<p>const fb = new FormBuilder();</p>
-<p>const myForm = fb.group({</p>
-<p>   name: [&#x27;&#x27;, Validators.required],</p>
-<p>   email: [&#x27;&#x27;, [Validators.required, Validators.email]],</p>
-<p>});</p>
-<pre><code class="language-">
-
-Now, let&#x27;s put it all together in an Angular component:
-
-</code></pre>
-<p>import { Component, OnInit } from &#x27;@angular/core&#x27;;</p>
-<p>import { FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;</p>
-<p>@Component({</p>
-<p>  selector: &#x27;app-your-form&#x27;,</p>
-<p>  templateUrl: &#x27;./your-form.component.html&#x27;,</p>
-<p>  styleUrls: [&#x27;./your-form.component.css&#x27;]</p>
-<p>})</p>
-<p>export class YourFormComponent implements OnInit {</p>
-<p>  // Define a FormGroup to represent the form</p>
-<p>  myForm: FormGroup;</p>
-<p>  // Inject FormBuilder in the constructor</p>
-<p>  constructor(private fb: FormBuilder) { }</p>
-<p>  // Initialize the form in the ngOnInit lifecycle hook</p>
-<p>  ngOnInit() {</p>
-<p>    this.createForm();</p>
-<p>  }</p>
-<p>  // Function to create the form with controls and validation</p>
-<p>  createForm() {</p>
-<p>    // Using FormBuilder to create a FormGroup with form controls and validation</p>
-<p>    this.myForm = this.fb.group({</p>
-<p>      name: [&#x27;&#x27;, Validators.required],</p>
-<p>      email: [&#x27;&#x27;, [Validators.required, Validators.email]],</p>
-<p>    });</p>
-<p>  }</p>
-<p>  // Function to handle form submission</p>
-<p>  onSubmit() {</p>
-<p>    // Check if the form is valid before submitting</p>
-<p>    if (this.myForm.valid) {</p>
-<p>      // Perform actions with the form data, e.g., send it to a server</p>
-<p>      console.log(&#x27;Form submitted:&#x27;, this.myForm.value);</p>
-<p>    } else {</p>
-<p>      // Handle the case when the form is not valid</p>
-<p>      console.log(&#x27;Form is not valid. Please fill in all required fields.&#x27;);</p>
-<p>    }</p>
-<p>  }</p>
-<p>}</p>
-<pre><code class="language-">
-
-In this example, the `FormBuilder` service is used to create a `FormGroup` with two `FormControl` instances for &#x27;name&#x27; and &#x27;email&#x27;. The form controls include validation rules, such as `Validators.required` and `Validators.email`. This approach makes it concise and readable, especially when dealing with more complex forms.
-
-Here&#x27;s how the corresponding HTML file (`your-form.component.html`) would look like for the given Angular component using Reactive Forms:
-
-</code></pre>
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-  <label for="name">Name:</label>
-  <input type="text" id="name" formControlName="name">
-<p>  &lt;!-- Display validation error message for the &#x27;name&#x27; field if it&#x27;s invalid --&gt;</p>
-  <div *ngIf="myForm.get('name').hasError('required') && myForm.get('name').touched">
-<p>    Name is required.</p>
-  </div>
-  <label for="email">Email:</label>
-  <input type="email" id="email" formControlName="email">
-<p>  &lt;!-- Display validation error message for the &#x27;email&#x27; field if it&#x27;s invalid --&gt;</p>
-  <div *ngIf="myForm.get('email').hasError('required') && myForm.get('email').touched">
-<p>    Email is required.</p>
-  </div>
-  <div *ngIf="myForm.get('email').hasError('email') && myForm.get('email').touched">
-<p>    Please enter a valid email address.</p>
-  </div>
-  <button type="submit" [disabled]="!myForm.valid">Submit</button>
-</form>
-<pre><code class="language-">
-
-In this HTML template:
-
-- The form is bound to the `myForm` FormGroup using `[formGroup]=&quot;myForm&quot;`.
-- Each input field is associated with a specific FormControl using `formControlName`.
-- Validation error messages are displayed conditionally based on the state of the form controls. The `*ngIf` directive is used to show error messages only when the corresponding control is touched and in an invalid state.
-
-- This template includes basic validation error messages for the &#x27;name&#x27; and &#x27;email&#x27; fields. You can customize the error messages and styling based on your application&#x27;s requirements.
-- In Reactive Forms, you create form controls and groups programmatically in the component class and then bind them to the template. The `formGroup` directive is used to bind the FormGroup, and the `formControlName` directive is used to bind individual form controls.
-
-**In the provided HTML file:**
-
-- The `formGroup` directive is used to bind the form group (`myForm`) to the `&lt;form&gt;` element.
-- The `formControlName` directive is used to bind each input field to its corresponding FormControl within the FormGroup.
-
-These are key indicators that the form is using Reactive Forms in Angular. Additionally, the TypeScript code in the corresponding component class is creating the FormGroup and FormControls using the `FormBuilder` service, which is another characteristic of Reactive Forms.
-
- 
-## 26. Explain ngIf, ngFor and ngSwitch.
- - Certainly! `ngIf`, `ngFor`, and `ngSwitch` are structural directives in Angular, and they are used to conditionally manipulate the structure of the DOM.
-
-### 1. **ngIf**:
-- The `ngIf` directive is used to conditionally render or remove an element from the DOM based on the truthiness or falsiness of an expression.
-
-Example:
-
-</code></pre>
-<div *ngIf="showElement">This element is shown conditionally.</div>
-<pre><code class="language-">
-
-### 2. **ngFor**:
-
-   - The `ngFor` directive is used for iterating over a collection (such as an array or an object) and creating a template for each item in the collection. 
-
-Example with an array:
-
+@NgModule({
+  imports: [
+    // other modules...
+    FormsModule
+  ],
+  declarations: [
+    // your components...
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
 </code></pre>
 <ul>
-  <li *ngFor="let item of items">{{ item }}</li>
+<li>This is a basic example, and you may need to adjust it based on your specific requirements and the structure of your application.</li>
+<li>The example provided is using Template-Driven Forms in Angular. Template-Driven Forms are a way of handling forms in Angular using directives in the template. In your example, you&#x27;re using directives like <code>ngForm</code>, <code>ngSubmit</code>, and <code>ngModel</code> to build the form logic directly in the template.</li>
+<li>In contrast, Reactive Forms involve creating form controls and groups programmatically in the component class. Reactive Forms provide more flexibility and control, especially for complex forms and dynamic form scenarios. Reactive Forms are typically preferred when you need to perform dynamic form validation, create form controls dynamically, or implement more complex form interactions.</li>
+<li>Your example is simpler and uses Template-Driven Forms, which might be sufficient for less complex forms. However, depending on your application&#x27;s requirements, you might choose Template-Driven Forms or Reactive Forms accordingly.</li>
 </ul>
-<pre><code class="language-">
-Example with an object:
+<h3 id="example-for-reactive-driven-forms">Example for Reactive-driven forms</h3>
+<ul>
+<li>If you were using Reactive Forms, you would import classes like <code>FormControl</code>, <code>FormGroup</code>, and <code>FormBuilder</code> in your component and create form controls and groups in the component class rather than the template. The template would then bind to these controls using the <code>formControlName</code> directive.</li>
+<li>Implement the same form using Reactive Forms in Angular:</li>
+</ul>
+<pre><code class="language-typescript">
+// Import necessary modules from Angular
+import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
 
+// Component decorator
+@Component({
+  selector: &#x27;app-your-form&#x27;,
+  templateUrl: &#x27;./your-form.component.html&#x27;,
+  styleUrls: [&#x27;./your-form.component.css&#x27;]
+})
+
+// Component class
+export class YourFormComponent implements OnInit {
+
+  // Define a FormGroup to represent the form
+  myForm: FormGroup;
+
+  // Inject FormBuilder in the constructor
+  constructor(private fb: FormBuilder) { }
+
+  // Initialize the form in the ngOnInit lifecycle hook
+  ngOnInit() {
+    this.createForm();
+  }
+
+  // Function to create the form with controls and validation
+  createForm() {
+    this.myForm = this.fb.group({
+      name: [&#x27;&#x27;, Validators.required]
+    });
+  }
+
+  // Function to handle form submission
+  onSubmit() {
+    // Check if the form is valid before submitting
+    if (this.myForm.valid) {
+      // Perform actions with the form data, e.g., send it to a server
+      console.log(&#x27;Form submitted:&#x27;, this.myForm.value);
+    } else {
+      // Handle the case when the form is not valid
+      console.log(&#x27;Form is not valid. Please fill in all required fields.&#x27;);
+    }
+  }
+}
 </code></pre>
-<div *ngFor="let keyValuePair of object | keyvalue">
-<p> Key: {{ keyValuePair.key }}, Value: {{ keyValuePair.value }}</p>
-</div>
-<pre><code class="language-">
-
-### 3. **ngSwitch**:
-   - The `ngSwitch` directive is used for conditionally rendering content based on the value of an expression. It&#x27;s similar to a switch statement in programming.
-
-Example:
-
+<p>And your HTML template (<code>your-form.component.html</code>) would now look like this:</p>
+<pre><code class="language-html">
+&lt;form [formGroup]=&quot;myForm&quot; (ngSubmit)=&quot;onSubmit()&quot;&gt;
+  &lt;label for=&quot;name&quot;&gt;Name:&lt;/label&gt;
+  &lt;input formControlName=&quot;name&quot;&gt;
+  
+  &lt;button type=&quot;submit&quot; [disabled]=&quot;!myForm.valid&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
 </code></pre>
-<div [ngSwitch]="condition">
-   <div *ngSwitchCase="'case1'">Content for case 1</div>
-   <div *ngSwitchCase="'case2'">Content for case 2</div>
-   <div *ngSwitchDefault>Default content</div>
-</div>
-<pre><code class="language-">
+<ul>
+<li>In this example, we use the <code>FormBuilder</code> service to create a <code>FormGroup</code> in the component class. The form controls are defined within this group. The <code>[formGroup]</code> directive is used in the form element to bind the form group to the template. The <code>formControlName</code> directive is used to bind the input field to the corresponding control in the form group.</li>
+<li>Reactive Forms provide more control and flexibility, especially when dealing with dynamic forms or complex validation scenarios.</li>
+</ul>
+<h2 id="25-what-is-form-builder-form-group-and-form-control-and-expalain-with-example">25. What is Form Builder, form Group and form control and expalain with example</h2>
+<ul>
+<li>Certainly! Let me explain the concepts of <code>FormBuilder</code>, <code>FormGroup</code>, and <code>FormControl</code> in Angular Forms and provide an example of how you can use them together.</li>
+</ul>
+<h3 id="1-formcontrol">1. <strong><code>FormControl</code></strong>:</h3>
+<ul>
+<li>A <code>FormControl</code> represents a single input field in a form. It can track the value and validation status of an individual form control.</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-typescript">
+import { FormControl, Validators } from &#x27;@angular/forms&#x27;;
 
-In these examples:
-
-- The `*` in front of the directives indicates that they are structural directives, meaning they can change the structure of the DOM.
-- `ngIf` is used to conditionally include or exclude an element.
-- `ngFor` is used to iterate over a collection and repeat a portion of the DOM for each item.
-- `ngSwitch` is used to conditionally render content based on the value of an expression.
-
-These directives are powerful tools for creating dynamic and interactive templates in Angular applications.
-
-## 27. CrossOrigin and is it another way to connect the backend without using crossorigin.
-
-`CrossOrigin` is an HTTP header that is used in web development to control how web pages in one domain can request and interact with resources on another domain. In the context of web development, the &quot;Same-Origin Policy&quot; is a security measure implemented by web browsers that restricts web pages from making requests to a different domain than the one that served the web page. The `CrossOrigin` header allows servers to specify which origins are permitted to access their resources.
-
-If you&#x27;re encountering the need to use `@CrossOrigin` in a Java-based backend, it&#x27;s likely because you&#x27;re dealing with Cross-Origin Resource Sharing (CORS) issues. CORS is a security feature implemented by web browsers to prevent unauthorized cross-origin requests.
-
-If you want to connect to the backend without using `@CrossOrigin`, there are a few alternatives:
-
-1. **Proxy Server:** You can set up a proxy server to forward requests from your frontend to your backend. This way, the requests appear to be coming from the same origin, and you won&#x27;t run into CORS issues. Tools like Apache HTTP Server or Nginx can be used for this purpose.
-
-2. **CORS Configuration:** Instead of using `@CrossOrigin` in your Java code, you can configure CORS on your server. This involves setting up the appropriate headers in your server&#x27;s configuration. This is often done in a filter or interceptor.
-
-3. **Backend Routing:** If your frontend and backend are served from the same domain but different paths (e.g., frontend at `/` and backend at `/api`), you might not run into CORS issues. Ensure that your frontend code is configured to make requests to the correct paths on the same domain.
-
-Remember that CORS is a security feature, and bypassing it without understanding the implications could expose your application to potential security risks. If you&#x27;re having CORS issues, it&#x27;s often a good idea to understand why the browser is blocking the request and address the root cause rather than circumventing it.
-
-## 28. Explain static typing in angular
- - Angular is built with  TypeScript, which provides static typing. 
- - It helps catch errors during development by checking types at compile-time.
- - Store static files inside the `assets` folder.
-
-## 29. Explain subject in angular
-    - Subject is a type of observable that allows values to be multicasted to many observers. It is both an observable and an observer.
-    
-## 30. Javascript vs Typescript
- - JavaScript is a scripting language and typescript is a superset of javaScript that adds static typing, detect error at compile time and other features.
-
-## 31. what is node_module
- - `node_module` is a directory where npm installs packages (dependencies) for a project.
- - `NPM` keeps library for both `node js` and `angular`
-
-32. How to add dependencies in angular
- - To add dependency, use npm or yarn to install.
+const nameControl = new FormControl(&#x27;&#x27;, Validators.required);
 </code></pre>
-<p>npm install package-name</p>
-<pre><code class="language-">
-33. How will you iterate the array in TypeScript?
+<h3 id="2-formgroup">2. <strong><code>FormGroup</code></strong>:</h3>
+<ul>
+<li>A <code>FormGroup</code> is a collection of <code>FormControl</code> instances. It represents a group of form controls and is used to organize and manage the values and validation status of a set of controls.</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-typescript">
+import { FormGroup, FormBuilder, Validators } from &#x27;@angular/forms&#x27;;
+
+const myForm = new FormGroup({
+  name: new FormControl(&#x27;&#x27;, Validators.required),
+  email: new FormControl(&#x27;&#x27;, [Validators.required, Validators.email]),
+});
 </code></pre>
-<p>let numbers = [1,2,3,4,5,6]</p>
-<p>for(let num of numbers)</p>
-<p>{</p>
-<p>    console.log(num);</p>
-<p>}</p>
-<pre><code class="language-">
-
-40. Explain @crossorigin &amp; proxy.server.config?
-41. 
-42. Different ways to inject a service in angular.
-43. Css vs Scss
-44. maximum size of constructor injection
-45. Lint in angular?
-46. Sonarqube
-47. Explain Angular Basics.
-48. How will display the value in html which is got as response from backend.
-49. How to communicate data between multiple components?
-
-
-
-
-
-
-
-## 1. **What is Angular? Why do we need Angular?**
-
-* Angular component based framework for building structured, scalable(upgradable and flexible for upgrade) and dynamic single-page applications(eg. utube. Page won&#x27;t reload) for client side. 
-* We need Angular because it offers a range of benefits, 
-such as  
-  - two-way data binding, 
-  - dependency injection, 
-  - a powerful template system, and 
-  - a component-based architecture, making it easier to build, test, and maintain web applications.
-
-* Advantages of angular.
-- Single page applications(Components)
-- Flexible and structured(OOPS Friendly)
-- Cross-platform(O.S, Browsers) and open source.
-- Reusable code(Services)
-- Testability(Specs.ts)
-
-- Angular supports both JS(java script) and TS(type script)
-- Framework has component based architecture, which is faster than MVC architecture.
-- Has CLI tool.
-- Dependency injection
-- Mobile browser support
-- Very fast because of data binding technique and component based.
-
-## 2. **What is a Component?**
-
-A component is a fundamental building block in Angular. It represents a part of the user interface (UI) and consists of a TypeScript class, an HTML template, and CSS styles. Components encapsulate specific functionality and data, and they are reusable and modular, allowing developers to break down the UI into smaller, manageable parts.
-
-## 3. **What is a Directive? How many types of Directives?**
-
-Directives are markers on HTML elements that instruct Angular to do something with the elements. There are three types of directives in Angular:
-
-1. **Component Directives:** These are custom components created by developers.
-2. **Structural Directives:** These alter the structure of the DOM by adding, removing, or replacing elements. Examples include **\*ngIf**, **\*ngFor**, and **\*ngSwitch**.
-3. **Attribute Directives:** These change the appearance or behavior of an element, often by adding or removing attributes. Examples include **ngClass** and **ngStyle**.
-
-## 4. **What is Data Binding? How many types?**
-
-Data binding is a fundamental concept in Angular that connects the UI with the application data. There are four types of data binding in Angular:
-
-1. **Interpolation (One-Way Binding):** It allows you to embed expressions within double curly braces `{{ }}` in the template, and the expressions are evaluated and displayed in the view.
-2. **Property Binding (One-Way Binding):** It allows you to set the value of an HTML element&#x27;s property or attribute using data from the component.
-3. **Event Binding (One-Way Binding):** It lets you respond to events (e.g., clicks) raised in the UI and trigger functions in the component.
-4. **Two-Way Binding:** It combines property binding and event binding, allowing changes in the UI to automatically update the component and vice versa using the **ngModel** directive or **[()]** syntax.
-
-## 5. **Decorators in Angular**
-
-Decorators(annotations) are used in Angular to mark a class as an Angular construct and provide configuration. Some commonly used decorators include:
-
-1. **@Component**: Defines a component.
-2. **@Directive**: Defines a custom directive.
-3. **@Pipe**: Defines a custom pipe for transforming data.
-4. **@NgModule**: Configures and organizes application modules.
-5. **@Injectable**: Marks a class as a service for dependency injection.
-6. **@Input**: Specifies that a property can receive input from a parent component.
-7. **@Output**: Emits events to a parent component.
-8. **@EventEmitter**: Creates custom events.
-9. **@HostListener**: Listens for events on the host element.
-10. **@ViewChild** and **@ContentChild**: Access child elements in templates.
-
-
-
-
-## 6. **What are Pipes? How to create a custom pipe?**
-
-Pipes are used to transform data for display in the view. Angular provides built-in pipes for common transformations like date formatting and capitalization. You can create a custom pipe by implementing the **PipeTransform** interface and using the **@Pipe** decorator to define the pipe&#x27;s name and its transformation function.
-
-## 7. **Angular Lifecycle Hooks**
-
-Angular components go through a series of lifecycle events. Some important hooks include:
-
-1. **ngOnInit**: Called after the component has been initialized.
-2. **ngOnChanges**: Called when the component&#x27;s input properties change.
-3. **ngOnDestroy**: Called just before the component is destroyed.
-4. **ngAfterViewInit**: Called after the component&#x27;s view has been initialized.
-
-## 8. **Compiler in Angular (JIT, AOT)**
-
-- Angular can be compiled either Just-In-Time (JIT) or Ahead-Of-Time (AOT). 
-- JIT compilation occurs in the browser at runtime, while AOT compilation happens during the build time. 
-- AOT offers better performance and smaller bundle sizes. AOT is default compilation.
-- We can change the compilation of build from AOT to JIT. 
-  - For that we need to set `&quot;aot&quot;: false` in `angular.json` file under `development`. 
-  - But JIT won&#x27;t detect errors at build time, where AOT does.
-
-## 9. **Observable**
-
-Observables are a core concept in Angular used for handling asynchronous operations, such as making HTTP requests or listening for events. They provide a way to work with asynchronous data streams and allow you to subscribe to these streams to react to changes.
-
-## 10. **Subject and BehaviorSubject**
-
-Subjects are a type of observable that can multicast data to multiple subscribers. BehaviorSubject is a variant of Subject that stores the latest emitted value and emits it to new subscribers immediately upon subscription.
-
-## 11. **Hot and Cold Observables**
-
-Hot observables produce data regardless of whether there are subscribers, and multiple subscribers share the same data stream. Cold observables only produce data when a subscriber actively listens, and each subscriber gets its own data stream.
-
-## 12. **Interceptor**
-
-Interceptors are used in Angular to intercept HTTP requests and responses. They are often used for tasks like adding authentication headers, logging, or error handling to HTTP requests.
-
-## 13. **Connecting Frontend to Backend**
-
-To connect the frontend to a backend server, Angular uses the **HttpClientModule** to make HTTP requests to APIs. Configuration for the backend connection can be specified in files like **proxy.config.json** or **environment.ts**.
-
-## 14. **Webpack**
-
-Webpack is a powerful module bundler used in Angular applications to bundle, optimize, and manage assets like JavaScript and CSS files. It&#x27;s commonly used for building and bundling Angular applications.
-
-## 15. **Communication Between Components**
-
-Components can communicate with each other using various techniques, including:
-
-1. Input and Output properties to pass data from parent to child and emit events.
-1. Services to share data and functionality between components.
-1. State management libraries like NgRx or BehaviorSubject to manage and share state across components.
-
-
-
-## 16. **What is Service and Dependency Injection?**
-- A service in Angular is a class that encapsulates a specific functionality or feature. It is designed to be reusable and provide a way to separate concerns in an application. Services are often used for tasks like data retrieval, authentication, and other business logic.
-- Dependency Injection (DI) is a core concept in Angular that allows you to provide instances of services to components when they are needed. This helps in achieving loose coupling and making components more testable. Angular&#x27;s DI system is used to manage the creation and sharing of service instances.
-
-## 17. **How Will You Build Your Application (ng build)?**
-
-- To build an Angular application, you can use the Angular CLI (**ng** command) as follows:
-    - Open a terminal or command prompt.
-    - Navigate to your project&#x27;s root directory.
-    - Use the **ng build** command to build the application.
-    - You can specify options like **--prod** for a production build.
-
-This command compiles the application and generates optimized bundles in the **dist** directory by default.
-
-## 18. **How Will You Deploy Your Application?**
-
-- Deploying an Angular application typically involves the following steps:
-
-- Build the application using **ng build**.
-- Copy the contents of the **dist** folder generated by the build process to a web server or a hosting platform.
-- Configure the server or hosting environment to serve the Angular application. This may involve setting up routes, security, and any server-specific configurations.
-- Ensure that the necessary back-end services, APIs, and databases are also set up and accessible.
-## 19. **What is Angular Testing?**
-- Angular testing refers to the process of verifying that Angular applications work as expected. It involves writing and running tests to check the functionality, reliability, and performance of an Angular application. Angular provides built-in testing utilities and integration with testing frameworks like Jasmine and Karma.
-
-## 20. **What is Jasmine and Karma?**
-- **Jasmine:** Jasmine is a popular and widely used testing framework for JavaScript applications, including Angular. It provides functions for defining test suites, expectations, and spies for mocking functions. Jasmine is known for its clean and readable syntax.
-- **Karma:** Karma is a test runner that allows you to run tests in various browsers simultaneously. It works well with Jasmine and other testing frameworks. Karma makes it easy to automate the testing process, run tests in real browsers, and collect test results.
-
-## 21. **What is AuthGuard, and How Will You Secure Your Application?**
-- An AuthGuard in Angular is a class that implements the **CanActivate** interface. It is used to control access to specific routes based on user authentication and authorization. AuthGuards are often used to protect routes that require authentication.
-- To secure an Angular application, you can use AuthGuards to restrict access to certain routes, implement proper authentication mechanisms like JWT (JSON Web Tokens), and apply authorization checks to control what users can and cannot do within the application. Additionally, you should follow best practices for securing the back-end services that the application relies on.
-
-## 22. **What is the Server Used in Angular? (Angular Doesn&#x27;t Have a Default Server)**
-
-- Angular itself does not include a default server. It is a client-side framework for building web applications. You can use various web servers (e.g., Apache, Nginx) or server-side technologies (e.g., Node.js, Java, .NET) to serve your Angular application&#x27;s static files and provide back-end services.
-
-## 23. **What is ngClass, ngStyle, ngIf, ngIf, ngSwitch, ngSwitchDefault?*
-- **ngClass:** **ngClass** is an Angular directive that allows you to dynamically set CSS classes on HTML elements based on certain conditions in your component. It takes an object or an array to define the classes to apply.
-- **ngStyle:** **ngStyle** is an Angular directive that lets you dynamically set inline styles for HTML elements based on component data. It takes an object to define the styles to apply.
-- **ngIf:** **ngIf** is a structural directive that conditionally includes or removes an element from the DOM based on a truthy or falsy condition.
-- **\*ngIf:** The asterisk (\*) is a syntactic sugar that simplifies the use of **ngIf** in templates, making it easier to read and understand.
-- **ngSwitch and ngSwitchDefault:** These are directives used for conditionally rendering content based on the value of a switch expression. **ngSwitch** defines the switch expression, and **ngSwitchCase** and **ngSwitchDefault** are used to define the different cases and the default case, respectively.
-
-## 24. **Workflow or Architecture of Angular Application**
-- Angular applications follow a component-based architecture. The typical workflow involves:
-    - Designing the application structure with components, services, and modules.
-    - Creating components with templates, styles, and logic.
-    - Defining routes and configuring navigation.
-    - Handling data and making HTTP requests.
-    - Managing application state (if needed) using libraries like NgRx.
-    - Writing tests for components and services.
-    - Building and deploying the application.
-## 25. **How Will You Do Inline Styling (styles.css)?**
-- To apply inline styling to Angular components, you can use the **styles** property within the component&#x27;s **@Component** decorator. For example:
-
-typescriptCopy code
-
-@Component({ selector: &#x27;app-example&#x27;, template: `&lt;div [ngStyle]=&quot;customStyles&quot;&gt;Inline Styling Example&lt;/div&gt;`, styles: [` div { color: blue; background-color: yellow; } `] }) export class ExampleComponent { customStyles = { &#x27;font-size.px&#x27;: 16, &#x27;text-align&#x27;: &#x27;center&#x27; }; }
-
-In this example, the **styles** property defines the component&#x27;s inline styles, and the **[ngStyle]** directive applies dynamic styles based on the **customStyles** object.
-
-## 26. **What Are the Commands Used in Angular CLI?**
-- Angular CLI provides a set of commands to facilitate the development of Angular applications. Some common commands include:
-
-- **ng new**: Used to create a new Angular project.
-- **ng generate** (or **ng g**): Generates components, modules, services, and more.
-- **ng serve**: Starts a development server for the project.
-- **ng build**: Compiles and builds the application for production.
-- **ng test**: Runs unit tests using Karma and Jasmine.
-- **ng e2e**: Runs end-to-end tests using Protractor.
-- **ng lint**: Checks code for linting errors.
-- **ng update**: Updates Angular and its dependencies to the latest versions.
-- **ng add**: Adds new features or libraries to the project.
-## 27. **Difference Between TypeScript and JavaScript:**
-- **TypeScript:** TypeScript is a superset of JavaScript that adds static typing to the language. It allows developers to specify variable types, interfaces, and provides features like classes and modules. TypeScript code must be transpiled to JavaScript before it can run in a browser.
-- **JavaScript:** JavaScript is a dynamically typed scripting language widely used for web development. It doesn&#x27;t require type annotations, and it can run directly in web browsers. JavaScript is versatile and can be used for both client and server-side development.
-## 28. **What Is a Promise, and What Is the Difference Between a Promise and an Observable?**
-- **Promise:** A promise is an object representing the eventual completion or failure of an asynchronous operation. It provides a clean way to handle asynchronous operations and allows you to attach callbacks for success and error.
-- **Difference:** Observables are more powerful than promises. While a promise represents a single value that will be available in the future, observables can represent multiple values over time. Observables also have operators for handling data streams and complex transformations. Observables offer better support for canceling requests and handling events.
-## 29. **How Can You Handle Errors in Angular?**
-- Errors in Angular can be handled in various ways:
-    - Using error handling operators like **catch** and **throw** in Observables.
-    - Implementing a global error handler service to catch unhandled errors.
-    - Using **try...catch** blocks to handle synchronous errors.
-    - Handling HTTP errors by intercepting HTTP requests and responses using **HttpClient** interceptors.
-## 30. **Difference Between Observable and Observer:**
-- **Observable:** An observable is a data source that emits data over time. It can be subscribed to by observers, and it is used for handling asynchronous data streams. Observables can represent streams of events or data.
-- **Observer:** An observer is an object or function that listens to an observable&#x27;s data emissions. It defines how to react when data is emitted, including what to do on success, error, or completion.
-## 31. **Which Will Be the First to Execute: Constructor or ngOnInit?**
-- The constructor of a component is executed before **ngOnInit**. The constructor is part of the class&#x27;s instantiation process and is called when an instance of the component is created. **ngOnInit** is a lifecycle hook that Angular calls after initializing the component and its data-bound properties.
-
-## 32. **What Is View Encapsulation?**
-
-- View encapsulation in Angular refers to the way Angular isolates a component&#x27;s styles from the rest of the application. Angular supports three encapsulation modes:
-    - **Emulated (default):** Styles are scoped to the component&#x27;s view using shadow DOM emulation. It&#x27;s the default behavior.
-    - **None:** Styles are global and affect the entire application.
-    - **Native:** Styles are applied using the browser&#x27;s native shadow DOM.
-
-## 33. **What Are Scopes in Angular?**
-
-- Angular does not use the concept of &quot;scopes&quot; in the same way as AngularJS (version 1.x). Instead, it uses a component-based structure, where each component has its own scope or context. Data binding in Angular is typically done within the component&#x27;s context, and each component defines its own data and behavior.
-
-## 34. **How Will You Handle HTTP Requests in Angular (Using HttpClientModule)?**
-- To handle HTTP requests in Angular, you can use the **HttpClientModule** to make GET, POST, PUT, and DELETE requests to a server. The typical steps include:
-    - Importing **HttpClientModule** in the app&#x27;s module.
-    - Injecting the **HttpClient** service into components or services.
-    - Using the **HttpClient** service to make requests to APIs or servers.
-    - Handling responses and errors using Observables and error handling techniques.
-
-You can also create services to encapsulate the HTTP request logic and reuse it across the application.
-
-## 35. what is single page application in angular ?
-
-A Single Page Application (SPA) in Angular is a web application that uses the Angular framework to create a single, dynamically updating web page. Angular is a popular JavaScript framework for building SPAs, and it provides a set of tools and features to simplify the development of such applications. In an Angular SPA:
-
-1. **Component-Based Structure:** Angular organizes an application into components. Each component represents a specific part of the user interface and can have its own logic, templates, and styles. These components can be loaded dynamically and updated as needed, which is a key feature of SPAs.
-2. **Routing:** Angular provides a powerful routing system that allows you to define routes and map them to specific components. This enables the application to respond to changes in the URL (e.g., different pages or views) without actually navigating to new web pages. The router loads the appropriate component for the requested route, making it a crucial part of creating SPAs.
-3. **Data Binding:** Angular supports two-way data binding, which means that changes in the application&#x27;s data are automatically reflected in the user interface, and vice versa. This real-time data synchronization enhances the interactivity of SPAs.
-4. **Dependency Injection:** Angular&#x27;s dependency injection system simplifies managing dependencies and services, making it easier to share data and functionality between different parts of your application.
-5. **Ajax Requests:** Angular facilitates making asynchronous requests to a server or an API, allowing the application to fetch and display data without requiring a full page reload.
-6. **Template System:** Angular uses templates to define the structure and layout of the application&#x27;s UI. Templates are written in a combination of HTML and Angular-specific syntax, which makes it easy to bind data and create dynamic views.
-7. **Directives:** Angular provides directives that extend HTML with additional functionality. For instance, you can use ngFor to iterate over a list and generate multiple elements dynamically, or use ngIf to conditionally show or hide elements.
-8. **Services:** Angular services are used to encapsulate and share business logic, data, and functionality across different parts of the application.
-
-   Angular&#x27;s design principles and features make it well-suited for creating complex SPAs, and it has a strong ecosystem of libraries and tools to enhance the development process. However, building SPAs with Angular can be more complex than simpler solutions due to the framework&#x27;s extensive capabilities.
-`;
+<h3 id="3-formbuilder">3. <strong><code>FormBuilder</code></strong>:</h3>
+<ul>
+<li><code>FormBuilder</code> is a service provided by Angular that simplifies the creation of <code>FormGroup</code> and <code>FormControl</code> instances. It provides convenient methods for building complex forms.</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-typescript">
+import { FormBuilder, Validators } from &#x27;@angular/forms&#x27;;
+
+const fb = new FormBuilder();
+
+const myForm = fb.group({
+   name: [&#x27;&#x27;, Validators.required],
+   email: [&#x27;&#x27;, [Validators.required, Validators.email]],
+});
+</code></pre>
+<p>Now, let&#x27;s put it all together in an Angular component:</p>
+<pre><code class="language-typescript">
+import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+
+@Component({
+  selector: &#x27;app-your-form&#x27;,
+  templateUrl: &#x27;./your-form.component.html&#x27;,
+  styleUrls: [&#x27;./your-form.component.css&#x27;]
+})
+export class YourFormComponent implements OnInit {
+
+  // Define a FormGroup to represent the form
+  myForm: FormGroup;
+
+  // Inject FormBuilder in the constructor
+  constructor(private fb: FormBuilder) { }
+
+  // Initialize the form in the ngOnInit lifecycle hook
+  ngOnInit() {
+    this.createForm();
+  }
+
+  // Function to create the form with controls and validation
+  createForm() {
+    // Using FormBuilder to create a FormGroup with form controls and validation
+    this.myForm = this.fb.group({
+      name: [&#x27;&#x27;, Validators.required],
+      email: [&#x27;&#x27;, [Validators.required, Validators.email]],
+    });
+  }
+
+  // Function to handle form submission
+  onSubmit() {
+    // Check if the form is valid before submitting
+    if (this.myForm.valid) {
+      // Perform actions with the form data, e.g., send it to a server
+      console.log(&#x27;Form submitted:&#x27;, this.myForm.value);
+    } else {
+      // Handle the case when the form is not valid
+      console.log(&#x27;Form is not valid. Please fill in all required fields.&#x27;);
+    }
+  }
+}
+</code></pre>
+<p>In this example, the <code>FormBuilder</code> service is used to create a <code>FormGroup</code> with two <code>FormControl</code> instances for &#x27;name&#x27; and &#x27;email&#x27;. The form controls include validation rules, such as <code>Validators.required</code> and <code>Validators.email</code>. This approach makes it concise and readable, especially when dealing with more complex forms.</p>
+<p>Here&#x27;s how the corresponding HTML file (<code>your-form.component.html</code>) would look like for the given Angular component using Reactive Forms:</p>
+<pre><code class="language-html">
+&lt;form [formGroup]=&quot;myForm&quot; (ngSubmit)=&quot;onSubmit()&quot;&gt;
+  &lt;label for=&quot;name&quot;&gt;Name:&lt;/label&gt;
+  &lt;input type=&quot;text&quot; id=&quot;name&quot; formControlName=&quot;name&quot;&gt;
+  &lt;!-- Display validation error message for the &#x27;name&#x27; field if it&#x27;s invalid --&gt;
+  &lt;div *ngIf=&quot;myForm.get(&#x27;name&#x27;).hasError(&#x27;required&#x27;) &amp;&amp; myForm.get(&#x27;name&#x27;).touched&quot;&gt;
+    Name is required.
+  &lt;/div&gt;
+
+  &lt;label for=&quot;email&quot;&gt;Email:&lt;/label&gt;
+  &lt;input type=&quot;email&quot; id=&quot;email&quot; formControlName=&quot;email&quot;&gt;
+  &lt;!-- Display validation error message for the &#x27;email&#x27; field if it&#x27;s invalid --&gt;
+  &lt;div *ngIf=&quot;myForm.get(&#x27;email&#x27;).hasError(&#x27;required&#x27;) &amp;&amp; myForm.get(&#x27;email&#x27;).touched&quot;&gt;
+    Email is required.
+  &lt;/div&gt;
+  &lt;div *ngIf=&quot;myForm.get(&#x27;email&#x27;).hasError(&#x27;email&#x27;) &amp;&amp; myForm.get(&#x27;email&#x27;).touched&quot;&gt;
+    Please enter a valid email address.
+  &lt;/div&gt;
+
+  &lt;button type=&quot;submit&quot; [disabled]=&quot;!myForm.valid&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<p>In this HTML template:</p>
+<ul>
+<li>The form is bound to the <code>myForm</code> FormGroup using <code>[formGroup]=&quot;myForm&quot;</code>.</li>
+<li>Each input field is associated with a specific FormControl using <code>formControlName</code>.</li>
+<li>Validation error messages are displayed conditionally based on the state of the form controls. The <code>*ngIf</code> directive is used to show error messages only when the corresponding control is touched and in an invalid state.</li>
+</ul>
+<ul>
+<li>This template includes basic validation error messages for the &#x27;name&#x27; and &#x27;email&#x27; fields. You can customize the error messages and styling based on your application&#x27;s requirements.</li>
+<li>In Reactive Forms, you create form controls and groups programmatically in the component class and then bind them to the template. The <code>formGroup</code> directive is used to bind the FormGroup, and the <code>formControlName</code> directive is used to bind individual form controls.</li>
+</ul>
+<p><strong>In the provided HTML file:</strong></p>
+<ul>
+<li>The <code>formGroup</code> directive is used to bind the form group (<code>myForm</code>) to the <code>&lt;form&gt;</code> element.</li>
+<li>The <code>formControlName</code> directive is used to bind each input field to its corresponding FormControl within the FormGroup.</li>
+</ul>
+<p>These are key indicators that the form is using Reactive Forms in Angular. Additionally, the TypeScript code in the corresponding component class is creating the FormGroup and FormControls using the <code>FormBuilder</code> service, which is another characteristic of Reactive Forms.</p>
+<h2 id="26-explain-ngif-ngfor-and-ngswitch">26. Explain ngIf, ngFor and ngSwitch.</h2>
+<ul>
+<li>Certainly! <code>ngIf</code>, <code>ngFor</code>, and <code>ngSwitch</code> are structural directives in Angular, and they are used to conditionally manipulate the structure of the DOM.</li>
+</ul>
+<h3 id="1-ngif">1. <strong>ngIf</strong>:</h3>
+<ul>
+<li>The <code>ngIf</code> directive is used to conditionally render or remove an element from the DOM based on the truthiness or falsiness of an expression.</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-html">
+&lt;div *ngIf=&quot;showElement&quot;&gt;This element is shown conditionally.&lt;/div&gt;
+</code></pre>
+<h3 id="2-ngfor">2. <strong>ngFor</strong>:</h3>
+<ul>
+<li>The <code>ngFor</code> directive is used for iterating over a collection (such as an array or an object) and creating a template for each item in the collection. </li>
+</ul>
+<p>Example with an array:</p>
+<pre><code class="language-html">
+&lt;ul&gt;
+  &lt;li *ngFor=&quot;let item of items&quot;&gt;{{ item }}&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<p>Example with an object:</p>
+<pre><code class="language-html">
+&lt;div *ngFor=&quot;let keyValuePair of object | keyvalue&quot;&gt;
+ Key: {{ keyValuePair.key }}, Value: {{ keyValuePair.value }}
+&lt;/div&gt;
+</code></pre>
+<h3 id="3-ngswitch">3. <strong>ngSwitch</strong>:</h3>
+<ul>
+<li>The <code>ngSwitch</code> directive is used for conditionally rendering content based on the value of an expression. It&#x27;s similar to a switch statement in programming.</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-html">
+&lt;div [ngSwitch]=&quot;condition&quot;&gt;
+   &lt;div *ngSwitchCase=&quot;&#x27;case1&#x27;&quot;&gt;Content for case 1&lt;/div&gt;
+   &lt;div *ngSwitchCase=&quot;&#x27;case2&#x27;&quot;&gt;Content for case 2&lt;/div&gt;
+   &lt;div *ngSwitchDefault&gt;Default content&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>In these examples:</p>
+<ul>
+<li>The <code>*</code> in front of the directives indicates that they are structural directives, meaning they can change the structure of the DOM.</li>
+<li><code>ngIf</code> is used to conditionally include or exclude an element.</li>
+<li><code>ngFor</code> is used to iterate over a collection and repeat a portion of the DOM for each item.</li>
+<li><code>ngSwitch</code> is used to conditionally render content based on the value of an expression.</li>
+</ul>
+<p>These directives are powerful tools for creating dynamic and interactive templates in Angular applications.</p>
+<h2 id="27-crossorigin-and-is-it-another-way-to-connect-the-backend-without-using-crossorigin">27. CrossOrigin and is it another way to connect the backend without using crossorigin.</h2>
+<p><code>CrossOrigin</code> is an HTTP header that is used in web development to control how web pages in one domain can request and interact with resources on another domain. In the context of web development, the &quot;Same-Origin Policy&quot; is a security measure implemented by web browsers that restricts web pages from making requests to a different domain than the one that served the web page. The <code>CrossOrigin</code> header allows servers to specify which origins are permitted to access their resources.</p>
+<p>If you&#x27;re encountering the need to use <code>@CrossOrigin</code> in a Java-based backend, it&#x27;s likely because you&#x27;re dealing with Cross-Origin Resource Sharing (CORS) issues. CORS is a security feature implemented by web browsers to prevent unauthorized cross-origin requests.</p>
+<p>If you want to connect to the backend without using <code>@CrossOrigin</code>, there are a few alternatives:</p>
+<ul>
+<li><strong>Proxy Server:</strong> You can set up a proxy server to forward requests from your frontend to your backend. This way, the requests appear to be coming from the same origin, and you won&#x27;t run into CORS issues. Tools like Apache HTTP Server or Nginx can be used for this purpose.</li>
+</ul>
+<ul>
+<li><strong>CORS Configuration:</strong> Instead of using <code>@CrossOrigin</code> in your Java code, you can configure CORS on your server. This involves setting up the appropriate headers in your server&#x27;s configuration. This is often done in a filter or interceptor.</li>
+</ul>
+<ul>
+<li><strong>Backend Routing:</strong> If your frontend and backend are served from the same domain but different paths (e.g., frontend at <code>/</code> and backend at <code>/api</code>), you might not run into CORS issues. Ensure that your frontend code is configured to make requests to the correct paths on the same domain.</li>
+</ul>
+<p>Remember that CORS is a security feature, and bypassing it without understanding the implications could expose your application to potential security risks. If you&#x27;re having CORS issues, it&#x27;s often a good idea to understand why the browser is blocking the request and address the root cause rather than circumventing it.</p>
+<h2 id="28-explain-static-typing-in-angular">28. Explain static typing in angular</h2>
+<ul>
+<li>Angular is built with  TypeScript, which provides static typing. </li>
+<li>It helps catch errors during development by checking types at compile-time.</li>
+<li>Store static files inside the <code>assets</code> folder.</li>
+</ul>
+<h2 id="29-explain-subject-in-angular">29. Explain subject in angular</h2>
+<ul>
+<li>Subject is a type of observable that allows values to be multicasted to many observers. It is both an observable and an observer.</li>
+</ul>
+<h2 id="30-javascript-vs-typescript">30. Javascript vs Typescript</h2>
+<ul>
+<li>JavaScript is a scripting language and typescript is a superset of javaScript that adds static typing, detect error at compile time and other features.</li>
+</ul>
+<h2 id="31-what-is-node-module">31. what is node_module</h2>
+<ul>
+<li><code>node_module</code> is a directory where npm installs packages (dependencies) for a project.</li>
+<li><code>NPM</code> keeps library for both <code>node js</code> and <code>angular</code></li>
+</ul>
+<ul>
+<li>How to add dependencies in angular</li>
+<li>To add dependency, use npm or yarn to install.</li>
+<pre><code class="language-shell">
+npm install package-name
+</code></pre>
+<li>How will you iterate the array in TypeScript?</li>
+<pre><code class="language-typescript">
+let numbers = [1,2,3,4,5,6]
+for(let num of numbers)
+{
+    console.log(num);
+}
+</code></pre>
+</ul>
+<ul>
+<li>Explain @crossorigin &amp; proxy.server.config?</li>
+</ul>
+<p>41. </p>
+<ul>
+<li>Different ways to inject a service in angular.</li>
+<li>Css vs Scss</li>
+<li>maximum size of constructor injection</li>
+<li>Lint in angular?</li>
+<li>Sonarqube</li>
+<li>Explain Angular Basics.</li>
+<li>How will display the value in html which is got as response from backend.</li>
+<li>How to communicate data between multiple components?</li>
+</ul>
+<h2 id="1-what-is-angular-why-do-we-need-angular">1. <strong>What is Angular? Why do we need Angular?</strong></h2>
+<ul>
+<li>Angular component based framework for building structured, scalable(upgradable and flexible for upgrade) and dynamic single-page applications(eg. utube. Page won&#x27;t reload) for client side. </li>
+<li>We need Angular because it offers a range of benefits, </li>
+</ul>
+<p>such as  </p>
+<ul>
+<li>two-way data binding, </li>
+<li>dependency injection, </li>
+<li>a powerful template system, and </li>
+<li>a component-based architecture, making it easier to build, test, and maintain web applications.</li>
+</ul>
+<ul>
+<li>Advantages of angular.</li>
+<li>Single page applications(Components)</li>
+<li>Flexible and structured(OOPS Friendly)</li>
+<li>Cross-platform(O.S, Browsers) and open source.</li>
+<li>Reusable code(Services)</li>
+<li>Testability(Specs.ts)</li>
+</ul>
+<ul>
+<li>Angular supports both JS(java script) and TS(type script)</li>
+<li>Framework has component based architecture, which is faster than MVC architecture.</li>
+<li>Has CLI tool.</li>
+<li>Dependency injection</li>
+<li>Mobile browser support</li>
+<li>Very fast because of data binding technique and component based.</li>
+</ul>
+<h2 id="2-what-is-a-component">2. <strong>What is a Component?</strong></h2>
+<p>A component is a fundamental building block in Angular. It represents a part of the user interface (UI) and consists of a TypeScript class, an HTML template, and CSS styles. Components encapsulate specific functionality and data, and they are reusable and modular, allowing developers to break down the UI into smaller, manageable parts.</p>
+<h2 id="3-what-is-a-directive-how-many-types-of-directives">3. <strong>What is a Directive? How many types of Directives?</strong></h2>
+<p>Directives are markers on HTML elements that instruct Angular to do something with the elements. There are three types of directives in Angular:</p>
+<ul>
+<li><strong>Component Directives:</strong> These are custom components created by developers.</li>
+<li><strong>Structural Directives:</strong> These alter the structure of the DOM by adding, removing, or replacing elements. Examples include <strong>\<em>ngIf</strong>, <strong>\</em>ngFor</strong>, and <strong>\*ngSwitch</strong>.</li>
+<li><strong>Attribute Directives:</strong> These change the appearance or behavior of an element, often by adding or removing attributes. Examples include <strong>ngClass</strong> and <strong>ngStyle</strong>.</li>
+</ul>
+<h2 id="4-what-is-data-binding-how-many-types">4. <strong>What is Data Binding? How many types?</strong></h2>
+<p>Data binding is a fundamental concept in Angular that connects the UI with the application data. There are four types of data binding in Angular:</p>
+<ul>
+<li><strong>Interpolation (One-Way Binding):</strong> It allows you to embed expressions within double curly braces <code>{{ }}</code> in the template, and the expressions are evaluated and displayed in the view.</li>
+<li><strong>Property Binding (One-Way Binding):</strong> It allows you to set the value of an HTML element&#x27;s property or attribute using data from the component.</li>
+<li><strong>Event Binding (One-Way Binding):</strong> It lets you respond to events (e.g., clicks) raised in the UI and trigger functions in the component.</li>
+<li><strong>Two-Way Binding:</strong> It combines property binding and event binding, allowing changes in the UI to automatically update the component and vice versa using the <strong>ngModel</strong> directive or <strong>[()]</strong> syntax.</li>
+</ul>
+<h2 id="5-decorators-in-angular">5. <strong>Decorators in Angular</strong></h2>
+<p>Decorators(annotations) are used in Angular to mark a class as an Angular construct and provide configuration. Some commonly used decorators include:</p>
+<ul>
+<li><strong>@Component</strong>: Defines a component.</li>
+<li><strong>@Directive</strong>: Defines a custom directive.</li>
+<li><strong>@Pipe</strong>: Defines a custom pipe for transforming data.</li>
+<li><strong>@NgModule</strong>: Configures and organizes application modules.</li>
+<li><strong>@Injectable</strong>: Marks a class as a service for dependency injection.</li>
+<li><strong>@Input</strong>: Specifies that a property can receive input from a parent component.</li>
+<li><strong>@Output</strong>: Emits events to a parent component.</li>
+<li><strong>@EventEmitter</strong>: Creates custom events.</li>
+<li><strong>@HostListener</strong>: Listens for events on the host element.</li>
+<li><strong>@ViewChild</strong> and <strong>@ContentChild</strong>: Access child elements in templates.</li>
+</ul>
+<h2 id="6-what-are-pipes-how-to-create-a-custom-pipe">6. <strong>What are Pipes? How to create a custom pipe?</strong></h2>
+<p>Pipes are used to transform data for display in the view. Angular provides built-in pipes for common transformations like date formatting and capitalization. You can create a custom pipe by implementing the <strong>PipeTransform</strong> interface and using the <strong>@Pipe</strong> decorator to define the pipe&#x27;s name and its transformation function.</p>
+<h2 id="7-angular-lifecycle-hooks">7. <strong>Angular Lifecycle Hooks</strong></h2>
+<p>Angular components go through a series of lifecycle events. Some important hooks include:</p>
+<ul>
+<li><strong>ngOnInit</strong>: Called after the component has been initialized.</li>
+<li><strong>ngOnChanges</strong>: Called when the component&#x27;s input properties change.</li>
+<li><strong>ngOnDestroy</strong>: Called just before the component is destroyed.</li>
+<li><strong>ngAfterViewInit</strong>: Called after the component&#x27;s view has been initialized.</li>
+</ul>
+<h2 id="8-compiler-in-angular-jit-aot">8. <strong>Compiler in Angular (JIT, AOT)</strong></h2>
+<ul>
+<li>Angular can be compiled either Just-In-Time (JIT) or Ahead-Of-Time (AOT). </li>
+<li>JIT compilation occurs in the browser at runtime, while AOT compilation happens during the build time. </li>
+<li>AOT offers better performance and smaller bundle sizes. AOT is default compilation.</li>
+<li>We can change the compilation of build from AOT to JIT. </li>
+<li>For that we need to set <code>&quot;aot&quot;: false</code> in <code>angular.json</code> file under <code>development</code>. </li>
+<li>But JIT won&#x27;t detect errors at build time, where AOT does.</li>
+</ul>
+<h2 id="9-observable">9. <strong>Observable</strong></h2>
+<p>Observables are a core concept in Angular used for handling asynchronous operations, such as making HTTP requests or listening for events. They provide a way to work with asynchronous data streams and allow you to subscribe to these streams to react to changes.</p>
+<h2 id="10-subject-and-behaviorsubject">10. <strong>Subject and BehaviorSubject</strong></h2>
+<p>Subjects are a type of observable that can multicast data to multiple subscribers. BehaviorSubject is a variant of Subject that stores the latest emitted value and emits it to new subscribers immediately upon subscription.</p>
+<h2 id="11-hot-and-cold-observables">11. <strong>Hot and Cold Observables</strong></h2>
+<p>Hot observables produce data regardless of whether there are subscribers, and multiple subscribers share the same data stream. Cold observables only produce data when a subscriber actively listens, and each subscriber gets its own data stream.</p>
+<h2 id="12-interceptor">12. <strong>Interceptor</strong></h2>
+<p>Interceptors are used in Angular to intercept HTTP requests and responses. They are often used for tasks like adding authentication headers, logging, or error handling to HTTP requests.</p>
+<h2 id="13-connecting-frontend-to-backend">13. <strong>Connecting Frontend to Backend</strong></h2>
+<p>To connect the frontend to a backend server, Angular uses the <strong>HttpClientModule</strong> to make HTTP requests to APIs. Configuration for the backend connection can be specified in files like <strong>proxy.config.json</strong> or <strong>environment.ts</strong>.</p>
+<h2 id="14-webpack">14. <strong>Webpack</strong></h2>
+<p>Webpack is a powerful module bundler used in Angular applications to bundle, optimize, and manage assets like JavaScript and CSS files. It&#x27;s commonly used for building and bundling Angular applications.</p>
+<h2 id="15-communication-between-components">15. <strong>Communication Between Components</strong></h2>
+<p>Components can communicate with each other using various techniques, including:</p>
+<ul>
+<li>Input and Output properties to pass data from parent to child and emit events.</li>
+<li>Services to share data and functionality between components.</li>
+<li>State management libraries like NgRx or BehaviorSubject to manage and share state across components.</li>
+</ul>
+<h2 id="16-what-is-service-and-dependency-injection">16. <strong>What is Service and Dependency Injection?</strong></h2>
+<ul>
+<li>A service in Angular is a class that encapsulates a specific functionality or feature. It is designed to be reusable and provide a way to separate concerns in an application. Services are often used for tasks like data retrieval, authentication, and other business logic.</li>
+<li>Dependency Injection (DI) is a core concept in Angular that allows you to provide instances of services to components when they are needed. This helps in achieving loose coupling and making components more testable. Angular&#x27;s DI system is used to manage the creation and sharing of service instances.</li>
+</ul>
+<h2 id="17-how-will-you-build-your-application-ng-build">17. <strong>How Will You Build Your Application (ng build)?</strong></h2>
+<ul>
+<li>To build an Angular application, you can use the Angular CLI (<strong>ng</strong> command) as follows:</li>
+<li>Open a terminal or command prompt.</li>
+<li>Navigate to your project&#x27;s root directory.</li>
+<li>Use the <strong>ng build</strong> command to build the application.</li>
+<li>You can specify options like <strong>--prod</strong> for a production build.</li>
+</ul>
+<p>This command compiles the application and generates optimized bundles in the <strong>dist</strong> directory by default.</p>
+<h2 id="18-how-will-you-deploy-your-application">18. <strong>How Will You Deploy Your Application?</strong></h2>
+<ul>
+<li>Deploying an Angular application typically involves the following steps:</li>
+</ul>
+<ul>
+<li>Build the application using <strong>ng build</strong>.</li>
+<li>Copy the contents of the <strong>dist</strong> folder generated by the build process to a web server or a hosting platform.</li>
+<li>Configure the server or hosting environment to serve the Angular application. This may involve setting up routes, security, and any server-specific configurations.</li>
+<li>Ensure that the necessary back-end services, APIs, and databases are also set up and accessible.</li>
+</ul>
+<h2 id="19-what-is-angular-testing">19. <strong>What is Angular Testing?</strong></h2>
+<ul>
+<li>Angular testing refers to the process of verifying that Angular applications work as expected. It involves writing and running tests to check the functionality, reliability, and performance of an Angular application. Angular provides built-in testing utilities and integration with testing frameworks like Jasmine and Karma.</li>
+</ul>
+<h2 id="20-what-is-jasmine-and-karma">20. <strong>What is Jasmine and Karma?</strong></h2>
+<ul>
+<li><strong>Jasmine:</strong> Jasmine is a popular and widely used testing framework for JavaScript applications, including Angular. It provides functions for defining test suites, expectations, and spies for mocking functions. Jasmine is known for its clean and readable syntax.</li>
+<li><strong>Karma:</strong> Karma is a test runner that allows you to run tests in various browsers simultaneously. It works well with Jasmine and other testing frameworks. Karma makes it easy to automate the testing process, run tests in real browsers, and collect test results.</li>
+</ul>
+<h2 id="21-what-is-authguard-and-how-will-you-secure-your-application">21. <strong>What is AuthGuard, and How Will You Secure Your Application?</strong></h2>
+<ul>
+<li>An AuthGuard in Angular is a class that implements the <strong>CanActivate</strong> interface. It is used to control access to specific routes based on user authentication and authorization. AuthGuards are often used to protect routes that require authentication.</li>
+<li>To secure an Angular application, you can use AuthGuards to restrict access to certain routes, implement proper authentication mechanisms like JWT (JSON Web Tokens), and apply authorization checks to control what users can and cannot do within the application. Additionally, you should follow best practices for securing the back-end services that the application relies on.</li>
+</ul>
+<h2 id="22-what-is-the-server-used-in-angular-angular-doesnt-have-a-default-server">22. <strong>What is the Server Used in Angular? (Angular Doesn&#x27;t Have a Default Server)</strong></h2>
+<ul>
+<li>Angular itself does not include a default server. It is a client-side framework for building web applications. You can use various web servers (e.g., Apache, Nginx) or server-side technologies (e.g., Node.js, Java, .NET) to serve your Angular application&#x27;s static files and provide back-end services.</li>
+</ul>
+<h2 id="23-what-is-ngclass-ngstyle-ngif-ngif-ngswitch-ngswitchdefault">23. **What is ngClass, ngStyle, ngIf, ngIf, ngSwitch, ngSwitchDefault?*</h2>
+<ul>
+<li><strong>ngClass:</strong> <strong>ngClass</strong> is an Angular directive that allows you to dynamically set CSS classes on HTML elements based on certain conditions in your component. It takes an object or an array to define the classes to apply.</li>
+<li><strong>ngStyle:</strong> <strong>ngStyle</strong> is an Angular directive that lets you dynamically set inline styles for HTML elements based on component data. It takes an object to define the styles to apply.</li>
+<li><strong>ngIf:</strong> <strong>ngIf</strong> is a structural directive that conditionally includes or removes an element from the DOM based on a truthy or falsy condition.</li>
+<li><strong>\<em>ngIf:</strong> The asterisk (\</em>) is a syntactic sugar that simplifies the use of <strong>ngIf</strong> in templates, making it easier to read and understand.</li>
+<li><strong>ngSwitch and ngSwitchDefault:</strong> These are directives used for conditionally rendering content based on the value of a switch expression. <strong>ngSwitch</strong> defines the switch expression, and <strong>ngSwitchCase</strong> and <strong>ngSwitchDefault</strong> are used to define the different cases and the default case, respectively.</li>
+</ul>
+<h2 id="24-workflow-or-architecture-of-angular-application">24. <strong>Workflow or Architecture of Angular Application</strong></h2>
+<ul>
+<li>Angular applications follow a component-based architecture. The typical workflow involves:</li>
+<li>Designing the application structure with components, services, and modules.</li>
+<li>Creating components with templates, styles, and logic.</li>
+<li>Defining routes and configuring navigation.</li>
+<li>Handling data and making HTTP requests.</li>
+<li>Managing application state (if needed) using libraries like NgRx.</li>
+<li>Writing tests for components and services.</li>
+<li>Building and deploying the application.</li>
+</ul>
+<h2 id="25-how-will-you-do-inline-styling-stylescss">25. <strong>How Will You Do Inline Styling (styles.css)?</strong></h2>
+<ul>
+<li>To apply inline styling to Angular components, you can use the <strong>styles</strong> property within the component&#x27;s <strong>@Component</strong> decorator. For example:</li>
+</ul>
+<p>typescriptCopy code</p>
+<p>@Component({ selector: &#x27;app-example&#x27;, template: <code>&lt;div [ngStyle]=&quot;customStyles&quot;&gt;Inline Styling Example&lt;/div&gt;</code>, styles: [<code> div { color: blue; background-color: yellow; } </code>] }) export class ExampleComponent { customStyles = { &#x27;font-size.px&#x27;: 16, &#x27;text-align&#x27;: &#x27;center&#x27; }; }</p>
+<p>In this example, the <strong>styles</strong> property defines the component&#x27;s inline styles, and the <strong>[ngStyle]</strong> directive applies dynamic styles based on the <strong>customStyles</strong> object.</p>
+<h2 id="26-what-are-the-commands-used-in-angular-cli">26. <strong>What Are the Commands Used in Angular CLI?</strong></h2>
+<ul>
+<li>Angular CLI provides a set of commands to facilitate the development of Angular applications. Some common commands include:</li>
+</ul>
+<ul>
+<li><strong>ng new</strong>: Used to create a new Angular project.</li>
+<li><strong>ng generate</strong> (or <strong>ng g</strong>): Generates components, modules, services, and more.</li>
+<li><strong>ng serve</strong>: Starts a development server for the project.</li>
+<li><strong>ng build</strong>: Compiles and builds the application for production.</li>
+<li><strong>ng test</strong>: Runs unit tests using Karma and Jasmine.</li>
+<li><strong>ng e2e</strong>: Runs end-to-end tests using Protractor.</li>
+<li><strong>ng lint</strong>: Checks code for linting errors.</li>
+<li><strong>ng update</strong>: Updates Angular and its dependencies to the latest versions.</li>
+<li><strong>ng add</strong>: Adds new features or libraries to the project.</li>
+</ul>
+<h2 id="27-difference-between-typescript-and-javascript">27. <strong>Difference Between TypeScript and JavaScript:</strong></h2>
+<ul>
+<li><strong>TypeScript:</strong> TypeScript is a superset of JavaScript that adds static typing to the language. It allows developers to specify variable types, interfaces, and provides features like classes and modules. TypeScript code must be transpiled to JavaScript before it can run in a browser.</li>
+<li><strong>JavaScript:</strong> JavaScript is a dynamically typed scripting language widely used for web development. It doesn&#x27;t require type annotations, and it can run directly in web browsers. JavaScript is versatile and can be used for both client and server-side development.</li>
+</ul>
+<h2 id="28-what-is-a-promise-and-what-is-the-difference-between-a-promise-and-an-observable">28. <strong>What Is a Promise, and What Is the Difference Between a Promise and an Observable?</strong></h2>
+<ul>
+<li><strong>Promise:</strong> A promise is an object representing the eventual completion or failure of an asynchronous operation. It provides a clean way to handle asynchronous operations and allows you to attach callbacks for success and error.</li>
+<li><strong>Difference:</strong> Observables are more powerful than promises. While a promise represents a single value that will be available in the future, observables can represent multiple values over time. Observables also have operators for handling data streams and complex transformations. Observables offer better support for canceling requests and handling events.</li>
+</ul>
+<h2 id="29-how-can-you-handle-errors-in-angular">29. <strong>How Can You Handle Errors in Angular?</strong></h2>
+<ul>
+<li>Errors in Angular can be handled in various ways:</li>
+<li>Using error handling operators like <strong>catch</strong> and <strong>throw</strong> in Observables.</li>
+<li>Implementing a global error handler service to catch unhandled errors.</li>
+<li>Using <strong>try...catch</strong> blocks to handle synchronous errors.</li>
+<li>Handling HTTP errors by intercepting HTTP requests and responses using <strong>HttpClient</strong> interceptors.</li>
+</ul>
+<h2 id="30-difference-between-observable-and-observer">30. <strong>Difference Between Observable and Observer:</strong></h2>
+<ul>
+<li><strong>Observable:</strong> An observable is a data source that emits data over time. It can be subscribed to by observers, and it is used for handling asynchronous data streams. Observables can represent streams of events or data.</li>
+<li><strong>Observer:</strong> An observer is an object or function that listens to an observable&#x27;s data emissions. It defines how to react when data is emitted, including what to do on success, error, or completion.</li>
+</ul>
+<h2 id="31-which-will-be-the-first-to-execute-constructor-or-ngoninit">31. <strong>Which Will Be the First to Execute: Constructor or ngOnInit?</strong></h2>
+<ul>
+<li>The constructor of a component is executed before <strong>ngOnInit</strong>. The constructor is part of the class&#x27;s instantiation process and is called when an instance of the component is created. <strong>ngOnInit</strong> is a lifecycle hook that Angular calls after initializing the component and its data-bound properties.</li>
+</ul>
+<h2 id="32-what-is-view-encapsulation">32. <strong>What Is View Encapsulation?</strong></h2>
+<ul>
+<li>View encapsulation in Angular refers to the way Angular isolates a component&#x27;s styles from the rest of the application. Angular supports three encapsulation modes:</li>
+<li><strong>Emulated (default):</strong> Styles are scoped to the component&#x27;s view using shadow DOM emulation. It&#x27;s the default behavior.</li>
+<li><strong>None:</strong> Styles are global and affect the entire application.</li>
+<li><strong>Native:</strong> Styles are applied using the browser&#x27;s native shadow DOM.</li>
+</ul>
+<h2 id="33-what-are-scopes-in-angular">33. <strong>What Are Scopes in Angular?</strong></h2>
+<ul>
+<li>Angular does not use the concept of &quot;scopes&quot; in the same way as AngularJS (version 1.x). Instead, it uses a component-based structure, where each component has its own scope or context. Data binding in Angular is typically done within the component&#x27;s context, and each component defines its own data and behavior.</li>
+</ul>
+<h2 id="34-how-will-you-handle-http-requests-in-angular-using-httpclientmodule">34. <strong>How Will You Handle HTTP Requests in Angular (Using HttpClientModule)?</strong></h2>
+<ul>
+<li>To handle HTTP requests in Angular, you can use the <strong>HttpClientModule</strong> to make GET, POST, PUT, and DELETE requests to a server. The typical steps include:</li>
+<li>Importing <strong>HttpClientModule</strong> in the app&#x27;s module.</li>
+<li>Injecting the <strong>HttpClient</strong> service into components or services.</li>
+<li>Using the <strong>HttpClient</strong> service to make requests to APIs or servers.</li>
+<li>Handling responses and errors using Observables and error handling techniques.</li>
+</ul>
+<p>You can also create services to encapsulate the HTTP request logic and reuse it across the application.</p>
+<h2 id="35-what-is-single-page-application-in-angular">35. what is single page application in angular ?</h2>
+<p>A Single Page Application (SPA) in Angular is a web application that uses the Angular framework to create a single, dynamically updating web page. Angular is a popular JavaScript framework for building SPAs, and it provides a set of tools and features to simplify the development of such applications. In an Angular SPA:</p>
+<ul>
+<li><strong>Component-Based Structure:</strong> Angular organizes an application into components. Each component represents a specific part of the user interface and can have its own logic, templates, and styles. These components can be loaded dynamically and updated as needed, which is a key feature of SPAs.</li>
+<li><strong>Routing:</strong> Angular provides a powerful routing system that allows you to define routes and map them to specific components. This enables the application to respond to changes in the URL (e.g., different pages or views) without actually navigating to new web pages. The router loads the appropriate component for the requested route, making it a crucial part of creating SPAs.</li>
+<li><strong>Data Binding:</strong> Angular supports two-way data binding, which means that changes in the application&#x27;s data are automatically reflected in the user interface, and vice versa. This real-time data synchronization enhances the interactivity of SPAs.</li>
+<li><strong>Dependency Injection:</strong> Angular&#x27;s dependency injection system simplifies managing dependencies and services, making it easier to share data and functionality between different parts of your application.</li>
+<li><strong>Ajax Requests:</strong> Angular facilitates making asynchronous requests to a server or an API, allowing the application to fetch and display data without requiring a full page reload.</li>
+<li><strong>Template System:</strong> Angular uses templates to define the structure and layout of the application&#x27;s UI. Templates are written in a combination of HTML and Angular-specific syntax, which makes it easy to bind data and create dynamic views.</li>
+<li><strong>Directives:</strong> Angular provides directives that extend HTML with additional functionality. For instance, you can use ngFor to iterate over a list and generate multiple elements dynamically, or use ngIf to conditionally show or hide elements.</li>
+<li><strong>Services:</strong> Angular services are used to encapsulate and share business logic, data, and functionality across different parts of the application.</li>
+</ul>
+<p>   Angular&#x27;s design principles and features make it well-suited for creating complex SPAs, and it has a strong ecosystem of libraries and tools to enhance the development process. However, building SPAs with Angular can be more complex than simpler solutions due to the framework&#x27;s extensive capabilities.</p>`;
 
 if (document.getElementById('content')) {
     document.getElementById('content').innerHTML = angularInterviewQuestionsContentData;

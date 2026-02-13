@@ -7667,7 +7667,7 @@ int a = 10; // effectively final
 Runnable r = () -&gt; System.out.println(a); // allowed
 
 final int b = 20; // explicitly final
-// both `a` and `b` behave the same in this context
+// both &#96;a&#96; and &#96;b&#96; behave the same in this context
 </code></pre>
 <hr>
 <h3 id="4-pass-by-value-vs-reference-in-java"><strong>4️⃣ Pass-by-value vs. reference in Java</strong></h3>
@@ -8173,136 +8173,162 @@ numbers.forEach(new Consumer&lt;Integer&gt;() {
 
 // With lambda expression
 numbers.forEach(n -&gt; System.out.println(n));
-  ```
-
-4. **Functional Programming:**
-
-- Lambda expressions facilitate functional programming concepts, such as passing behavior as an argument, which makes it easier to write more modular and reusable code.
-
-  **Example:**
-
 </code></pre>
-<p>List&lt;String&gt; names = Arrays.asList(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;);</p>
-<p>// Without lambda expression</p>
-<p>Collections.sort(names, new Comparator&lt;String&gt;() {</p>
-<p>    public int compare(String s1, String s2) {</p>
-<p>        return s1.compareTo(s2);</p>
-<p>    }</p>
-<p>});</p>
-<p>// With lambda expression</p>
-<p>Collections.sort(names, (s1, s2) -&gt; s1.compareTo(s2));</p>
-<pre><code class="language-">
+<ul>
+<li><strong>Functional Programming:</strong></li>
+</ul>
+<ul>
+<li>Lambda expressions facilitate functional programming concepts, such as passing behavior as an argument, which makes it easier to write more modular and reusable code.</li>
+</ul>
+<p>  <strong>Example:</strong></p>
+<pre><code class="language-java">
+List&lt;String&gt; names = Arrays.asList(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;);
 
-5. **Parallelism:**
+// Without lambda expression
+Collections.sort(names, new Comparator&lt;String&gt;() {
+    public int compare(String s1, String s2) {
+        return s1.compareTo(s2);
+    }
+});
 
-- Lambda expressions play a crucial role in enabling parallelism and concurrency through the use of the Streams API. They make it easier to write parallelizable code by expressing operations that can be executed concurrently.
-
-  **Example:**
-
+// With lambda expression
+Collections.sort(names, (s1, s2) -&gt; s1.compareTo(s2));
 </code></pre>
-<p>List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4, 5);</p>
-<p>// Without lambda expression</p>
-<p>int sum = 0;</p>
-<p>for (int number : numbers) {</p>
-<p>    sum += number;</p>
-<p>}</p>
-<p>// With lambda expression and parallel stream</p>
-<p>int sumParallel = numbers.parallelStream().reduce(0, (x, y) -&gt; x + y);</p>
-<pre><code class="language-">
+<ul>
+<li><strong>Parallelism:</strong></li>
+</ul>
+<ul>
+<li>Lambda expressions play a crucial role in enabling parallelism and concurrency through the use of the Streams API. They make it easier to write parallelizable code by expressing operations that can be executed concurrently.</li>
+</ul>
+<p>  <strong>Example:</strong></p>
+<pre><code class="language-java">
+List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4, 5);
 
-Lambda expressions, along with functional interfaces, contribute to making Java code more expressive, readable, and suitable for functional programming paradigms. 
-They are particularly valuable in scenarios where concise, single-purpose behavior is required, such as in the case of functional interfaces or functional programming constructs like streams and parallel processing. 
+// Without lambda expression
+int sum = 0;
+for (int number : numbers) {
+    sum += number;
+}
 
----
-
-| Communication      | Check                                                                                           |
-| ------------------ | ----------------------------------------------------------------------------------------------- |
-| Coding Skill       | Should be ready for write pseudo code                                                           |
-| Java Concept       | Java Concept, Spring, collections, Threads , Java 8                                             |
-| Database knowledge | Schema, data model…etc                                                                          |
-| Unix               | Basic commands , cp, grep, mv, cd, pwd, ls, ftp, ssh, find. Ps,                                 |
-| SQL/PLSQL          | Joining of the two table ( one to many, may to One mapping scenario), inter join, Outerjoin etc |
-| CI/CD              | Deployments..                                                                                   |
-
----
-
-## Java Questions
-
-1. Sort employee Array using java 7 and 8
-2. Difference/similarities between Arraylist vs Linkedlist
-3. Explain ConcurrentModification Exception
-4. Explain abstract and interface
-5. What is functional interface
-6. Why we use lambda expression
-   Lambda expressions in Java provide a concise and expressive way to represent anonymous functions. They were introduced in Java 8 as part of the Java SE 8 release, along with the functional programming features. Here are some reasons why lambda expressions are used in Java:
-7. How will you maintain code standards
-8. Deployment in GCP
-9. How to check application health
-10. Explain Polymorphism and encapsulation
-11. Major Issues in the project.
-12. Singleton design pattern
-14. How to deploy in jenkins
-15. Thumb rule of Junit testing 16. Why String is immutable?
-17. What is try catch finally
-18. Stream api 
-19. Parallel stream 
-20. Inbuilt methods in stream. 
-21. Find duplicates using the stream. 
-22. Sort the numbers using comparator/comparable. 
-23. Collections in java 
-24. Predicate in java 8 
-25. Optional in java 8 
-26. Uses of map in stream function 
-27. Multithreading 
-28. Synchronisation in java 
-29. Difference between runtime and checked exceptions. 
-30. Explain the try with resources 
-31. Serialization 
-32. Explain Some of the features in Java 8 
-33. Java streams API methods and its uses with example. 
-34. In filter streams, what is the return type? 
-35. What is method reference. 
-36. How many class you can create inside try with resources? 
-37. Given an employee array and asked to list it in code by filtering it&#x27;s name and age using streams. 
-38. an employee array and asked to list employees with particular employee name and age and asked to return true using stream. 
-39. how will you group the employeeList by age alone. 
-40. how do you list sum of ages in an employeeList? 
-41. Given an employee array and asked to list it in code by filtering it&#x27;s name. 
-42. types of string declaration and how it stores internally 
-43. How to create a immutable class? 
-44. Brief run() method. 
-45. Difference between Fail fast and fail safe. 
-46. Explain Hashmap and hash set. 
-47. Integer[20,10,25,9,7] find max 3 numbers using streamAPI. 
-48. What is purpose of default method in interface 
-49. How will you simplify the boiler plate code for the above program? return a+b should not be used again and again but it should be compatible for all the three return types?
-
+// With lambda expression and parallel stream
+int sumParallel = numbers.parallelStream().reduce(0, (x, y) -&gt; x + y);
 </code></pre>
-<p>    public class Calculator {</p>
-<p>        public int add(int a, int b) {</p>
-<p>        return a + b;</p>
-<p>        }</p>
-<p>        public float add(float a, float b) {</p>
-<p>            return a + b;</p>
-<p>        }</p>
-<p>        public double add(double a, double b) {</p>
-<p>            return a + b;</p>
-<p>        }</p>
-<p>    }</p>
-<pre><code class="language-">
-50. Static Keyword in method, class and variable with example. 
-51. Throw and Throws explain with example. 
-52. Default vs Static Methods in functionalInterface in Java8
-53. How to compile simple applications
-15. What are required to run simple Java applications
-16. What is the difference between JDK and JRE
-17. Is it possible run the application with JRE
-18. What is JVM
-19. What are collection, how collections are used
-20. Hashmap, what is the complexity of traversing
-25. What build tool used
+<p>Lambda expressions, along with functional interfaces, contribute to making Java code more expressive, readable, and suitable for functional programming paradigms. </p>
+<p>They are particularly valuable in scenarios where concise, single-purpose behavior is required, such as in the case of functional interfaces or functional programming constructs like streams and parallel processing. </p>
+<hr>
+<table>
+<thead><tr>
+<th>Communication</th>
+<th>Check</th>
+</tr></thead><tbody>
+<tr>
+<td>Coding Skill</td>
+<td>Should be ready for write pseudo code</td>
+</tr>
+<tr>
+<td>Java Concept</td>
+<td>Java Concept, Spring, collections, Threads , Java 8</td>
+</tr>
+<tr>
+<td>Database knowledge</td>
+<td>Schema, data model…etc</td>
+</tr>
+<tr>
+<td>Unix</td>
+<td>Basic commands , cp, grep, mv, cd, pwd, ls, ftp, ssh, find. Ps,</td>
+</tr>
+<tr>
+<td>SQL/PLSQL</td>
+<td>Joining of the two table ( one to many, may to One mapping scenario), inter join, Outerjoin etc</td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td>Deployments..</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="java-questions">Java Questions</h2>
+<ul>
+<li>Sort employee Array using java 7 and 8</li>
+<li>Difference/similarities between Arraylist vs Linkedlist</li>
+<li>Explain ConcurrentModification Exception</li>
+<li>Explain abstract and interface</li>
+<li>What is functional interface</li>
+<li>Why we use lambda expression</li>
+</ul>
+<p>   Lambda expressions in Java provide a concise and expressive way to represent anonymous functions. They were introduced in Java 8 as part of the Java SE 8 release, along with the functional programming features. Here are some reasons why lambda expressions are used in Java:</p>
+<ul>
+<li>How will you maintain code standards</li>
+<li>Deployment in GCP</li>
+<li>How to check application health</li>
+<li>Explain Polymorphism and encapsulation</li>
+<li>Major Issues in the project.</li>
+<li>Singleton design pattern</li>
+<li>How to deploy in jenkins</li>
+<li>Thumb rule of Junit testing 16. Why String is immutable?</li>
+<li>What is try catch finally</li>
+<li>Stream api </li>
+<li>Parallel stream </li>
+<li>Inbuilt methods in stream. </li>
+<li>Find duplicates using the stream. </li>
+<li>Sort the numbers using comparator/comparable. </li>
+<li>Collections in java </li>
+<li>Predicate in java 8 </li>
+<li>Optional in java 8 </li>
+<li>Uses of map in stream function </li>
+<li>Multithreading </li>
+<li>Synchronisation in java </li>
+<li>Difference between runtime and checked exceptions. </li>
+<li>Explain the try with resources </li>
+<li>Serialization </li>
+<li>Explain Some of the features in Java 8 </li>
+<li>Java streams API methods and its uses with example. </li>
+<li>In filter streams, what is the return type? </li>
+<li>What is method reference. </li>
+<li>How many class you can create inside try with resources? </li>
+<li>Given an employee array and asked to list it in code by filtering it&#x27;s name and age using streams. </li>
+<li>an employee array and asked to list employees with particular employee name and age and asked to return true using stream. </li>
+<li>how will you group the employeeList by age alone. </li>
+<li>how do you list sum of ages in an employeeList? </li>
+<li>Given an employee array and asked to list it in code by filtering it&#x27;s name. </li>
+<li>types of string declaration and how it stores internally </li>
+<li>How to create a immutable class? </li>
+<li>Brief run() method. </li>
+<li>Difference between Fail fast and fail safe. </li>
+<li>Explain Hashmap and hash set. </li>
+<li>Integer[20,10,25,9,7] find max 3 numbers using streamAPI. </li>
+<li>What is purpose of default method in interface </li>
+<li>How will you simplify the boiler plate code for the above program? return a+b should not be used again and again but it should be compatible for all the three return types?</li>
+</ul>
+<pre><code class="language-java">
+    public class Calculator {
+        public int add(int a, int b) {
+        return a + b;
+        }
 
-`;
+        public float add(float a, float b) {
+            return a + b;
+        }
+
+        public double add(double a, double b) {
+            return a + b;
+        }
+
+    }
+</code></pre>
+<ul>
+<li>Static Keyword in method, class and variable with example. </li>
+<li>Throw and Throws explain with example. </li>
+<li>Default vs Static Methods in functionalInterface in Java8</li>
+<li>How to compile simple applications</li>
+<li>What are required to run simple Java applications</li>
+<li>What is the difference between JDK and JRE</li>
+<li>Is it possible run the application with JRE</li>
+<li>What is JVM</li>
+<li>What are collection, how collections are used</li>
+<li>Hashmap, what is the complexity of traversing</li>
+<li>What build tool used</li>
+</ul>`;
 
 if (document.getElementById('content')) {
     document.getElementById('content').innerHTML = javabasicContentData;

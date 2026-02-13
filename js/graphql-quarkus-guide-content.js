@@ -650,13 +650,14 @@ ORDERS (Mutations - making changes):
 <p><strong>Step-by-Step:</strong></p>
 <ul>
 <li><strong>Start your Quarkus application</strong></li>
+<pre><code class="language-bash">
+# In your terminal, run:
+./mvnw quarkus:dev
+
+# Or if using Gradle:
+./gradlew quarkusDev
+</code></pre>
 </ul>
-<p>   ```bash</p>
-<p>   # In your terminal, run:</p>
-<p>   ./mvnw quarkus:dev</p>
-<p>   # Or if using Gradle:</p>
-<p>   ./gradlew quarkusDev</p>
-<p>   ```</p>
 <ul>
 <li><strong>Open your web browser</strong></li>
 <li>Go to: <code>http://localhost:8080/graphql-ui</code></li>
@@ -669,38 +670,38 @@ ORDERS (Mutations - making changes):
 <li><strong>Try Your First Query</strong> (Get all books)</li>
 </ul>
 <p>   Type this in the left panel:</p>
-<p>   ```graphql</p>
-<p>   query {</p>
-<p>     allBooks {</p>
-<p>       id</p>
-<p>       title</p>
-<p>       author</p>
-<p>       price</p>
-<p>     }</p>
-<p>   }</p>
-<p>   ```</p>
+<pre><code class="language-graphql">
+query {
+  allBooks {
+    id
+    title
+    author
+    price
+  }
+}
+</code></pre>
 <p>   Click the Play button ▶️</p>
 <p>   <strong>What you&#x27;ll see:</strong></p>
-<p>   ```json</p>
-<p>   {</p>
-<p>     &quot;data&quot;: {</p>
-<p>       &quot;allBooks&quot;: [</p>
-<p>         {</p>
-<p>           &quot;id&quot;: 1,</p>
-<p>           &quot;title&quot;: &quot;Effective Java&quot;,</p>
-<p>           &quot;author&quot;: &quot;Joshua Bloch&quot;,</p>
-<p>           &quot;price&quot;: 45.99</p>
-<p>         },</p>
-<p>         {</p>
-<p>           &quot;id&quot;: 2,</p>
-<p>           &quot;title&quot;: &quot;Clean Code&quot;,</p>
-<p>           &quot;author&quot;: &quot;Robert Martin&quot;,</p>
-<p>           &quot;price&quot;: 42.99</p>
-<p>         }</p>
-<p>       ]</p>
-<p>     }</p>
-<p>   }</p>
-<p>   ```</p>
+<pre><code class="language-json">
+{
+  &quot;data&quot;: {
+    &quot;allBooks&quot;: [
+      {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Effective Java&quot;,
+        &quot;author&quot;: &quot;Joshua Bloch&quot;,
+        &quot;price&quot;: 45.99
+      },
+      {
+        &quot;id&quot;: 2,
+        &quot;title&quot;: &quot;Clean Code&quot;,
+        &quot;author&quot;: &quot;Robert Martin&quot;,
+        &quot;price&quot;: 42.99
+      }
+    ]
+  }
+}
+</code></pre>
 <p>   <strong>What just happened?</strong></p>
 <ul>
 <li>You asked for all books</li>
@@ -710,55 +711,55 @@ ORDERS (Mutations - making changes):
 <ul>
 <li><strong>Try Getting One Specific Book</strong></li>
 </ul>
-<p>   ```graphql</p>
-<p>   query {</p>
-<p>     bookById(id: 1) {</p>
-<p>       title</p>
-<p>       author</p>
-<p>     }</p>
-<p>   }</p>
-<p>   ```</p>
+<pre><code class="language-graphql">
+query {
+  bookById(id: 1) {
+    title
+    author
+  }
+}
+</code></pre>
 <p>   <strong>Result:</strong></p>
-<p>   ```json</p>
-<p>   {</p>
-<p>     &quot;data&quot;: {</p>
-<p>       &quot;bookById&quot;: {</p>
-<p>         &quot;title&quot;: &quot;Effective Java&quot;,</p>
-<p>         &quot;author&quot;: &quot;Joshua Bloch&quot;</p>
-<p>       }</p>
-<p>     }</p>
-<p>   }</p>
-<p>   ```</p>
+<pre><code class="language-json">
+{
+  &quot;data&quot;: {
+    &quot;bookById&quot;: {
+      &quot;title&quot;: &quot;Effective Java&quot;,
+      &quot;author&quot;: &quot;Joshua Bloch&quot;
+    }
+  }
+}
+</code></pre>
 <p>   <strong>Notice:</strong> We only asked for title and author, so we only got those!</p>
 <ul>
 <li><strong>Try Adding a New Book</strong> (Mutation)</li>
 </ul>
-<p>   ```graphql</p>
-<p>   mutation {</p>
-<p>     addBook(</p>
-<p>       title: &quot;Domain-Driven Design&quot;</p>
-<p>       author: &quot;Eric Evans&quot;</p>
-<p>       pages: 560</p>
-<p>       price: 55.99</p>
-<p>     ) {</p>
-<p>       id</p>
-<p>       title</p>
-<p>       author</p>
-<p>     }</p>
-<p>   }</p>
-<p>   ```</p>
+<pre><code class="language-graphql">
+mutation {
+  addBook(
+    title: &quot;Domain-Driven Design&quot;
+    author: &quot;Eric Evans&quot;
+    pages: 560
+    price: 55.99
+  ) {
+    id
+    title
+    author
+  }
+}
+</code></pre>
 <p>   <strong>Result:</strong></p>
-<p>   ```json</p>
-<p>   {</p>
-<p>     &quot;data&quot;: {</p>
-<p>       &quot;addBook&quot;: {</p>
-<p>         &quot;id&quot;: 3,</p>
-<p>         &quot;title&quot;: &quot;Domain-Driven Design&quot;,</p>
-<p>         &quot;author&quot;: &quot;Eric Evans&quot;</p>
-<p>       }</p>
-<p>     }</p>
-<p>   }</p>
-<p>   ```</p>
+<pre><code class="language-json">
+{
+  &quot;data&quot;: {
+    &quot;addBook&quot;: {
+      &quot;id&quot;: 3,
+      &quot;title&quot;: &quot;Domain-Driven Design&quot;,
+      &quot;author&quot;: &quot;Eric Evans&quot;
+    }
+  }
+}
+</code></pre>
 <p>   <strong>What happened?</strong></p>
 <ul>
 <li>You created a new book</li>
@@ -768,19 +769,19 @@ ORDERS (Mutations - making changes):
 <ul>
 <li><strong>Try Deleting a Book</strong></li>
 </ul>
-<p>   ```graphql</p>
-<p>   mutation {</p>
-<p>     deleteBook(id: 2)</p>
-<p>   }</p>
-<p>   ```</p>
+<pre><code class="language-graphql">
+mutation {
+  deleteBook(id: 2)
+}
+</code></pre>
 <p>   <strong>Result:</strong></p>
-<p>   ```json</p>
-<p>   {</p>
-<p>     &quot;data&quot;: {</p>
-<p>       &quot;deleteBook&quot;: true</p>
-<p>     }</p>
-<p>   }</p>
-<p>   ```</p>
+<pre><code class="language-json">
+{
+  &quot;data&quot;: {
+    &quot;deleteBook&quot;: true
+  }
+}
+</code></pre>
 <p>   <code>true</code> means it was successfully deleted!</p>
 <hr>
 <h4 id="method-2-using-curl-command-line">Method 2: Using cURL (Command Line)</h4>
@@ -820,13 +821,11 @@ curl -X POST http://localhost:8080/graphql \
 <li>URL: <code>http://localhost:8080/graphql</code></li>
 <li>Headers: Add <code>Content-Type: application/json</code></li>
 <li>Body (raw, JSON):</li>
-</ul>
-<p>   ```json</p>
-<p>   {</p>
-<p>     &quot;query&quot;: &quot;{ allBooks { id title author price } }&quot;</p>
-<p>   }</p>
-<p>   ```</p>
-<ul>
+<pre><code class="language-json">
+{
+  &quot;query&quot;: &quot;{ allBooks { id title author price } }&quot;
+}
+</code></pre>
 <li>Click Send</li>
 </ul>
 <hr>
@@ -6629,7 +6628,7 @@ public Multi&lt;Book&gt; expensiveBooks(@Name(&quot;minPrice&quot;) Double minPr
 </code></pre>
 <p><strong>Client Subscription (JavaScript):</strong></p>
 <pre><code class="language-javascript">
-const subscription = `
+const subscription = &#96;
   subscription {
     bookCreated {
       id
@@ -6638,7 +6637,7 @@ const subscription = `
       price
     }
   }
-`;
+&#96;;
 
 const client = new SubscriptionClient(&#x27;ws://localhost:8080/graphql&#x27;, {
   reconnect: true

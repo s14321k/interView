@@ -62,7 +62,47 @@ const apiTocData = `<a href="#mastering-apis" class="toc-item toc-level-{item["l
 <a href="#sql-databases" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="sql-databases">SQL Databases</a>
 <a href="#recommended-ttls-real-world-defaults" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="recommended-ttls-real-world-defaults">🧭 Recommended TTLs (Real-World Defaults)</a>
 <a href="#common-ttl-mistakes" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="common-ttl-mistakes">⚠️ Common TTL Mistakes</a>
-<a href="#final-rule-of-thumb" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="final-rule-of-thumb">🏁 Final Rule of Thumb</a>`;
+<a href="#final-rule-of-thumb" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="final-rule-of-thumb">🏁 Final Rule of Thumb</a>
+<a href="#4-http-status-code-guidelines" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="4-http-status-code-guidelines">4️⃣ HTTP Status Code Guidelines</a>
+<a href="#1xx-informational" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="1xx-informational">🔵 1xx — Informational</a>
+<a href="#2xx-success" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="2xx-success">🟢 2xx — Success</a>
+<a href="#3xx-redirection" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="3xx-redirection">🟡 3xx — Redirection</a>
+<a href="#4xx-client-errors" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="4xx-client-errors">🟠 4xx — Client Errors</a>
+<a href="#5xx-server-errors" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="5xx-server-errors">🔴 5xx — Server Errors</a>
+<a href="#5-request-response-design" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="5-request-response-design">5️⃣ Request &amp; Response Design</a>
+<a href="#use-json-standard" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="use-json-standard">Use JSON (Standard)</a>
+<a href="#consistent-response-structure" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="consistent-response-structure">Consistent Response Structure</a>
+<a href="#use-meaningful-error-responses" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="use-meaningful-error-responses">Use Meaningful Error Responses</a>
+<a href="#6-versioning-rules" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="6-versioning-rules">6️⃣ Versioning Rules</a>
+<a href="#preferred-url-versioning" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="preferred-url-versioning">Preferred (URL Versioning)</a>
+<a href="#7-pagination-sorting-filtering" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="7-pagination-sorting-filtering">7️⃣ Pagination, Sorting &amp; Filtering</a>
+<a href="#pagination" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="pagination">Pagination</a>
+<a href="#sorting" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="sorting">Sorting</a>
+<a href="#filtering" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="filtering">Filtering</a>
+<a href="#8-security-guidelines" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="8-security-guidelines">8️⃣ Security Guidelines</a>
+<a href="#authentication" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="authentication">Authentication</a>
+<a href="#authorization" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="authorization">Authorization</a>
+<a href="#https-mandatory" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="https-mandatory">HTTPS Mandatory</a>
+<a href="#9-idempotency-reliability" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="9-idempotency-reliability">9️⃣ Idempotency &amp; Reliability</a>
+<a href="#use-idempotency-keys-for-post" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="use-idempotency-keys-for-post">Use Idempotency Keys for POST</a>
+<a href="#use-timeouts-retries" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="use-timeouts-retries">Use Timeouts &amp; Retries</a>
+<a href="#concurrency-consistency" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="concurrency-consistency">🔟 Concurrency &amp; Consistency</a>
+<a href="#optimistic-locking-with-etag" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="optimistic-locking-with-etag">Optimistic Locking with ETag</a>
+<a href="#11-naming-formatting-rules" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="11-naming-formatting-rules">1️⃣1️⃣ Naming &amp; Formatting Rules</a>
+<a href="#12-logging-tracing-monitoring" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="12-logging-tracing-monitoring">1️⃣2️⃣ Logging, Tracing &amp; Monitoring</a>
+<a href="#request-id" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="request-id">Request ID</a>
+<a href="#13-documentation-rules" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="13-documentation-rules">1️⃣3️⃣ Documentation Rules</a>
+<a href="#14-common-rest-anti-patterns" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="14-common-rest-anti-patterns">1️⃣4️⃣ Common REST Anti-Patterns ❌</a>
+<a href="#rest-api-golden-rules-interview-favorite" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="rest-api-golden-rules-interview-favorite">✅ REST API GOLDEN RULES (Interview Favorite)</a>
+<a href="#one-line-summary" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="one-line-summary">🧠 One-Line Summary</a>
+<a href="#top-6-api-styles-choosing-the-best-fit-for-your-project" class="toc-item toc-level-{item["level"]}" style="padding-left: 0px" data-target="top-6-api-styles-choosing-the-best-fit-for-your-project">Top 6 API Styles: Choosing the Best Fit for Your Project</a>
+<a href="#1-soap-simple-object-access-protocol" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="1-soap-simple-object-access-protocol">1. <strong>SOAP (Simple Object Access Protocol)</strong></a>
+<a href="#2-restful-representational-state-transfer" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="2-restful-representational-state-transfer">2. <strong>RESTful (Representational State Transfer)</strong></a>
+<a href="#3-graphql" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="3-graphql">3. <strong>GraphQL</strong></a>
+<a href="#4-grpc" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="4-grpc">4. <strong>gRPC</strong></a>
+<a href="#5-websockets" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="5-websockets">5. <strong>WebSockets</strong></a>
+<a href="#6-webhooks" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="6-webhooks">6. <strong>Webhooks</strong></a>
+<a href="#conclusion" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="conclusion">🧭 <strong>Conclusion</strong></a>`;
 
 if (document.getElementById('toc')) {
     document.getElementById('toc').innerHTML = apiTocData;

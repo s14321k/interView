@@ -1,6 +1,5 @@
 // Graphql Kotlin Quarkus Guide - Table of Contents Data
-const graphqlKotlinQuarkusGuideTocData = `<a href="#graphql-with-kotlin-in-quarkus-complete-beginner-to-advanced-guide" class="toc-item toc-level-{item["level"]}" style="padding-left: 0px" data-target="graphql-with-kotlin-in-quarkus-complete-beginner-to-advanced-guide">GraphQL with Kotlin in Quarkus: Complete Beginner to Advanced Guide</a>
-<a href="#table-of-contents" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="table-of-contents">Table of Contents</a>
+const graphqlKotlinQuarkusGuideTocData = `<a href="#table-of-contents" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="table-of-contents">Table of Contents</a>
 <a href="#basic-part" class="toc-item toc-level-{item["level"]}" style="padding-left: 20px" data-target="basic-part">Basic Part</a>
 <a href="#what-is-kotlin" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="what-is-kotlin">What is Kotlin?</a>
 <a href="#why-kotlin-quarkus-graphql" class="toc-item toc-level-{item["level"]}" style="padding-left: 40px" data-target="why-kotlin-quarkus-graphql">Why Kotlin + Quarkus + GraphQL?</a>

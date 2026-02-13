@@ -1,5 +1,5 @@
 // Graphql Kotlin Quarkus Guide - Content Data
-const graphqlKotlinQuarkusGuideContentData = `<h1 id="graphql-with-kotlin-in-quarkus-complete-beginner-to-advanced-guide">GraphQL with Kotlin in Quarkus: Complete Beginner to Advanced Guide</h1>
+const graphqlKotlinQuarkusGuideContentData = `<p>        # GraphQL with Kotlin in Quarkus: Complete Beginner to Advanced Guide</p>
 <h2 id="table-of-contents">Table of Contents</h2>
 <ul>
 <li><a href="#basic-part">Basic Part</a></li>
@@ -1663,7 +1663,7 @@ class BookResourceTest {
      * Kotlin&#x27;s string templates make queries readable!
      */
     @Test
-    fun `should get all books`() {
+    fun &#96;should get all books&#96;() {
         val query = &quot;&quot;&quot;
             {
                 allBooks {
@@ -1677,7 +1677,7 @@ class BookResourceTest {
         given()
             .contentType(&quot;application/json&quot;)
             .body(&quot;&quot;&quot;{&quot;query&quot;: &quot;$query&quot;}&quot;&quot;&quot;)
-        .`when`()
+        .&#96;when&#96;()
             .post(&quot;/graphql&quot;)
         .then()
             .statusCode(200)
@@ -1689,7 +1689,7 @@ class BookResourceTest {
      * Using Kotlin multiline strings
      */
     @Test
-    fun `should create a book`() {
+    fun &#96;should create a book&#96;() {
         val mutation = &quot;&quot;&quot;
             mutation {
                 createBook(input: {
@@ -1706,7 +1706,7 @@ class BookResourceTest {
         given()
             .contentType(&quot;application/json&quot;)
             .body(&quot;&quot;&quot;{&quot;query&quot;: &quot;${mutation.replace(&quot;\n&quot;, &quot; &quot;)}&quot;}&quot;&quot;&quot;)
-        .`when`()
+        .&#96;when&#96;()
             .post(&quot;/graphql&quot;)
         .then()
             .statusCode(200)
@@ -1717,7 +1717,7 @@ class BookResourceTest {
      * Test with parameterized query
      */
     @Test
-    fun `should find book by id`() {
+    fun &#96;should find book by id&#96;() {
         val query = &quot;&quot;&quot;
             query FindBook(${&quot;$&quot;}id: BigInteger!) {
                 bookById(id: ${&quot;$&quot;}id) {
@@ -1737,7 +1737,7 @@ class BookResourceTest {
                     &quot;variables&quot;: ${variables}
                 }
             &quot;&quot;&quot;.trimIndent())
-        .`when`()
+        .&#96;when&#96;()
             .post(&quot;/graphql&quot;)
         .then()
             .statusCode(200)
